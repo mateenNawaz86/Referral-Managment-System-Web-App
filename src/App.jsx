@@ -1,11 +1,17 @@
 import React from "react";
 
-function App() {
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { DashboardPage } from "./pages/dashboard";
+
+const App = () => {
   return (
-    <>
-      <h1>Referral Management</h1>
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<DashboardPage />} />
+        <Route path="/dashboard" element={<DashboardPage />} />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
