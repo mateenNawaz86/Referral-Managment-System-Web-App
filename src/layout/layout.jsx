@@ -3,7 +3,7 @@ import { SideBar } from "../base-component/sidebar";
 
 export const Layout = ({ children }) => {
   return (
-    <div className="bg-[#fafbfd] h-full">
+    <div className="bg-[#fafbfd] h-full overflow-y-auto">
       <SideBar />
       <Header />
 
