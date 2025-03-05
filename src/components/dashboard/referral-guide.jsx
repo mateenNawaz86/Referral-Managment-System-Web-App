@@ -1,8 +1,16 @@
-export const ReferralGuide = () => {
+export const ReferralGuide = ({ onReferral }) => {
   return (
-    <div className="flex flex-col items-center justify-center h-[calc(100vh-64px)]">
-      <h1 className="text-2xl font-bold text-[#055860]">Referral Guide</h1>
-      <p className="text-base text-[#BDBDBD] mt-4">Coming Soon</p>
+    <div className="bg-white h-full py-[45px] border border-[#E0E0E0] rounded-[14px] flex flex-col items-center">
+      <h1 className="text-[21px] font-semibold text-center">
+        How to get paid by sharing this app?
+      </h1>
+
+      <button
+        onClick={onReferral}
+        className="py-3 px-5 bg-[#055860] rounded-[4.8px] text-white w-fit"
+      >
+        Show Referral
+      </button>
     </div>
   );
 };

@@ -2,12 +2,18 @@ import { useState } from "react";
 import { Results } from "./results";
 import { ReferralGuide } from "./referral-guide";
 import { SwitchButton } from "../../base-component/ui/switch-button";
+import { useDashboard } from "../../hooks/dashboard/useDashboard";
 
 export const Dashboard = () => {
+  const { handleRefLinkModal } = useDashboard();
   const [activeTab, setActiveTab] = useState("referral");
 
   const tabs = [
-    { id: "referral", label: "Referral Guide", component: <ReferralGuide /> },
+    {
+      id: "referral",
+      label: "Referral Guide",
+      component: <ReferralGuide onReferral={handleRefLinkModal} />,
+    },
     { id: "results", label: "Results", component: <Results /> },
   ];
 
