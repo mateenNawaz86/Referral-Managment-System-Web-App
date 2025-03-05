@@ -12,7 +12,7 @@ export const Dashboard = () => {
   ];
 
   return (
-    <div className="pt-[90px]">
+    <div className="pt-[90px] mb-10">
       <div className="flex items-center gap-x-4 w-fit">
         {tabs?.map((tab) => (
           <SwitchButton
