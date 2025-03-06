@@ -1,5 +1,5 @@
-import { Dashboard } from "../../components/dashboard";
 import { Layout } from "../../layout/layout";
+import { Dashboard } from "../../components/dashboard/index";
 
 export const DashboardPage = () => {
   return (

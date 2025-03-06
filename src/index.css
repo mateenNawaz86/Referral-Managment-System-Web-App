@@ -5,3 +5,16 @@
 body {
   font-family: "DM Sans", sans-serif;
 }
+
+.sidebar-svg svg path {
+  fill: white !important;
+}
+
+.custom-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.custom-scroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

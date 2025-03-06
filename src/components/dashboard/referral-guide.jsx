@@ -1,7 +1,17 @@
-import { AndriodLinks } from "./android-links";
 import { IosLinks } from "./ios-links";
+import { AndriodLinks } from "./android-links";
+import { useDashboard } from "../../hooks/dashboard/useDashboard";
 
-export const ReferralGuide = ({ iosHandler }) => {
+export const ReferralGuide = () => {
+  const { handleRefLinkModal, handleQRCodeModal, handleRefDiscountCodeModal } =
+    useDashboard();
+
+  const iosHandler = [
+    handleRefLinkModal,
+    handleRefDiscountCodeModal,
+    handleQRCodeModal,
+  ];
+
   return (
     <div className="bg-white h-full py-[45px] border border-[#E0E0E0] rounded-[14px] flex flex-col items-center">
       <h1 className="text-[21px] font-semibold text-center">

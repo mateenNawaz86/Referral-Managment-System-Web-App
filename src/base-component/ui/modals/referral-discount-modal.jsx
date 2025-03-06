@@ -1,8 +1,8 @@
 import React from "react";
 import { BaseModal } from "./base-modal";
-import copyIcon from "../../../assets/pngs/copy-icon.png";
 import discountCodeIcon from "../../../assets/pngs/discount-code-icon.png";
-import arrowIcon from "../../../assets/pngs/modal-arrow-icon.png";
+import { CopyIcon } from "../../../assets/svgs/components/copy-icon";
+import { ShareIcon } from "../../../assets/svgs/components/share-icon";
 
 export const ReferralDiscountModal = ({ onClose }) => {
   return (
@@ -27,17 +27,13 @@ export const ReferralDiscountModal = ({ onClose }) => {
         </div>
 
         <div className="flex items-center gap-x-[33px]">
-          <button className="py-[9px] px-[23px] border border-[#E0E0E0] text-white rounded-md flex items-center gap-x-[9px]">
-            <img src={copyIcon} alt="icon" className="h-[30px] w-[30px]" />
-            <span className="text-[#055860] font-normal text-lg">
-              Copy Code
-            </span>
+          <button className="py-[9px] px-[23px] border border-[#691188] bg-[#691188] rounded-md flex items-center gap-x-[9px]">
+            <CopyIcon />
+            <span className="text-white font-normal text-lg">Copy Code</span>
           </button>
-          <button className="py-[9px] px-[23px] border border-[#E0E0E0] text-white rounded-md flex items-center gap-x-[9px]">
-            <img src={arrowIcon} alt="icon" className="h-[21px] w-[21px]" />
-            <span className="text-[#055860] font-normal text-lg">
-              Share Code
-            </span>
+          <button className="py-[9px] px-[23px] border border-[#691188] bg-[#691188] rounded-md flex items-center gap-x-[9px]">
+            <ShareIcon />
+            <span className="text-white font-normal text-lg">Share Code</span>
           </button>
         </div>
       </div>

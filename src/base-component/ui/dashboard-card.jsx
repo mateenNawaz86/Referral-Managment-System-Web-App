@@ -13,21 +13,24 @@ export const DashboardCard = ({ points, title, icon, bgColor, link }) => {
   return (
     <div className="h-full flex flex-col">
       <div
-        className={`px-[14px] py-4 flex flex-col rounded-t-[5px]`}
+        className={`px-[25px] py-[30px] flex flex-col rounded-t-[10px]`}
         style={{ backgroundColor: bgColor }}
       >
-        <div className="flex justify-between">
-          <span className="text-white text-[30px] font-bold">{points}</span>
-          <img src={icon} alt="icon" className="h-[50px] w-[50px]" />
+        <div className="flex items-start gap-x-[15px]">
+          <div className="bg-white rounded-full h-[70px] w-[70px] flex items-center justify-center">
+            {icon}
+          </div>
+          <div className="flex flex-col gap-y-2">
+            <span className="text-[30px] font-bold text-white">{points}</span>
+            <span className="text-lg font-bold text-white">{title}</span>
+          </div>
         </div>
-
-        <span className="text-white text-lg font-bold">{title}</span>
       </div>
 
       <div
         className={`${
           bottomBgColorMap[bgColor] || "bg-red-500"
-        } rounded-b-[5px]`}
+        } rounded-b-[10px]`}
       >
         <div className="flex items-center justify-center gap-x-1 py-[7px]">
           <span className="text-[13px] font-semibold text-white">

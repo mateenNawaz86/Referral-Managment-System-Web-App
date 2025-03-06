@@ -1,48 +1,51 @@
 import { DashboardCard } from "../../base-component/ui/dashboard-card";
-import pointIcon from "../../assets/pngs/point.png";
-import managerIcon from "../../assets/pngs/manager-icon.png";
+import { PointIcon } from "../../assets/svgs/components/point-icon";
+import { RedeeemHistoryIcon } from "../../assets/svgs/components/redeem-history-icon";
+import { UsersIcon } from "../../assets/svgs/components/users-icon";
+import { MonthlyPremIcon } from "../../assets/svgs/components/monthly-prem-icon";
+import { YearlyPremIcon } from "../../assets/svgs/components/yearly-prem-icon";
 
 export const Results = () => {
   const cardData = [
     {
       points: "2100",
       title: "Total Points Earned",
-      icon: pointIcon,
+      icon: <PointIcon iconClassName="#1392A4" />,
       bgColor: "#17A2B7",
       link: "#",
     },
     {
       points: "1500",
       title: "Total Points Redeemed",
-      icon: pointIcon,
+      icon: <PointIcon iconClassName="#F3B700" />,
       bgColor: "#F3B700",
       link: "#",
     },
     {
       points: "3200",
       title: "Balance",
-      icon: pointIcon,
+      icon: <RedeeemHistoryIcon iconClassName="#048345" />,
       bgColor: "#0F9D58",
       link: "#",
     },
     {
       points: "500",
       title: "Free Users",
-      icon: managerIcon,
+      icon: <UsersIcon iconClassName="#055860" />,
       bgColor: "#055860",
       link: "#",
     },
     {
       points: "2750",
       title: "Monthly Premium Users",
-      icon: managerIcon,
+      icon: <MonthlyPremIcon iconClassName="#F31A1A" />,
       bgColor: "#F31A1A",
       link: "#",
     },
     {
       points: "1800",
       title: "Yearly Premium Users",
-      icon: managerIcon,
+      icon: <YearlyPremIcon iconClassName="#9AA000" />,
       bgColor: "#9AA000",
       link: "#",
     },
