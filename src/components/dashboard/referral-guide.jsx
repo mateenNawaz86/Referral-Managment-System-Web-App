@@ -25,7 +25,7 @@ export const ReferralGuide = () => {
           subscribers for this app.
         </p>
 
-        <div className="flex items-center mt-[27px]">
+        <div className="grid grid-cols-2 mt-[27px] w-full">
           <IosLinks iosHandler={iosHandler} />
           <AndriodLinks iosHandler={iosHandler} />
         </div>

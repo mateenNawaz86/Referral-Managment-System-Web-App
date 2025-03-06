@@ -21,7 +21,7 @@ export const sideBar = [
   },
   {
     icon: "Users",
-    title: "Free Users",
+    title: "Free Users Listing",
     pathname: "/free-users",
     role: [0],
   },
@@ -29,7 +29,7 @@ export const sideBar = [
     icon: "MonthlyPrem",
     title: "Monthly Premium",
     pathname: "/monthly-premium-users",
-    query: "None",
+    query: "trial",
     queryName: "status",
     role: [0],
     inner: [
@@ -54,7 +54,7 @@ export const sideBar = [
     icon: "YearlyPrem",
     title: "Yearly Premium",
     pathname: "/yearly-premium-users",
-    query: "None",
+    query: "trial",
     queryName: "status",
     role: [0],
     inner: [

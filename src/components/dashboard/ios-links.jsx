@@ -27,9 +27,14 @@ export const IosLinks = ({ iosHandler }) => {
         <span className="text-base font-bold text-[#055860]">iOS Appstore</span>
       </div>
 
-      <div className="flex flex-col gap-y-4">
+      <div className="flex flex-col items-center gap-y-4">
         {linksData?.map(({ text, onClick }, index) => (
-          <BaseButton text={text} onClick={onClick} key={index} />
+          <BaseButton
+            text={text}
+            onClick={onClick}
+            key={index}
+            containerClassName="w-[200px]"
+          />
         ))}
       </div>
     </div>

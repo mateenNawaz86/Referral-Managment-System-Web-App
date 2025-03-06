@@ -3,8 +3,6 @@ import { useLocation, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import logo from "../assets/pngs/logo.png";
 import { sideBar, staticEnums } from "../utils/static";
-// import { logout } from "./utils/auth.util";
-// import { logoutUser } from "./api/slices/authSlice/auth";
 import { DashboardIcon } from "../assets/svgs/components/dashboard-icon";
 import { UsersIcon } from "../assets/svgs/components/users-icon";
 import { MonthlyPremIcon } from "../assets/svgs/components/monthly-prem-icon";
@@ -33,8 +31,6 @@ export const svgs = {
 
 export const SideBar = ({ isDrawer, handleDrawer }) => {
   const { user } = useSelector((state) => state.auth);
-  // const dispatch = useDispatch();
-  // const navigate = useNavigate();
   const location = useLocation();
 
   const [selected, setSelected] = useState({
@@ -85,12 +81,6 @@ export const SideBar = ({ isDrawer, handleDrawer }) => {
       }));
     }
   }, [location.pathname]);
-
-  // const handleLogout = async () => {
-  //   await dispatch(logoutUser());
-  //   logout();
-  //   navigate("/");
-  // };
 
   return (
     <div
