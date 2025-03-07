@@ -10,6 +10,7 @@ import { DashboardPage } from "./pages/dashboard";
 import { FreeUserPage } from "./pages/freeUser";
 import { MonthlyUserPage } from "./pages/monthlyUsers";
 import { YearlyUserPage } from "./pages/yearlyUsers";
+import { PointHistoryPage } from "./pages/pointHistory";
 
 const App = () => {
   const RedirectToDashboard = () => {
@@ -35,7 +36,7 @@ const App = () => {
         <Route path="/yearly-premium-users" element={<YearlyUserPage />} />
         <Route path="/my-rewards" element={<DashboardPage />} />
         <Route path="/request-redeem" element={<DashboardPage />} />
-        <Route path="/point-history" element={<DashboardPage />} />
+        <Route path="/point-history" element={<PointHistoryPage />} />
         <Route path="/coupon-history" element={<DashboardPage />} />
         <Route path="/redeem-history" element={<DashboardPage />} />
       </Routes>

@@ -1,13 +1,11 @@
 import { useEmptyStates } from "../../utils/hooks";
+import { PointHistoryTableRows } from "./table/table-rows";
+import { PointHistoryTableHeadings } from "./table/table-heading";
 import { Pagination } from "../../base-component/ui/pagination/pagination";
-import { YearlyPremUserTableHeadings } from "./table/table-heading";
-import { DetailCards } from "../freeUser/detail-card";
-import { useYearlyUsers } from "../../hooks/yearly-users/useYearlyUsers";
-import { MonthlyPremUsersTableRows } from "./table/table-rows";
+import { usePointHistory } from "../../hooks/pointHistory/usePointHistory";
 
-export const YearlyPremUsers = () => {
+export const PointHistory = () => {
   const {
-    dummyData,
     totalCount,
     totalItems,
     isLoading,
@@ -16,18 +14,17 @@ export const YearlyPremUsers = () => {
     headings,
     currentPageRows,
     handlePageChange,
-  } = useYearlyUsers();
+  } = usePointHistory();
 
   const CurrentComponent = useEmptyStates(
-    <MonthlyPremUsersTableRows data={currentPageRows} />,
+    <PointHistoryTableRows data={currentPageRows} />,
     totalCount !== 0,
     isLoading
   );
 
   return (
     <>
-      <DetailCards dummyData={dummyData} />
-      <YearlyPremUserTableHeadings headings={headings} />
+      <PointHistoryTableHeadings headings={headings} />
       {CurrentComponent}
 
       <Pagination
