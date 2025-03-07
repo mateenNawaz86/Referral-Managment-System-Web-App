@@ -62,6 +62,8 @@ export const useFreeUser = () => {
     },
   ];
 
+  const headings = ["User details", "Installed", "Status"];
+
   const totalCount = records.length;
   const itemsPerPage = 5;
   const totalItems = totalCount;
@@ -99,5 +101,6 @@ export const useFreeUser = () => {
     itemsPerPage,
     handlePageChange,
     currentPage,
+    headings
   };
 };

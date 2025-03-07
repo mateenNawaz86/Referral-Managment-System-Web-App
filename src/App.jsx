@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import { DashboardPage } from "./pages/dashboard";
 import { FreeUserPage } from "./pages/freeUser";
+import { MonthlyUserPage } from "./pages/monthlyUsers";
 
 const App = () => {
   const RedirectToDashboard = () => {
@@ -29,7 +30,7 @@ const App = () => {
       <Routes>
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/free-users" element={<FreeUserPage />} />
-        <Route path="/monthly-premium-users" element={<DashboardPage />} />
+        <Route path="/monthly-premium-users" element={<MonthlyUserPage />} />
         <Route path="/yearly-premium-users" element={<DashboardPage />} />
         <Route path="/my-rewards" element={<DashboardPage />} />
         <Route path="/request-redeem" element={<DashboardPage />} />
