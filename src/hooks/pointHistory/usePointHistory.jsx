@@ -2,13 +2,6 @@ import { useState, useEffect, useMemo } from "react";
 import { getPageFromURL } from "../../utils/utility";
 
 export const usePointHistory = () => {
-  const dummyData = [
-    { title: "Total Users", points: "45.50k" },
-    { title: "This Month", points: "35.50k" },
-    { title: "This Week", points: "38.50k" },
-    { title: "Revenue", points: "$78.6k" },
-  ];
-
   const records = [
     {
       username: "Liam Johnson",
@@ -133,7 +126,6 @@ export const usePointHistory = () => {
   };
 
   return {
-    dummyData,
     currentPageRows,
     totalItems,
     totalCount,

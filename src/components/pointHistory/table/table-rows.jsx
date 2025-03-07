@@ -1,8 +1,6 @@
 import profile from "../../../assets/pngs/profile.jpg";
 
 export const PointHistoryTableRows = ({ data }) => {
-  console.log(data, "data");
-
   return (
     <div className={`overflow-y-visible flex flex-col gap-y-[10px]`}>
       {data?.map((item, index) => (

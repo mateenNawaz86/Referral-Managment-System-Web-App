@@ -8,6 +8,7 @@ export const Header = () => {
   const status = queryParams.get("status");
 
   const pathSegment = location.pathname.split("/")[1];
+  const isMonthly = pathSegment === "monthly-premium-users";
   const isYearly = pathSegment === "yearly-premium-users";
 
   const titleMap = {
@@ -25,7 +26,15 @@ export const Header = () => {
     "redeem-history": "Redeem History",
   };
 
-  const pageTitle = titleMap[status] || titleMap[pathSegment] || "Dashboard";
+  let pageTitle = titleMap[status] || titleMap[pathSegment] || "Dashboard";
+
+  if (status === "None") {
+    pageTitle = isMonthly
+      ? "Monthly Users"
+      : isYearly
+      ? "Yearly Users"
+      : pageTitle;
+  }
 
   return (
     <div className="ml-[312px] flex items-center justify-between mb-[33px] px-[30px] pt-[31px]">
