@@ -10,6 +10,10 @@ body {
   fill: white !important;
 }
 
+.sidebar-prem-svg svg path[fill="white"] {
+  fill: #691188 !important;
+}
+
 .custom-scroll::-webkit-scrollbar {
   display: none;
 }

@@ -28,7 +28,5 @@ export const useEmptyStates = (CurrentComponent, condition, isLoading) => {
     ),
   };
 
-  console.log(lookup[isEmpty], "returned component");
-
   return lookup[isEmpty];
 };

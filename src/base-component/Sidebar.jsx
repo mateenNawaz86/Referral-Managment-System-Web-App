@@ -115,11 +115,16 @@ export const SideBar = ({ isDrawer, handleDrawer }) => {
                     <div className="flex items-center gap-x-3">
                       <span
                         className={`${
-                          selected.parent.title === item.title && "sidebar-svg"
+                          selected.parent.title === "Yearly Premium"
+                            ? "sidebar-prem-svg"
+                            : selected.parent.title === item.title
+                            ? "sidebar-svg"
+                            : ""
                         }`}
                       >
                         {item.icon && svgs[item.icon]}
                       </span>
+
                       <span
                         className={`text-base font-semibold tracking-[0.5px] text-[#525451] ${
                           selected.parent.title === item.title && "text-white"
