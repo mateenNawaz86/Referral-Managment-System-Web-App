@@ -6,7 +6,7 @@ export const FreeUsersTableRows = ({ data }) => {
       {data?.map((item, index) => (
         <div
           key={index}
-          className="bg-white rounded-[5px] py-[10px] px-[15px] grid grid-cols-[minmax(200px,_4fr)_minmax(170px,_3fr)_minmax(100px,_100px)] items-center"
+          className="bg-white hover:bg-tableHoverColor rounded-[5px] py-[10px] px-[15px] grid grid-cols-[minmax(200px,_4fr)_minmax(170px,_3fr)_minmax(100px,_100px)] items-center"
         >
           <div className="flex items-center gap-x-[18px]">
             <img

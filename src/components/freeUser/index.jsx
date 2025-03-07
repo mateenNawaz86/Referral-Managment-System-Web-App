@@ -25,9 +25,9 @@ export const FreeUserListing = () => {
   );
 
   return (
-    <div>
+    <>
       <DetailCards dummyData={dummyData} />
-      <FreeUsersTableHeadings headings={headings}/>
+      <FreeUsersTableHeadings headings={headings} />
       {CurrentComponent}
 
       <Pagination
@@ -36,6 +36,6 @@ export const FreeUserListing = () => {
         onPageChange={handlePageChange}
         currentPage={currentPage}
       />
-    </div>
+    </>
   );
 };

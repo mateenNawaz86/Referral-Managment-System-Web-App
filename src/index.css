@@ -18,3 +18,17 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+.img_loader {
+  animation: puff 1s infinite;
+}
+
+@keyframes puff {
+  0% {
+    transform: scale(0.1);
+  }
+
+  100% {
+    transform: scale(1.5);
+  }
+}

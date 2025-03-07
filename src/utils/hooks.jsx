@@ -1,6 +1,6 @@
 import React from "react";
 import { NoDataEmptyState } from "../base-component/ui/loadingEffect/no-data-state";
-import CustomLoader from "../base-component/ui/loader/custom-loader";
+import { CustomLoader } from "../base-component/ui/loadingEffect/custom-loader";
 
 export const EmptyStateType = {
   hasData: "hasData",
@@ -27,6 +27,8 @@ export const useEmptyStates = (CurrentComponent, condition, isLoading) => {
       </div>
     ),
   };
+
+  console.log(lookup[isEmpty], "returned component");
 
   return lookup[isEmpty];
 };

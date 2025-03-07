@@ -30,6 +30,7 @@ module.exports = {
       },
       colors: {
         primary: "#691188",
+        tableHoverColor: "#E9E1FF",
       },
     },
   },

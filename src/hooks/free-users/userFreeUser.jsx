@@ -101,6 +101,6 @@ export const useFreeUser = () => {
     itemsPerPage,
     handlePageChange,
     currentPage,
-    headings
+    headings,
   };
 };
