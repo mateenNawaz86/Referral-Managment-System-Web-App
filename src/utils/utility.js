@@ -50,7 +50,7 @@ export const conditionHandlerLogin = (response, connect = false) => {
       }
     }
   } else {
-    navigate("/dashboard"); // Redirect to a default route when `connect` is true
+    navigate("/dashboard");
   }
 };
 
@@ -85,3 +85,12 @@ export function setErrors(setError, errors, translate) {
     }
   });
 }
+
+export const getButtonClass = (condition, activeClass, inactiveClass = "") => {
+  return condition ? activeClass : inactiveClass;
+};
+
+export const getPageFromURL = () => {
+  const params = new URLSearchParams(window.location.search);
+  return Number(params.get("page")) || 1;
+};

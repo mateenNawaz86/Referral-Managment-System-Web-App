@@ -1,19 +1,39 @@
-import { CountDetailCard } from "../../base-component/ui/count-detail-card";
+import { DetailCards } from "./detail-card";
+import { useEmptyStates } from "../../utils/hooks";
+import { FreeUsersTableRows } from "./table/table-rows";
 import { useFreeUser } from "../../hooks/free-users/userFreeUser";
+import { Pagination } from "../../base-component/ui/pagination/pagination";
 
 export const FreeUserListing = () => {
-  const { dummyData } = useFreeUser();
+  const {
+    dummyData,
+    records,
+    totalCount,
+    totalItems,
+    isLoading,
+    itemsPerPage,
+    currentPage,
+    currentPageRows,
+    handlePageChange,
+  } = useFreeUser();
+
+  const CurrentComponent = useEmptyStates(
+    <FreeUsersTableRows data={currentPageRows} />,
+    totalCount !== 0,
+    isLoading
+  );
+
   return (
-    <div className="grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[28px] mb-[28px]">
-      {dummyData?.map((item, index) => {
-        return (
-          <CountDetailCard
-            points={item.points}
-            title={item.title}
-            key={index}
-          />
-        );
-      })}
+    <div>
+      <DetailCards dummyData={dummyData} />
+      {CurrentComponent}
+
+      <Pagination
+        totalItems={totalItems}
+        itemsPerPage={itemsPerPage}
+        onPageChange={handlePageChange}
+        currentPage={currentPage}
+      />
     </div>
   );
 };

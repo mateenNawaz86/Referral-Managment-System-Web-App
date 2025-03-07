@@ -8,9 +8,7 @@ export const Header = () => {
   const status = queryParams.get("status");
 
   const pathSegment = location.pathname.split("/")[1];
-
   const isYearly = pathSegment === "yearly-premium-users";
-  const isMonthly = pathSegment === "monthly-premium-users";
 
   const titleMap = {
     trial: isYearly ? "Yearly Trial Users" : "Monthly Trial Users",
@@ -33,7 +31,9 @@ export const Header = () => {
     <div className="ml-[312px] flex items-center justify-between mb-[33px] px-[30px] pt-[31px]">
       <div className="flex items-center gap-x-[28px]">
         <HambugerIcon />
-        <span className="text-[40px] font-bold">{pageTitle}</span>
+        <span className="text-lg lg:text-2xl xMaxSize:text-[40px] font-bold">
+          {pageTitle}
+        </span>
       </div>
 
       <div className="flex items-center gap-x-4">

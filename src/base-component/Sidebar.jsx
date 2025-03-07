@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import logo from "../assets/pngs/logo.png";
+import logo from "../assets/svgs/logo.svg";
 import { sideBar, staticEnums } from "../utils/static";
 import { DashboardIcon } from "../assets/svgs/components/dashboard-icon";
 import { UsersIcon } from "../assets/svgs/components/users-icon";
