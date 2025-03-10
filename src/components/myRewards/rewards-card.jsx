@@ -11,9 +11,7 @@ export const RewardsCard = ({ cardAction }) => {
           <span className="font-medium text-[28px] text-white">Points</span>
         </div>
         <div className="flex items-center gap-x-[10px]">
-          <div className="bg-white p-[2px] rounded-full">
-            <RewardBalanceIcon iconClassName="#691188" />
-          </div>
+          <RewardBalanceIcon iconClassName="#fff" />
           <span className="font-medium text-[28px] text-white">
             Rewards balance
           </span>

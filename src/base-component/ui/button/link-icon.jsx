@@ -6,11 +6,12 @@ export const LinkButton = ({
   onClick,
   icon: Icon,
   containerClassName,
+  size,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const containerClasses = combineClasses(
-    "py-2 px-4 bg-primary rounded-[4px] text-white text-xs font-semibold hover:bg-white border border-primary hover:text-primary transition-all w-fit flex items-center gap-x-2",
+    "py-2 px-4 bg-primary rounded-[4px] text-white text-xs font-semibold hover:bg-white border border-primary hover:text-primary transition-all w-fit h-fit flex items-center gap-x-2 whitespace-nowrap",
     containerClassName
   );
 
@@ -21,7 +22,9 @@ export const LinkButton = ({
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {Icon && <Icon iconClassName={isHovered ? "#691188" : "#fff"} />}
+      {Icon && (
+        <Icon iconClassName={isHovered ? "#691188" : "#fff"} size={size} />
+      )}
       {text}
     </button>
   );
