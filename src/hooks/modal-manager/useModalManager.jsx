@@ -6,6 +6,7 @@ import { ReferralQRCodeModal } from "../../base-component/ui/modals/referral-qr-
 import { ReferralDiscountModal } from "../../base-component/ui/modals/referral-discount-modal";
 import { GetCouponModal } from "../../base-component/ui/modals/get-coupon-modal";
 import { PaymentDetailsModal } from "../../base-component/ui/modals/payment-details-modal";
+import { LogoutModal } from "../../base-component/ui/modals/logout-modal";
 
 export const useModalManager = () => {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ export const useModalManager = () => {
     ),
     [ModalType.GET_COUPON_MODAL]: <GetCouponModal onClose={closeModal} />,
     [ModalType.PAYMENT_DETIALS]: <PaymentDetailsModal onClose={closeModal} />,
+    [ModalType.LOGOUT]: <LogoutModal onClose={closeModal} />,
   };
 
   const renderModal = () => {

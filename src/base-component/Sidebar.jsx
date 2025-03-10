@@ -13,7 +13,9 @@ import { PointIcon } from "../assets/svgs/components/point-icon";
 import { CouponIcon } from "../assets/svgs/components/coupon-icon";
 import { RedeeemHistoryIcon } from "../assets/svgs/components/redeem-history-icon";
 import { LogoutIcon } from "../assets/svgs/components/logout-icon";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { updateModalType } from "../api/slices/globalSlice/global";
+import { ModalType } from "../types/ui";
 
 export const svgs = {
   Dashboard: <DashboardIcon />,
@@ -32,6 +34,7 @@ export const svgs = {
 export const SideBar = ({ isDrawer, handleDrawer }) => {
   const { user } = useSelector((state) => state.auth);
   const location = useLocation();
+  const dispatch = useDispatch();
 
   const [selected, setSelected] = useState({
     parent: {
@@ -81,6 +84,10 @@ export const SideBar = ({ isDrawer, handleDrawer }) => {
       }));
     }
   }, [location.pathname]);
+
+  const handleLogout = () => {
+    dispatch(updateModalType({ type: ModalType.LOGOUT }));
+  };
 
   return (
     <div
@@ -228,9 +235,7 @@ export const SideBar = ({ isDrawer, handleDrawer }) => {
 
       <div className="pl-[32px] pt-[90px] pb-[44px]">
         <button
-          onClick={() => {
-            // handleLogout();
-          }}
+          onClick={handleLogout}
           className="flex items-center gap-x-[14px] text-[#691188] text-lg font-semibold"
         >
           <LogoutIcon />
