@@ -13,7 +13,7 @@ export const IconButton = ({
 
   return (
     <button onClick={onClick} className={containerClasses}>
-      {Icon && <Icon />}
+      {Icon && <Icon iconClassName="#691188" />}
       {text}
     </button>
   );

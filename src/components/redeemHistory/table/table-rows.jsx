@@ -1,6 +1,6 @@
 import { getRedeemStatusStyles } from "../../../utils/utility";
 
-export const RedeemHistoryTableRows = ({ data }) => {
+export const RedeemHistoryTableRows = ({ data, onPaymentDetails }) => {
   return (
     <div className={`overflow-y-visible flex flex-col gap-y-[10px]`}>
       {data?.map((item, index) => {
@@ -8,6 +8,7 @@ export const RedeemHistoryTableRows = ({ data }) => {
         return (
           <div
             key={index}
+            onClick={onPaymentDetails}
             className="bg-white cursor-pointer hover:bg-tableHoverColor rounded-[5px] py-[26px] px-10 grid grid-cols-[minmax(170px,_3fr)_minmax(170px,_3fr)_minmax(170px,_170px)] items-center"
           >
             <span className="text-base font-medium">{item?.redeemDate}</span>

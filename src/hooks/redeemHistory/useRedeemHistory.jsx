@@ -1,7 +1,11 @@
 import { useState, useEffect, useMemo } from "react";
 import { getPageFromURL } from "../../utils/utility";
+import { useDispatch } from "react-redux";
+import { updateModalType } from "../../api/slices/globalSlice/global";
+import { ModalType } from "../../types/ui";
 
 export const useRedeemHistory = () => {
+  const dispatch = useDispatch();
   const records = [
     { redeemDate: "Mar 05 2025 09:15 AM", redeemPoint: 150, status: "Pending" },
     {
@@ -94,6 +98,10 @@ export const useRedeemHistory = () => {
     window.history.pushState({}, "", `?${params.toString()}`);
   };
 
+  const handlePaymentDetails = () => {
+    dispatch(updateModalType({ type: ModalType.PAYMENT_DETIALS }));
+  };
+
   return {
     currentPageRows,
     totalItems,
@@ -103,5 +111,6 @@ export const useRedeemHistory = () => {
     handlePageChange,
     currentPage,
     headings,
+    handlePaymentDetails,
   };
 };

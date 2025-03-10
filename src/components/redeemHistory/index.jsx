@@ -14,10 +14,14 @@ export const RedeemHistory = () => {
     headings,
     currentPageRows,
     handlePageChange,
+    handlePaymentDetails,
   } = useRedeemHistory();
 
   const CurrentComponent = useEmptyStates(
-    <RedeemHistoryTableRows data={currentPageRows} />,
+    <RedeemHistoryTableRows
+      data={currentPageRows}
+      onPaymentDetails={handlePaymentDetails}
+    />,
     totalCount !== 0,
     isLoading
   );
