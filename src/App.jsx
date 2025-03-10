@@ -14,6 +14,7 @@ import { PointHistoryPage } from "./pages/pointHistory";
 import { CouponHistoryPage } from "./pages/couponHistory";
 import { MyRewardsPage } from "./pages/myRewards";
 import { RequestRedeemPage } from "./pages/requestRedeem";
+import { RedeemHistoryPage } from "./pages/redeemHistory";
 
 const App = () => {
   const RedirectToDashboard = () => {
@@ -41,7 +42,7 @@ const App = () => {
         <Route path="/request-redeem" element={<RequestRedeemPage />} />
         <Route path="/point-history" element={<PointHistoryPage />} />
         <Route path="/coupon-history" element={<CouponHistoryPage />} />
-        <Route path="/redeem-history" element={<DashboardPage />} />
+        <Route path="/redeem-history" element={<RedeemHistoryPage />} />
       </Routes>
     </Router>
   );

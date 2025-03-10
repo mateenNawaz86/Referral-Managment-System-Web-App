@@ -94,3 +94,31 @@ export const getPageFromURL = () => {
   const params = new URLSearchParams(window.location.search);
   return Number(params.get("page")) || 1;
 };
+
+export const getRedeemStatusStyles = (status) => {
+  const statusStyles = {
+    Successful: {
+      bg: "bg-[#d9f3e1]",
+      text: "text-[#05B035]",
+    },
+    "In Progress": {
+      bg: "bg-[#fdf0e4]",
+      text: "text-[#F2994A]",
+    },
+    Pending: {
+      bg: "bg-[#e0ecfc]",
+      text: "text-[#2F80ED]",
+    },
+    Cancelled: {
+      bg: "bg-[#fcd9d9]",
+      text: "text-[#E80000]",
+    },
+  };
+
+  return (
+    statusStyles[status] || {
+      bg: "bg-[#fcd9d9]",
+      text: "text-[#E80000]",
+    }
+  );
+};
