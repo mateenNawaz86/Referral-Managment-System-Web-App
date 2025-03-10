@@ -7,6 +7,9 @@ import { ReferralDiscountModal } from "../../base-component/ui/modals/referral-d
 import { GetCouponModal } from "../../base-component/ui/modals/get-coupon-modal";
 import { PaymentDetailsModal } from "../../base-component/ui/modals/payment-details-modal";
 import { LogoutModal } from "../../base-component/ui/modals/logout-modal";
+import { RedeemPointsModal } from "../../base-component/ui/modals/redeem-points-modal";
+import { RedeemSuccessModal } from "../../base-component/ui/modals/redeem-success-modal";
+import { RedeemRequestSuccessModal } from "../../base-component/ui/modals/redeem-req-success-modal";
 
 export const useModalManager = () => {
   const dispatch = useDispatch();
@@ -27,6 +30,9 @@ export const useModalManager = () => {
     [ModalType.GET_COUPON_MODAL]: <GetCouponModal onClose={closeModal} />,
     [ModalType.PAYMENT_DETIALS]: <PaymentDetailsModal onClose={closeModal} />,
     [ModalType.LOGOUT]: <LogoutModal onClose={closeModal} />,
+    [ModalType.COUPON_POINTS]: <RedeemPointsModal onClose={closeModal} />,
+    [ModalType.REDEEM_SUCCESS]: <RedeemSuccessModal onClose={closeModal} />,
+    [ModalType.REDEEM_REQUEST_SUCCESS]: <RedeemRequestSuccessModal onClose={closeModal} />,
   };
 
   const renderModal = () => {

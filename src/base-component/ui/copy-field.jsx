@@ -1,0 +1,32 @@
+import { useState } from "react";
+import { CopiedIcon } from "../../assets/svgs/components/copied-icon";
+import { ShareIcon } from "../../assets/svgs/components/share-icon";
+
+export const CopiedTextField = ({ couponCode, text }) => {
+  const [isCopied, setIsCopied] = useState(false);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(couponCode);
+      setIsCopied(true);
+
+      setTimeout(() => setIsCopied(false), 2000);
+    } catch (err) {
+      console.error("Failed to copy:", err);
+    }
+  };
+
+  return (
+    <div className="flex items-center gap-x-[15px] border-[1.5px] border-primary rounded-[10px] py-[14px] px-[18px]">
+      <p className="text-lg font-semibold text-primary">
+        {text}: {couponCode}
+      </p>
+      <div className="flex items-center gap-x-3">
+        <ShareIcon iconClassName="#691188" />
+        <div onClick={handleCopy} className="cursor-pointer">
+          <CopiedIcon iconClassName={isCopied ? "#691188" : "#c4c4c4"} />
+        </div>
+      </div>
+    </div>
+  );
+};

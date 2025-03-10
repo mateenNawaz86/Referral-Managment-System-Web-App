@@ -11,6 +11,14 @@ export const useMyRewards = () => {
     dispatch(updateModalType({ type: ModalType.GET_COUPON_MODAL }));
   };
 
+  const handleRedeemPoints = () => {
+    dispatch(updateModalType({ type: ModalType.COUPON_POINTS }));
+  };
+
+  const handleRedeemSuccess = () => {
+    dispatch(updateModalType({ type: ModalType.REDEEM_SUCCESS }));
+  };
+
   const rewardsActions = [
     {
       icon: PointIcon,
@@ -20,7 +28,7 @@ export const useMyRewards = () => {
     {
       icon: GetCouponIcon,
       text: "Get a coupon",
-      onClick: handleGetCouponModal,
+      onClick: handleRedeemSuccess,
     },
     {
       icon: PointIcon,
