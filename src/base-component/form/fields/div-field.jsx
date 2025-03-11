@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { combineClasses } from "../../../utils/utility";
+import { combineClasses, findErrorMessage } from "../../../utils/utility";
 import { getTypedFieldComponent } from "../helps";
 
 export const DivField = ({ children = [], className = "", errors = {} }) => {

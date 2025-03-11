@@ -1,7 +1,11 @@
 import React from "react";
 import { BaseModal } from "./base-modal";
+import { Form } from "../../form/form";
+import { useMyRewards } from "../../../hooks/myRewards/useMyRewards";
 
 export const GetCouponModal = ({ onClose }) => {
+  const { fields, onSubmit, handleSubmit, errors } = useMyRewards();
+
   return (
     <BaseModal
       onClose={onClose}
@@ -11,6 +15,13 @@ export const GetCouponModal = ({ onClose }) => {
         <p className="text-[28px] font-semibold text-[#000719] text-center">
           Choose a coupon
         </p>
+
+        <Form
+          formFields={fields}
+          handleSubmit={handleSubmit}
+          onSubmit={onSubmit}
+          errors={errors}
+        />
       </div>
     </BaseModal>
   );

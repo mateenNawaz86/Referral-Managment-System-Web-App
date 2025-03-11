@@ -4,7 +4,7 @@ const initialState = {
   loading: false,
   modal: {
     type: "NONE",
-    data: "",
+    data: null,
   },
 };
 

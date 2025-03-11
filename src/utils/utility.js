@@ -122,3 +122,19 @@ export const getRedeemStatusStyles = (status) => {
     }
   );
 };
+
+export const findErrorMessage = (errors, data = [], fieldName) => {
+  const keys = data.length > 0 ? data : [fieldName];
+
+  let currentError = errors;
+
+  for (const key of keys) {
+    if (currentError?.[key]) {
+      currentError = currentError[key];
+    } else {
+      return undefined;
+    }
+  }
+
+  return currentError?.message || undefined;
+};

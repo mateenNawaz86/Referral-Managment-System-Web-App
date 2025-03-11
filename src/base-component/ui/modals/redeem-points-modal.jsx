@@ -3,8 +3,20 @@ import { BaseModal } from "./base-modal";
 import couponPointIcon from "../../../assets/svgs/coupon-points-icon.svg";
 import { PointIcon } from "../../../assets/svgs/components/point-icon";
 import { BaseButton } from "../button/base-button";
+import { useDispatch, useSelector } from "react-redux";
+import { updateModalType } from "../../../api/slices/globalSlice/global";
+import { ModalType } from "../../../types/ui";
 
 export const RedeemPointsModal = ({ onClose }) => {
+  const dispatch = useDispatch();
+  const { actionType } = useSelector((state) => state.global.modal.data) || {};
+
+  const handleRedeem = () => {
+    if (actionType === "REDEEM_SUCCESS") {
+      dispatch(updateModalType({ type: ModalType.REDEEM_SUCCESS }));
+    }
+  };
+
   return (
     <BaseModal
       onClose={onClose}
@@ -24,10 +36,12 @@ export const RedeemPointsModal = ({ onClose }) => {
         <div className="flex items-center gap-x-5 w-full">
           <BaseButton
             text="Cancel"
+            onClick={onClose}
             containerClassName="py-[14px] text-lg] font-semibold rounded-[10px] text-white w-full"
           />
           <BaseButton
             text="Redeem"
+            onClick={handleRedeem}
             containerClassName="py-[14px] text-lg] font-semibold rounded-[10px] text-white w-full"
           />
         </div>

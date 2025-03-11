@@ -1,4 +1,5 @@
 import React from "react";
+import { combineClasses } from "../../../../utils/utility";
 
 export const RadioButtonField = ({
   id,
@@ -14,13 +15,17 @@ export const RadioButtonField = ({
   onChange,
   fieldIndex,
   colorClasses = "",
+  labelClassName,
 }) => {
   const defaultClasses =
     "border-2 border-lightGray rounded-lg w-5 h-5 px-4 py-3 text-primary bg-secondary cursor-pointer";
+
+  const labelContainerClasses = combineClasses(
+    "ms-0 text-sm text-black",
+    labelClassName
+  );
   const classes = `${defaultClasses} ${className}`;
-
-  const defaultColorClasses = `flex gap-x-2 items-center bg-white ${colorClasses}`;
-
+  const defaultColorClasses = `flex gap-x-3 items-center bg-white ${colorClasses}`;
   const registerOnChange = register ? register(name)?.onChange : undefined;
 
   const conditionalOnChange = (e) => {
@@ -43,7 +48,7 @@ export const RadioButtonField = ({
         onChange={conditionalOnChange}
         disabled={disabled}
       />
-      <span className="ms-0 text-sm">{label}</span>
+      <span className={labelContainerClasses}>{label}</span>
     </div>
   );
 };

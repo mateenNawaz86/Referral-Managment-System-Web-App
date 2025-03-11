@@ -136,3 +136,16 @@ export const staticEnums = {
     },
   },
 };
+
+export const Field = {
+  input: "input",
+  password: "password",
+  select: "select",
+  phone: "phone",
+  date: "date",
+  checkbox: "checkbox",
+  radio: "radio",
+  span: "span",
+  div: "div",
+  button: "button",
+};
