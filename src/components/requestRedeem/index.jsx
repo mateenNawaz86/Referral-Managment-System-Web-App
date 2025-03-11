@@ -1,8 +1,10 @@
 import { RewardBalanceIcon } from "../../assets/svgs/components/reward-balance-icon";
 import { WarningIcon } from "../../assets/svgs/components/warning-icon";
+import { useRedeemRequest } from "../../hooks/redeemRequest/useRedeemRequest";
 import { SendRequestField } from "./send-request-field";
 
 export const RequestRedeem = () => {
+  const { handleRedeemRequest } = useRedeemRequest();
   return (
     <div className="flex items-center justify-center py-[139px] px-[185px]">
       <div className="pt-[60px] pb-[126px] px-[135px] bg-white border border-[#E0E0E0] rounded-lg">
@@ -35,7 +37,7 @@ export const RequestRedeem = () => {
           </span>
         </div>
 
-        <SendRequestField />
+        <SendRequestField onSendRedeemRequest={handleRedeemRequest} />
       </div>
     </div>
   );
