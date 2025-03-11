@@ -5,6 +5,7 @@ export const IconButton = ({
   onClick,
   icon: Icon,
   containerClassName,
+  iconClassName = "#691188",
 }) => {
   const containerClasses = combineClasses(
     "flex items-center gap-x-[10px] py-2 px-3 bg-white rounded-lg text-primary w-fit text-lg font-semibold",
@@ -13,8 +14,7 @@ export const IconButton = ({
 
   return (
     <button onClick={onClick} className={containerClasses}>
-      {Icon && <Icon iconClassName="#691188" />}
-      {text}
+      {Icon && <Icon iconClassName={iconClassName} />} {text}
     </button>
   );
 };

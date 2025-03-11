@@ -23,6 +23,7 @@ export const RedeemRequestSuccessModal = ({ onClose }) => {
         <BaseButton
           containerClassName="rounded-[10px] font-semibold text-lg text-white px-[57px] py-3"
           text="Done"
+          onClick={onClose}
         />
       </div>
     </BaseModal>

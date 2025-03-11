@@ -2,6 +2,7 @@ import React from "react";
 import { BaseModal } from "./base-modal";
 import { CopyIcon } from "../../../assets/svgs/components/copy-icon";
 import { ShareIcon } from "../../../assets/svgs/components/share-icon";
+import { LinkButton } from "../button/link-icon";
 
 export const ReferralLinkModal = ({ onClose }) => {
   return (
@@ -18,14 +19,16 @@ export const ReferralLinkModal = ({ onClose }) => {
         </p>
 
         <div className="flex items-center gap-x-[33px] mt-[78px]">
-          <button className="py-[9px] px-[23px] border border-[#691188] bg-[#691188] rounded-md flex items-center gap-x-[9px]">
-            <CopyIcon />
-            <span className="text-white font-normal text-lg">Copy Link</span>
-          </button>
-          <button className="py-[9px] px-[23px] border border-[#691188] bg-[#691188] rounded-md flex items-center gap-x-[9px]">
-            <ShareIcon />
-            <span className="text-white font-normal text-lg">Share Link</span>
-          </button>
+          <LinkButton
+            icon={CopyIcon}
+            text="Copy Link"
+            containerClassName="py-[11px] px-[22.5px] rounded-[10px] text-white font-normal text-lg"
+          />
+          <LinkButton
+            icon={ShareIcon}
+            text="Share Link"
+            containerClassName="py-[11px] px-[22.5px] rounded-[10px] text-white font-normal text-lg"
+          />
         </div>
       </div>
     </BaseModal>

@@ -2,6 +2,7 @@ import React from "react";
 import { BaseModal } from "./base-modal";
 import qrCodeIcon from "../../../assets/pngs/qr-code-icon.png";
 import { ShareIcon } from "../../../assets/svgs/components/share-icon";
+import { LinkButton } from "../button/link-icon";
 
 export const ReferralQRCodeModal = ({ onClose }) => {
   return (
@@ -16,10 +17,11 @@ export const ReferralQRCodeModal = ({ onClose }) => {
 
         <img src={qrCodeIcon} alt="icon" className="h-[226px] w-[226px]" />
 
-        <button className="py-[9px] px-[23px] border border-[#691188] bg-[#691188] rounded-md flex items-center gap-x-[9px] mt-[66px]">
-          <ShareIcon />
-          <span className="text-white font-normal text-lg">Share QR Code</span>
-        </button>
+        <LinkButton
+          icon={ShareIcon}
+          text="Share QR Cod"
+          containerClassName="py-[15px] px-6 mt-[45.5px] rounded-[10px]"
+        />
       </div>
     </BaseModal>
   );

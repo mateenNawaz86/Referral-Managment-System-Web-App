@@ -3,6 +3,7 @@ import { BaseModal } from "./base-modal";
 import discountCodeIcon from "../../../assets/pngs/discount-code-icon.png";
 import { CopyIcon } from "../../../assets/svgs/components/copy-icon";
 import { ShareIcon } from "../../../assets/svgs/components/share-icon";
+import { LinkButton } from "../button/link-icon";
 
 export const ReferralDiscountModal = ({ onClose }) => {
   return (
@@ -27,14 +28,16 @@ export const ReferralDiscountModal = ({ onClose }) => {
         </div>
 
         <div className="flex items-center gap-x-[33px]">
-          <button className="py-[9px] px-[23px] border border-[#691188] bg-[#691188] rounded-md flex items-center gap-x-[9px]">
-            <CopyIcon />
-            <span className="text-white font-normal text-lg">Copy Code</span>
-          </button>
-          <button className="py-[9px] px-[23px] border border-[#691188] bg-[#691188] rounded-md flex items-center gap-x-[9px]">
-            <ShareIcon />
-            <span className="text-white font-normal text-lg">Share Code</span>
-          </button>
+          <LinkButton
+            icon={CopyIcon}
+            text="Copy Code"
+            containerClassName="py-[11px] px-[17px] rounded-[10px] text-white font-normal text-lg"
+          />
+          <LinkButton
+            icon={ShareIcon}
+            text="Share Code"
+            containerClassName="py-[11px] px-[17px] rounded-[10px] text-white font-normal text-lg"
+          />
         </div>
       </div>
     </BaseModal>
