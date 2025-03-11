@@ -21,7 +21,7 @@ export const AndriodLinks = ({ iosHandler }) => {
   ];
 
   return (
-    <div className="flex flex-col gap-y-4 pl-[87px]">
+    <div className="flex flex-col gap-y-4">
       <div className="flex flex-col gap-y-1 items-center">
         <img src={playStoreIcon} alt="icon" className="h-[43px] w-[43px]" />
         <span className="text-base font-bold text-[#055860]">

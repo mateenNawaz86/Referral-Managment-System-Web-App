@@ -20,7 +20,7 @@ export const ReferralGuide = () => {
         How to get paid by sharing this app?
       </h1>
 
-      <div className="ml-[200px] mr-[147px] mt-[33.8px]">
+      <div className="px-10 xMaxSize:pl-[200px] xMaxSize:pr-[147px] mt-[33.8px]">
         <div className="relative">
           <StepIndecator
             heading={1}

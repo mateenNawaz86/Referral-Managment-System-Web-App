@@ -2,7 +2,7 @@ import { useLocation } from "react-router-dom";
 import profileIcon from "../assets/pngs/profile.jpg";
 import { HambugerIcon } from "../assets/svgs/components/hamburger-icon";
 
-export const Header = () => {
+export const Header = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const status = queryParams.get("status");
@@ -37,9 +37,15 @@ export const Header = () => {
   }
 
   return (
-    <div className="ml-[312px] flex items-center justify-between mb-[33px] px-[30px] pt-[31px]">
+    <div
+      className={`flex items-center justify-between mb-[33px] px-[30px] pt-[31px] transition-all duration-300 ${
+        isSidebarOpen ? "ml-[312px]" : "ml-0"
+      }`}
+    >
       <div className="flex items-center gap-x-[28px]">
-        <HambugerIcon />
+        <button onClick={() => setIsSidebarOpen((prev) => !prev)}>
+          <HambugerIcon />
+        </button>
         <span className="text-lg lg:text-2xl xMaxSize:text-[40px] font-bold">
           {pageTitle}
         </span>
