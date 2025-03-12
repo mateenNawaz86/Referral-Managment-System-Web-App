@@ -59,6 +59,7 @@ export const FreeUserListing = () => {
           />
         </div>
       )}
+
       <div className="hidden md:block">
         <Pagination
           totalItems={totalItems}

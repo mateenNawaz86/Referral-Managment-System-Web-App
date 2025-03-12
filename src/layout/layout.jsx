@@ -3,13 +3,18 @@ import { motion } from "framer-motion";
 import { Header } from "../base-component/Header";
 import { SideBar } from "../base-component/Sidebar";
 import { MobileHeader } from "../base-component/mobile-header";
+import { useLocation } from "react-router-dom";
+import { getPageTitles } from "../utils/function";
 
 export const Layout = ({ children }) => {
+  const location = useLocation();
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isDrawer, setIsDrawer] = useState(false);
   const [isAboveMlg, setIsAboveMlg] = useState(
     window.matchMedia("(min-width:1100px)").matches
   );
+
+  const { pageTitle, mobileHeaderTitle } = getPageTitles(location);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(min-width:1100px)");
@@ -52,11 +57,15 @@ export const Layout = ({ children }) => {
           isSidebarOpen={isSidebarOpen}
           setIsSidebarOpen={setIsSidebarOpen}
           handleDrawer={handleDrawer}
+          pageTitle={pageTitle}
         />
       </div>
 
       <div className="md:hidden">
-        <MobileHeader handleDrawer={handleDrawer} />
+        <MobileHeader
+          handleDrawer={handleDrawer}
+          pageTitle={mobileHeaderTitle}
+        />
       </div>
 
       {isDrawer && (

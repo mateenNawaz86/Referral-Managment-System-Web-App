@@ -1,7 +1,11 @@
 import { useState, useEffect, useMemo } from "react";
 import { getPageFromURL } from "../../utils/utility";
+import { useLocation } from "react-router-dom";
+import { getPageTitles } from "../../utils/function";
 
 export const useYearlyUsers = () => {
+  const location = useLocation();
+
   const dummyData = [
     { title: "Total Users", points: "45.50k" },
     { title: "This Month", points: "35.50k" },
@@ -104,6 +108,8 @@ export const useYearlyUsers = () => {
 
   const headings = ["User details", "Installed", "Subscribed", "Clearance"];
 
+  const { pageTitle } = getPageTitles(location);
+
   const totalCount = records.length;
   const itemsPerPage = 5;
   const totalItems = totalCount;
@@ -142,5 +148,7 @@ export const useYearlyUsers = () => {
     handlePageChange,
     currentPage,
     headings,
+    pageTitle,
+    records
   };
 };
