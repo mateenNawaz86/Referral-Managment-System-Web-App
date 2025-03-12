@@ -17,7 +17,7 @@ export const CopiedTextField = ({ couponCode, text }) => {
   };
 
   return (
-    <div className="flex items-center gap-x-[15px] border-[1.5px] border-primary rounded-[10px] py-[14px] px-[18px]">
+    <div className="hidden md:flex items-center gap-x-[15px] border-[1.5px] border-primary rounded-[10px] py-2 md:py-[14px] px-4 md:px-[18px]">
       <p className="text-lg font-semibold text-primary">
         {text}: {couponCode}
       </p>

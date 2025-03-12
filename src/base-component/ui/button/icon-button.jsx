@@ -8,7 +8,7 @@ export const IconButton = ({
   iconClassName = "#691188",
 }) => {
   const containerClasses = combineClasses(
-    "flex items-center gap-x-[10px] py-2 px-3 bg-white rounded-lg text-primary w-fit text-lg font-semibold",
+    "flex items-center gap-x-[5px] md:gap-x-[10px] py-2 px-3 bg-white rounded-lg text-primary w-fit text-xs md:text-lg font-semibold",
     containerClassName
   );
 

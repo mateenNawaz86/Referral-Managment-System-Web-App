@@ -9,10 +9,10 @@ export const GetCouponModal = ({ onClose }) => {
   return (
     <BaseModal
       onClose={onClose}
-      containerClassName="w-full max-w-[478px] min-h-[472px]"
+      containerClassName="w-full max-w-[341px] md:max-w-[478px] min-h-[472px]"
     >
-      <div className="pt-[30px] pb-10 px-[64px]">
-        <p className="text-[28px] font-semibold text-[#000719] text-center">
+      <div className="py-[25px] md:pt-[30px] md:pb-10 px-[22px] md:px-[64px] ">
+        <p className="text-[22px] md:text-[28px] font-semibold text-[#000719] text-center mb-[18px]">
           Choose a coupon
         </p>
 

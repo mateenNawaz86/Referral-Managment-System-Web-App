@@ -28,7 +28,7 @@ export const GetCouponFormFields = (register, loading) => {
     },
 
     {
-      containerClass: "my-5 px-[52px]",
+      containerClass: "my-5 px-[25px] md:px-[52px]",
       field: {
         type: Field.div,
         id: "div-field",
@@ -95,8 +95,7 @@ export const GetCouponFormFields = (register, loading) => {
         id: "button",
         text: "Continue",
         inputType: "submit",
-        className:
-          "rounded-lg px-4 min-w-[152px] w-fit h-[50px] text-white hover:bg-white border hover:border-primary hover:text-black",
+        className: "rounded-lg px-4 min-w-[152px] w-fit h-[50px]",
         loading,
       },
     },
