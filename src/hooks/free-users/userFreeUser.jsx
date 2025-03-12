@@ -102,5 +102,6 @@ export const useFreeUser = () => {
     handlePageChange,
     currentPage,
     headings,
+    records,
   };
 };

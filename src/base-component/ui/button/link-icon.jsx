@@ -11,7 +11,7 @@ export const LinkButton = ({
   const [isHovered, setIsHovered] = useState(false);
 
   const containerClasses = combineClasses(
-    "py-2 px-4 bg-primary rounded-[4px] text-white text-xs font-semibold hover:bg-white border border-primary hover:text-primary transition-all w-fit h-fit flex items-center gap-x-2 whitespace-nowrap",
+    "py-2 px-4 bg-primary rounded-[4px] text-white text-xs font-semibold hover:bg-white border border-primary hover:text-primary transition-all w-fit h-fit flex items-center gap-x-[5px] md:gap-x-2 whitespace-nowrap",
     containerClassName
   );
 

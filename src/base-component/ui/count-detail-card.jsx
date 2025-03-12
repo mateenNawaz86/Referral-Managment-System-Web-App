@@ -3,11 +3,11 @@ import { UsersIcon } from "../../assets/svgs/components/users-icon";
 
 export const CountDetailCard = ({ title, points }) => {
   return (
-    <div className="bg-white rounded-3 p-5">
+    <div className="bg-white rounded-3 px-[10px] py-3 xMini:p-5">
       <div className="flex items-start gap-x-3">
         <div className="bg-[#691188] min-w-[39px] min-h-[39px] md:min-w-[71px] md:min-h-[71px] rounded-full flex items-center justify-center">
           {title === "Revenue" ? (
-            <RevenueIcon />
+            <RevenueIcon iconClassName="w-[19px] h-[19px] md:w-[30px] md:h-[30px]" />
           ) : (
             <UsersIcon iconClassName="#fff" />
           )}
