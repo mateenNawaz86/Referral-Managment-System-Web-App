@@ -7,15 +7,15 @@ export const RedeemRequestSuccessModal = ({ onClose }) => {
   return (
     <BaseModal
       onClose={onClose}
-      containerClassName="w-full max-w-[451px] min-h-fit"
+      containerClassName="w-full max-w-[341px] md:max-w-[451px] min-h-fit"
     >
-      <div className="py-[32px] px-[43px] flex flex-col items-center">
+      <div className="pt-[28px] pb-6 md:py-[32px] px-[18px] md:px-[43px] flex flex-col items-center">
         <img src={checkIcon} alt="icon" />
-        <p className="text-primary text-2xl font-bold mt-[15px]">
+        <p className="text-primary text-[22px] md:text-2xl font-bold mt-[15px]">
           Redeemed Successfully
         </p>
 
-        <p className="font-medium text-[#333333] text-xs mb-[15px] mt-1 text-center">
+        <p className="font-medium text-[#333333] text-[15px] mb-[13px] mt-2 text-center">
           Your request has been sent to the admin successfully. You will be
           notified very soon with a response.
         </p>
