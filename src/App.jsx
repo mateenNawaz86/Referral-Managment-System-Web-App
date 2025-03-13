@@ -1,11 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useNavigate,
-  useLocation,
-} from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import { DashboardPage } from "./pages/dashboard";
 import { FreeUserPage } from "./pages/freeUser";
 import { MonthlyUserPage } from "./pages/monthlyUsers";
@@ -31,7 +25,7 @@ const App = () => {
   };
 
   return (
-    <Router>
+    <>
       <RedirectToDashboard />
       <Routes>
         <Route path="/dashboard" element={<DashboardPage />} />
@@ -44,7 +38,7 @@ const App = () => {
         <Route path="/coupon-history" element={<CouponHistoryPage />} />
         <Route path="/redeem-history" element={<RedeemHistoryPage />} />
       </Routes>
-    </Router>
+    </>
   );
 };
 

@@ -13,13 +13,11 @@ export const Header = ({
         isSidebarOpen ? "ml-[312px]" : "ml-0"
       }`}
     >
-      <div className="flex items-center gap-x-[28px]">
+      <div className="flex items-center">
         <button onClick={() => setIsSidebarOpen((prev) => !prev)}>
-          <HambugerIcon />
+          <HambugerIcon onClick={handleDrawer} />
         </button>
-        <span className="text-lg lg:text-2xl xMaxSize:text-[40px] font-bold">
-          {pageTitle}
-        </span>
+        <span className="text-2xl lg:text-[40px] font-bold">{pageTitle}</span>
       </div>
 
       <div className="flex items-center gap-x-4">

@@ -11,13 +11,13 @@ export const Layout = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isDrawer, setIsDrawer] = useState(false);
   const [isAboveMlg, setIsAboveMlg] = useState(
-    window.matchMedia("(min-width:1100px)").matches
+    window.matchMedia("(min-width:1280px)").matches
   );
 
   const { pageTitle, mobileHeaderTitle } = getPageTitles(location);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia("(min-width:1100px)");
+    const mediaQuery = window.matchMedia("(min-width:1280px)");
 
     const handleMediaChange = (event) => setIsAboveMlg(event.matches);
 
@@ -47,7 +47,7 @@ export const Layout = ({ children }) => {
         initial={{ x: -312 }}
         animate={{ x: isSidebarOpen && isAboveMlg ? 0 : -312 }}
         transition={{ type: "spring", stiffness: 100 }}
-        className="fixed top-0 left-0 h-full hidden md:block"
+        className="fixed top-0 left-0 h-full hidden maxSize:block"
       >
         <SideBar isDrawer={false} handleDrawer={handleDrawer} />
       </motion.div>
@@ -55,7 +55,6 @@ export const Layout = ({ children }) => {
       <div className="hidden md:block">
         <Header
           isSidebarOpen={isSidebarOpen}
-          setIsSidebarOpen={setIsSidebarOpen}
           handleDrawer={handleDrawer}
           pageTitle={pageTitle}
         />
@@ -89,8 +88,8 @@ export const Layout = ({ children }) => {
         animate={{
           marginLeft: isSidebarOpen && isAboveMlg ? "312px" : "0px",
         }}
-        transition={{ type: "spring", stiffness: 100 }}
-        className="px-[18px] md:px-[30px] transition-all"
+        // transition={{ type: "spring", stiffness: 100 }}
+        className="px-[18px] md:px-[30px]"
       >
         {children}
       </motion.div>

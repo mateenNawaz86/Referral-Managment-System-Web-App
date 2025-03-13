@@ -16,6 +16,7 @@ import { LogoutIcon } from "../assets/svgs/components/logout-icon";
 import { useDispatch, useSelector } from "react-redux";
 import { updateModalType } from "../api/slices/globalSlice/global";
 import { ModalType } from "../types/ui";
+import { CrossIcon } from "../assets/svgs/components/cross-icon";
 
 export const svgs = {
   Dashboard: <DashboardIcon />,
@@ -93,6 +94,10 @@ export const SideBar = ({ isDrawer, handleDrawer }) => {
     <div
       className={`fixed left-0 w-[312px] bg-white rounded-r-[6px] h-full overflow-y-auto custom-scroll`}
     >
+      <div className="absolute top-4 right-4 xMini:block xl:hidden">
+        <CrossIcon onClick={handleDrawer} />
+      </div>
+
       <div className="flex items-center justify-center pt-[28px] pb-[43px]">
         <img src={logo} alt="Logo" className="h-[139px] w-[137px]" />
       </div>
