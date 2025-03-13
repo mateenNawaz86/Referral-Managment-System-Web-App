@@ -40,7 +40,7 @@ export const SideBar = ({ isDrawer, handleDrawer }) => {
   const [selected, setSelected] = useState({
     parent: {
       isActive: false,
-      title: "Dashboard",
+      title: "",
     },
     child: null,
   });
@@ -71,8 +71,12 @@ export const SideBar = ({ isDrawer, handleDrawer }) => {
   };
 
   useEffect(() => {
-    const currentItem = sideBar.find((item) => {
-      return item.pathname && location.pathname.startsWith(item.pathname);
+    const currentItem = sideBar?.find((item) => {
+      return (
+        item.pathname &&
+        typeof item.pathname === "string" &&
+        location.pathname.startsWith(item.pathname)
+      );
     });
 
     if (currentItem) {

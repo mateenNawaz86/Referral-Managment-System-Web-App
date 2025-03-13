@@ -9,12 +9,18 @@ import { CouponHistoryPage } from "./pages/couponHistory";
 import { MyRewardsPage } from "./pages/myRewards";
 import { RequestRedeemPage } from "./pages/requestRedeem";
 import { RedeemHistoryPage } from "./pages/redeemHistory";
+import { scrollToTop } from "./utils/utility";
+import { AuthPage } from "./pages/auth";
 
 const App = () => {
-  const RedirectToDashboard = () => {
-    const navigate = useNavigate();
-    const location = useLocation();
+  const location = useLocation();
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    scrollToTop();
+  }, [location.pathname]);
+
+  const RedirectToDashboard = () => {
     useEffect(() => {
       if (location.pathname === "/") {
         navigate("/dashboard?status=ref-guide", { replace: true });
@@ -28,6 +34,7 @@ const App = () => {
     <>
       <RedirectToDashboard />
       <Routes>
+        <Route path="/" element={<AuthPage />} />
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/free-users" element={<FreeUserPage />} />
         <Route path="/monthly-premium-users" element={<MonthlyUserPage />} />

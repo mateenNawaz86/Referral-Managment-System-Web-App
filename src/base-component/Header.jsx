@@ -1,22 +1,15 @@
 import profileIcon from "../assets/pngs/profile.jpg";
 import { HambugerIcon } from "../assets/svgs/components/hamburger-icon";
 
-export const Header = ({
-  isSidebarOpen,
-  setIsSidebarOpen,
-  handleDrawer,
-  pageTitle,
-}) => {
+export const Header = ({ isSidebarOpen, handleDrawer, pageTitle }) => {
   return (
     <div
       className={`flex items-center justify-between mb-[33px] px-[30px] pt-[31px] transition-all duration-300 ${
         isSidebarOpen ? "ml-[312px]" : "ml-0"
       }`}
     >
-      <div className="flex items-center">
-        <button onClick={() => setIsSidebarOpen((prev) => !prev)}>
-          <HambugerIcon onClick={handleDrawer} />
-        </button>
+      <div className="flex items-center gap-x-5 maxSize:gap-x-0">
+        <HambugerIcon onClick={handleDrawer} />
         <span className="text-2xl lg:text-[40px] font-bold">{pageTitle}</span>
       </div>
 

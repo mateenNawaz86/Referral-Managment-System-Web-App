@@ -4,7 +4,7 @@ import { RewardBalanceIcon } from "../../assets/svgs/components/reward-balance-i
 
 export const RewardsCard = ({ cardAction }) => {
   return (
-    <div className="bg-primary rounded-lg flex justify-between items-end pl-[30px] pr-[18px] pt-10 pb-[15px] md:py-[44px] md:pl-[56px] md:pr-[23px]">
+    <div className="bg-primary md:rounded-lg flex justify-between items-end pl-[30px] pr-[18px] pt-10 pb-[15px] md:py-[44px] md:pl-[56px] md:pr-[23px]">
       <div className="flex flex-col">
         <div className="flex items-baseline gap-x-2">
           <span className="font-semibold text-[36px] md:text-[72px] text-white">

@@ -5,7 +5,7 @@ import { RewardsPoints } from "./rewards-points";
 export const MyRewards = () => {
   const { rewardsActions } = useMyRewards();
   return (
-    <div className="md:bg-white md:p-[50px] md:border border-[#E0E0E0] rounded-lg h-full md:mb-[50px] md:pb-[254px] -mx-[30px] md:mx-0">
+    <div className="md:bg-white md:p-[50px] md:border border-[#E0E0E0] rounded-lg h-full -mx-[18px] md:mb-[50px] md:pb-[254px] md:mx-0">
       <RewardsCard cardAction={rewardsActions} />
       <RewardsPoints />
     </div>

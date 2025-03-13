@@ -42,15 +42,14 @@ export const Layout = ({ children }) => {
   };
 
   return (
-    <div className="bg-[#fafbfd] h-full overflow-y-auto relative">
-      <motion.div
-        initial={{ x: -312 }}
-        animate={{ x: isSidebarOpen && isAboveMlg ? 0 : -312 }}
-        transition={{ type: "spring", stiffness: 100 }}
-        className="fixed top-0 left-0 h-full hidden maxSize:block"
+    <div className="bg-[#fafbfd] min-h-screen h-full overflow-y-auto relative">
+      <div
+        className={`fixed top-0 left-0 h-full hidden maxSize:block ${
+          isSidebarOpen && isAboveMlg ? "block" : "hidden"
+        }`}
       >
         <SideBar isDrawer={false} handleDrawer={handleDrawer} />
-      </motion.div>
+      </div>
 
       <div className="hidden md:block">
         <Header
@@ -84,15 +83,13 @@ export const Layout = ({ children }) => {
         </div>
       )}
 
-      <motion.div
-        animate={{
-          marginLeft: isSidebarOpen && isAboveMlg ? "312px" : "0px",
-        }}
-        // transition={{ type: "spring", stiffness: 100 }}
-        className="px-[18px] md:px-[30px]"
+      <div
+        className={`px-[18px] md:px-[30px] ${
+          isSidebarOpen && isAboveMlg ? "ml-[312px]" : "ml-0"
+        }`}
       >
         {children}
-      </motion.div>
+      </div>
     </div>
   );
 };

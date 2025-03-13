@@ -7,6 +7,7 @@ import { FreeUsersTableHeadings } from "./table/table-heading";
 import { FreeUserCard } from "./mobile/free-user-card";
 import { NoDataEmptyState } from "../../base-component/ui/loadingEffect/no-data-state";
 import { FilterSortIcon } from "../../assets/svgs/components/filter-sort-icon";
+import SelectField from "../../base-component/ui/fields/select-fields";
 
 export const FreeUserListing = () => {
   const {
@@ -41,12 +42,22 @@ export const FreeUserListing = () => {
         <div className="md:hidden mb-10">
           <div className="flex items-center justify-between mt-[15px] mb-3">
             <p className="text-[20px] font-semibold">User Listing</p>
-            <div className="flex items-center gap-x-[2px]">
-              <span className="text-[13px] font-semibold text-primary">
-                Sort by
-              </span>
-              <FilterSortIcon />
-            </div>
+
+            <SelectField
+              // handleChange={(value) => hanldeSortChange(value)}
+              value={"None"}
+              options={[
+                {
+                  label: "Name",
+                  value: "Name",
+                },
+                {
+                  label: "Install Date",
+                  value: "Install Date",
+                },
+              ]}
+              containerClassName="w-[350px]"
+            />
           </div>
           <FreeUserCard data={records} />
         </div>
