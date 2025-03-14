@@ -22,19 +22,6 @@ export default function SelectField({
     setIsOpen((prev) => !prev);
   };
 
-  //   const handleClose = (event) => {
-  //     if (ref.current && !ref.current.contains(event.target)) {
-  //       setIsOpen(false);
-  //     }
-  //   };
-
-  //   useEffect(() => {
-  //     document.addEventListener("mousedown", handleClose);
-  //     return () => {
-  //       document.removeEventListener("mousedown", handleClose);
-  //     };
-  //   }, []);
-
   const hanldeClose = () => {
     setIsOpen(false);
   };
@@ -54,20 +41,9 @@ export default function SelectField({
 
   return (
     <div
-      className={`relative flex items-center justify-end w-fit ${containerClassName}`}
+      className={`relative flex items-center justify-end ${containerClassName}`}
       ref={ref}
     >
-      {/* <div
-        className="flex justify-between items-center cursor-pointer px-[10px] py-2 bg-white rounded-lg border border-[#ccc] min-w-[105px] w-fit"
-        onClick={handleToggle}
-      >
-        <span
-          className={`text-dark text-sm font-normal w-fit ${labelClassName}`}
-        >
-          {selectedLabel}
-        </span>
-      </div> */}
-
       <div
         onClick={handleToggle}
         className="flex items-center gap-x-2 cursor-pointer"
@@ -82,7 +58,7 @@ export default function SelectField({
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className={`bg-white  flex-col absolute top-[30px] rounded-lg right-0 p-2 shadow-lg z-10 ${dropdownClassName}`}
+            className={`bg-white min-w-[200px] flex-col absolute top-[35px] rounded-b-lg rounded-tl-lg right-0 p-2 shadow-lg z-10 follow-up-container ${dropdownClassName}`}
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
@@ -104,8 +80,7 @@ export default function SelectField({
               </div>
             )}
             <div
-              //   style={{ maxHeight: "150px" }}
-              className="mt-2 overflow-x-hidden overflow-y-auto dashboard_scrollbar"
+              className="mt-2 overflow-x-hidden overflow-y-auto"
               id="dropdownSearchBar"
             >
               <div className="flex-col space-y-2">

@@ -1,11 +1,11 @@
 import profile from "../../assets/pngs/profile.jpg";
 
-export const RecordCard = ({ data, pageTitle }) => {
+export const RecordCard = ({ data, pageTitle, isPointHistory }) => {
   const clearanceLabel = pageTitle?.includes("Trial")
     ? "Clearance Date & Time"
-    : pageTitle.includes("Subscribed")
+    : pageTitle?.includes("Subscribed")
     ? "Cleared Date & Time"
-    : pageTitle.includes("Cancelled")
+    : pageTitle?.includes("Cancelled")
     ? "Cancelled Date & Time"
     : "Clearance Date & Time";
 
@@ -27,10 +27,10 @@ export const RecordCard = ({ data, pageTitle }) => {
                 <p className="text-base font-semibold">{item?.username}</p>
                 <div className="flex items-center gap-x-1">
                   <span className="text-[#848484] text-xs font-medium">
-                    Installed on:
+                    {isPointHistory ? "Earned Points:" : "Installed on:"}
                   </span>
                   <span className="font-medium text-xs">
-                    {item?.installedDate}
+                    {isPointHistory ? item?.points : item?.installedDate}
                   </span>
                 </div>
               </div>
@@ -38,19 +38,23 @@ export const RecordCard = ({ data, pageTitle }) => {
             <div className="px-[41px] flex items-center mt-[10px]">
               <div className="flex flex-col gap-y-1 border-r border-r-[#e5e5e5] pr-[18px]">
                 <span className="text-[10px] font-normal text-[#848484]">
-                  Subscribed Date & Time
+                  {isPointHistory
+                    ? "Installed Date & Time"
+                    : " Subscribed Date & Time"}
                 </span>
                 <span className="text-[11px] font-medium">
-                  {item?.subscribeDate}
+                  {isPointHistory ? item?.installedDate : item?.subscribeDate}
                 </span>
               </div>
 
               <div className="flex flex-col gap-y-1 pl-[18px]">
                 <span className="text-[10px] font-normal text-[#848484]">
-                  {clearanceLabel}
+                  {isPointHistory ? "Subscribed Date & Time" : clearanceLabel}
                 </span>
                 <span className="text-[11px] font-medium">
-                  Jun 10 2024 11:35 PM
+                  {isPointHistory
+                    ? item?.subscribeDate
+                    : "Jun 10 2024 11:35 PM"}
                 </span>
               </div>
             </div>

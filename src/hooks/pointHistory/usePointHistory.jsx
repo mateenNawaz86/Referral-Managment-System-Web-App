@@ -134,5 +134,6 @@ export const usePointHistory = () => {
     handlePageChange,
     currentPage,
     headings,
+    records
   };
 };

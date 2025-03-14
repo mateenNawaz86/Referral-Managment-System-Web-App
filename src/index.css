@@ -48,7 +48,7 @@ body {
   height: 0;
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
-  border-bottom: 10px solid #691188;
+  border-bottom: 10px solid #fff;
 }
 
 @keyframes puff {
