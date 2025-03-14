@@ -19,7 +19,7 @@ export const RedeemHistoryTableRows = ({ data, onPaymentDetails }) => {
 
             <div className="flex items-center justify-center">
               <div
-                className={`px-[7.2px] py-[5px] min-w-[77px] max-w-[77px] rounded-[3px] text-center cursor-pointer  ${bg} ${text}`}
+                className={`px-[7.2px] py-[5px] min-w-[77px] max-w-[77px] rounded-[3px] text-center ${bg} ${text}`}
               >
                 <span className={`text-xs font-medium`}>{item?.status}</span>
               </div>

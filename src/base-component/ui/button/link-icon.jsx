@@ -23,7 +23,9 @@ export const LinkButton = ({
       onMouseLeave={() => setIsHovered(false)}
     >
       {Icon && (
-        <Icon iconClassName={isHovered ? "#691188" : "#fff"} size={size} />
+        <div className="hidden md:block">
+          <Icon iconClassName={isHovered ? "#691188" : "#fff"} size={size} />
+        </div>
       )}
       {text}
     </button>

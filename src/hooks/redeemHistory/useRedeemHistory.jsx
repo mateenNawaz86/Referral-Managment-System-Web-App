@@ -111,6 +111,7 @@ export const useRedeemHistory = () => {
     handlePageChange,
     currentPage,
     headings,
+    records,
     handlePaymentDetails,
   };
 };

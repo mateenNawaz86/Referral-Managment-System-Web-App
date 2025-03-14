@@ -64,7 +64,6 @@ export const YearlyPremUsers = () => {
                   value: "Clearance Date",
                 },
               ]}
-              containerClassName="w-[350px]"
             />
           </div>
           <RecordCard data={records} pageTitle={pageTitle} />

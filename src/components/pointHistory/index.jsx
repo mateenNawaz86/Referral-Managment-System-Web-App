@@ -46,16 +46,16 @@ export const PointHistory = () => {
                   value: "Name",
                 },
                 {
+                  label: "Earned Points",
+                  value: "Earned Points",
+                },
+                {
                   label: "Install Date",
                   value: "Install Date",
                 },
                 {
                   label: "Subscribed Date",
                   value: "Subscribed Date",
-                },
-                {
-                  label: "Clearance Datet",
-                  value: "Clearance Date",
                 },
               ]}
             />
