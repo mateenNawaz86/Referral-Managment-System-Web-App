@@ -1,4 +1,4 @@
-import { Field } from "../../utils/static";
+import { Field } from "../../../utils/static";
 
 export const LoginContactFormFields = (register, loading, control) => {
   let formField = [

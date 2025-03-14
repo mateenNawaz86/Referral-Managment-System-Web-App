@@ -32,7 +32,7 @@ const App = () => {
 
   return (
     <>
-      {/* <RedirectToDashboard /> */}
+      <RedirectToDashboard />
       <Routes>
         <Route path="/" element={<AuthPage />} />
         <Route path="/dashboard" element={<DashboardPage />} />

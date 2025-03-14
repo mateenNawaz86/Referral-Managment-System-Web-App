@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
-import { LoginContactFormFields } from "../../components/auth/login-fields";
 import { generateLoginValidationSchema } from "../../validation/login-validation";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { LoginContactFormFields } from "../../components/auth/fields/login-fields";
 
 export const useLogin = () => {
   const schema = generateLoginValidationSchema();

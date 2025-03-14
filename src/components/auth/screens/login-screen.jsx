@@ -1,6 +1,6 @@
-import logo from "../../assets/svgs/logo.svg";
-import { Form } from "../../base-component/form/form";
-import { useLogin } from "../../hooks/auth/useLogin";
+import logo from "../../../assets/svgs/logo.svg";
+import { Form } from "../../../base-component/form/form";
+import { useLogin } from "../../../hooks/auth/useLogin";
 
 export const Login = () => {
   const { handleSubmit, errors, fields, onSubmit } = useLogin();
