@@ -35,6 +35,7 @@ module.exports = {
         borderColor: "#BFBFBF",
         lightGray: "#c4c4c4",
         secondary: "#18d9c5",
+        buttonHover: "#9B19E6",
       },
     },
   },
