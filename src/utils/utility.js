@@ -123,6 +123,21 @@ export const getRedeemStatusStyles = (status) => {
   );
 };
 
+export const getStatusStyles = (status) => {
+  const styles = {
+    Redeemed: {
+      bg: "bg-[#05B03526]",
+      text: "text-[#05B035]",
+    },
+    default: {
+      bg: "bg-[#E8000026]",
+      text: "text-[#E80000]",
+    },
+  };
+
+  return styles[status] || styles.default;
+};
+
 export const findErrorMessage = (errors, data = [], fieldName) => {
   const keys = data.length > 0 ? data : [fieldName];
 

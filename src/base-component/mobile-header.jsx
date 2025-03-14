@@ -3,13 +3,13 @@ import { MobileHamburgerIcon } from "../assets/svgs/components/mobile-hamburger-
 
 export const MobileHeader = ({ handleDrawer, pageTitle }) => {
   return (
-    <div className="bg-primary  px-[18px] py-[15px] flex items-center justify-between">
-      <div className="flex items-center gap-x-[5px]">
+    <div className="bg-primary px-[18px] py-[15px] flex items-center justify-between">
+      <div className="flex items-center gap-x-4">
         <MobileHamburgerIcon onClick={handleDrawer} />
         <span className="text-white text-[22px] font-bold">{pageTitle}</span>
       </div>
 
-      <div className="border border-white rounded-full ">
+      <div className="border border-white rounded-full">
         <img
           src={profileIcon}
           alt="profile"

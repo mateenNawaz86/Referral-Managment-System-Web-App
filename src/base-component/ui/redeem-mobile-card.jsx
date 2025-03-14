@@ -32,6 +32,12 @@ export const RedeemMobileCard = ({ data, onClick }) => {
           </div>
         );
       })}
+
+      {data?.length > 0 && (
+        <p className="text-center text-gray-500 text-sm mt-3">
+          No more data available
+        </p>
+      )}
     </div>
   );
 };

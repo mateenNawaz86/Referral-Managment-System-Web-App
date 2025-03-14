@@ -134,5 +134,6 @@ export const useCouponHistory = () => {
     handlePageChange,
     currentPage,
     headings,
+    records
   };
 };

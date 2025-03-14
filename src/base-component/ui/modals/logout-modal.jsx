@@ -7,22 +7,22 @@ export const LogoutModal = ({ onClose }) => {
   return (
     <BaseModal
       onClose={onClose}
-      containerClassName="w-full max-w-[689px] min-h-fit"
+      containerClassName="w-full max-w-[341px] md:max-w-[689px] min-h-fit"
     >
-      <div className="px-[111px] py-[75px] flex flex-col items-center">
-        <div className="bg-[#ebebeb] p-[25px] rounded-[31px]">
+      <div className="p-6 md:px-[111px] md:py-[75px] flex flex-col items-center">
+        <div className="bg-[#ebebeb] p-[15px] md:p-[25px] rounded-[20px] md:rounded-[31px]">
           <img src={logoutIcon} alt="icon" />
         </div>
-        <p className="text-[36px] font-semibold mt-[21px] mb-[18px]">
+        <p className="text-xl md:text-[36px] font-semibold mt-[21px] mb-[18px]">
           Logout Account
         </p>
-        <p className="text-[26px] font-medium text-[#525451] text-center mb-[50px] ">
+        <p className="text-[14px] md:text-[26px] font-medium text-[#525451] text-center mb-[50px]">
           Are you absolutely certain you wish to proceed with logging out?
         </p>
 
         <BaseButton
           text="Yes, Logout"
-          containerClassName="py-[18px] px-[66px] text-[26px] font-extrabold rounded-[10px] text-white"
+          containerClassName="px-5 md:py-[18px] md:px-[66px] text-[16px] md:text-[26px] font-extrabold rounded-[10px] text-white"
         />
       </div>
     </BaseModal>
