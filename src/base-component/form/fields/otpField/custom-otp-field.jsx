@@ -40,7 +40,7 @@ export const CustomOtpField = ({
   };
 
   return (
-    <div className={`flex space-x-3 ${className}`}>
+    <div className={`flex justify-between md:gap-x-[15px] ${className}`}>
       {otp.map((digit, index) => (
         <input
           key={index}
@@ -50,7 +50,7 @@ export const CustomOtpField = ({
           value={digit}
           onChange={(e) => handleChange(index, e)}
           onKeyDown={(e) => handleKeyDown(index, e)}
-          className="w-12 h-12 border border-borderColor text-center text-xl rounded-md"
+          className="w-[48px] h-[54px] md:w-[76px] md:h-[76px] border border-borderColor text-center text-xl rounded-md focus:border-primary outline-none"
           disabled={disabled}
         />
       ))}

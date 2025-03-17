@@ -5,7 +5,7 @@ import { useLogin } from "../../../hooks/auth/useLogin";
 export const Login = () => {
   const { handleSubmit, errors, fields, onSubmit } = useLogin();
   return (
-    <div className="bg-white rounded-[12px] border border-[#CFD6E9] px-[160px] py-[60px] ">
+    <div className="bg-white rounded-[12px] border border-[#CFD6E9] p-[22px] md:px-[160px] md:py-[60px]">
       <div className="flex items-center flex-col">
         <img
           src={logo}

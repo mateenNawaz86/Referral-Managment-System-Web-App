@@ -1,6 +1,9 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { LoginContactFormFields } from "../../components/auth/fields/login-fields";
+import {
+  LoginContactFormFields,
+  PhoneVarificationFormFields,
+} from "../../components/auth/fields/login-fields";
 import { generateLoginValidationSchema } from "../../validation/auth-validation";
 
 export const useLogin = () => {
@@ -20,7 +23,7 @@ export const useLogin = () => {
 
   const loading = false;
 
-  const fields = LoginContactFormFields(register, loading, control);
+  const fields = PhoneVarificationFormFields(register, loading, control);
 
   const onSubmit = (data) => {
     console.log("Login Data:", data);

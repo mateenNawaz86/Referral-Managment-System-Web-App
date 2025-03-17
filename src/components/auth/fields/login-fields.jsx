@@ -29,3 +29,74 @@ export const LoginContactFormFields = (register, loading, control) => {
 
   return formField;
 };
+
+export const PhoneVarificationFormFields = (register, loading, control) => {
+  let formField = [
+    {
+      containerClass: "mb-[35px]",
+      field: {
+        type: Field.otpField,
+        id: "OTP",
+        name: "OTP",
+        // value: user?.company?.mobileNumber,
+        control,
+        className: "",
+      },
+    },
+    {
+      field: {
+        type: Field.span,
+        text: "Did not receive a code?",
+        containerClassName:
+          "text-sm md:text-[22px] text-dark font-medium text-center hidden md:block",
+        id: "info",
+      },
+    },
+
+    {
+      containerClass:
+        "mb-0 mt-[35px] hidden md:flex items-center justify-center",
+      field: {
+        type: Field.button,
+        id: "button",
+        text: "RESEND",
+        inputType: "button",
+        className: "bg-none w-fit hover:bg-none text-primary",
+        loading,
+      },
+    },
+
+    {
+      containerClass: "mb-0 mt-10",
+      field: {
+        type: Field.button,
+        id: "button",
+        text: "Verify Code",
+        inputType: "submit",
+        className: "rounded-xl w-full py-[17px] hover:bg-none",
+        loading,
+      },
+    },
+
+    {
+      field: {
+        type: Field.span,
+        text: "Could not receive a verification code yet?",
+        containerClassName:
+          "text-sm md:text-[22px] text-dark font-medium text-center mt-[45px] md:hidden",
+        id: "info",
+      },
+    },
+    {
+      field: {
+        type: Field.span,
+        text: "Resend code after 57s",
+        containerClassName:
+          "text-sm md:text-[22px] text-dark font-medium text-center mt-3 md:hidden",
+        id: "info",
+      },
+    },
+  ];
+
+  return formField;
+};
