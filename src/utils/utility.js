@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { DetailScreenStages } from "./static";
 
 export const combineClasses = (defaultClasses, className = "") => {
   if (!className) return defaultClasses;
@@ -157,3 +158,71 @@ export const findErrorMessage = (errors, data = [], fieldName) => {
 export const scrollToTop = () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 };
+
+export const getNextFormStage = (current) => {
+  const stages = Object?.values(DetailScreenStages);
+  const currentIndex = stages.indexOf(current);
+  if (currentIndex !== -1 && currentIndex < stages.length - 1) {
+    return stages[currentIndex + 1];
+  }
+  return null;
+};
+
+export const getBackFormStage = (current) => {
+  const stages = Object.values(DetailScreenStages);
+  const currentIndex = stages.indexOf(current);
+  if (currentIndex !== -1 && currentIndex > 0) {
+    return stages[currentIndex - 1];
+  }
+  return null;
+};
+
+export function returnStep(
+  data,
+  setError,
+  translate,
+  currentFormStage,
+  nextFormHandler
+) {
+  const navigate = useNavigate(); // Replaces Next.js router
+
+  if (currentFormStage === DetailScreensStages.CompanyDetails) {
+    return updateProfileStep1({
+      data,
+      navigate,
+      setError,
+      translate,
+      currentFormStage,
+      nextFormHandler,
+    });
+  }
+  if (currentFormStage === DetailScreensStages.LocationDetails) {
+    return updateProfileStep2({
+      data,
+      navigate,
+      setError,
+      translate,
+      currentFormStage,
+      nextFormHandler,
+    });
+  }
+  if (currentFormStage === DetailScreensStages.BankDetails) {
+    return updateProfileStep3({
+      data,
+      navigate,
+      setError,
+      translate,
+      currentFormStage,
+      nextFormHandler,
+    });
+  }
+
+  return updateProfileStep1({
+    data,
+    navigate,
+    setError,
+    translate,
+    currentFormStage,
+    nextFormHandler,
+  });
+}

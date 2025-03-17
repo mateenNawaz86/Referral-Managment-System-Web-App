@@ -151,3 +151,9 @@ export const Field = {
   profileUploadField: "profileUploadField",
   otpField: "otpField",
 };
+
+export const DetailScreenStages = {
+  NUMBER_STAGE: "NUMBER_STAGE",
+  PHONE_VERIFICATION: "PHONE_VERIFICATION",
+  PROFILE_CREATION: "PROFILE_CREATION",
+};

@@ -5,7 +5,7 @@ import { useLogin } from "../../../hooks/auth/useLogin";
 export const PhoneVarification = () => {
   const { handleSubmit, errors, fields, onSubmit } = useLogin();
   return (
-    <div className="md:border border-[#cccccc] rounded-[12px] bg-white p-[22px] md:py-[60px] md:px-[130px] md:w-[790px]">
+    <div className="md:border md:border-[#cccccc] md:rounded-[12px] bg-white p-[22px] md:py-[60px] md:px-[130px] md:w-[790px]">
       <span className="md:hidden mt-3">
         <BackIcon />
       </span>

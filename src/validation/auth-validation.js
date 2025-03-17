@@ -4,6 +4,10 @@ export const login = {
   CONTACT_NUMBER: "CONTACT_NUMBER",
 };
 
+export const phoneVarification = {
+  OTP_CODE: "OTP_CODE",
+};
+
 export const signup = {
   PROFILE: "PROFILE",
   NAME: "NAME",
@@ -13,6 +17,14 @@ export const signup = {
 export const generateLoginValidationSchema = () => {
   return yup.object().shape({
     [login.CONTACT_NUMBER]: yup
+      .string()
+      .required("validationMessages.required"),
+  });
+};
+
+export const generateOtpValidationSchema = () => {
+  return yup.object().shape({
+    [phoneVarification.OTP_CODE]: yup
       .string()
       .required("validationMessages.required"),
   });

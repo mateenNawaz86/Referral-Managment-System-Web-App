@@ -1,4 +1,4 @@
-import logo from "../../assets/svgs/logo.svg";
+import logo from "../../../assets/svgs/logo.svg";
 
 export const LandingPage = () => {
   return (
