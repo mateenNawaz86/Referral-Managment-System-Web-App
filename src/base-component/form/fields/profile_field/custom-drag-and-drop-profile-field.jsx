@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { uploadFileToFirebase } from "@/api/slices/globalSlice/global";
-import edit_circle from "@/assets/svgs/edit_circle.svg";
-// import fileUploadIcon from "@/assets/pngs/file-upload-icon.png";
+import edit_circle from "../../../../assets/svgs/edit_circle.svg";
+import profileDummy from "../../../../assets/svgs/profile_dummy.svg";
 import { combineClasses } from "../../../../utils/utility";
+
 export const ProfileUpload = ({
   id,
   field,
@@ -12,10 +12,12 @@ export const ProfileUpload = ({
   disabled,
   isMailSetting,
   isMailField,
-  isAgent,
 }) => {
   const dispatch = useDispatch();
   const [errorMessage, setErrorMessage] = useState("");
+  const [previewImage, setPreviewImage] = useState(
+    field?.value || profileDummy
+  );
 
   const handleFileSelected = async (e) => {
     const file = e.target.files && e.target.files[0];
@@ -25,87 +27,64 @@ export const ProfileUpload = ({
         isMailField &&
         (file.name.endsWith(".svg") || file.type === "image/webp")
       ) {
-        setErrorMessage(translate("common.img_upload_error_message"));
+        setErrorMessage(
+          "WebP files are not allowed. Please upload a different file format."
+        );
         return;
       }
 
       setErrorMessage("");
-      const formData = new FormData();
-      formData.append("file", file);
-      const res = await dispatch(uploadFileToFirebase(formData));
-      field.onChange(res?.payload);
+      const imageUrl = URL.createObjectURL(file);
+      setPreviewImage(imageUrl);
+
+      // Upload file logic (Uncomment when using Redux)
+      // const formData = new FormData();
+      // formData.append("file", file);
+      // const res = await dispatch(uploadFileToFirebase(formData));
+      // field.onChange(res?.payload);
     }
   };
 
   const defaultClasses = "relative";
   const classes = combineClasses(defaultClasses, className);
   const isSVG =
-    typeof field?.value === "string" && field.value.endsWith(".svg");
+    typeof previewImage === "string" && previewImage.endsWith(".svg");
 
   return (
     <div>
-      <div className="w-full">
-        {field?.value ? (
-          <div className={classes}>
-            {isSVG ? (
-              <object
-                data={field?.value}
-                width={241}
-                height={241}
-                className={`${classes} object-contain`}
-              />
-            ) : (
-              <img
-                src={field?.value}
-                width={241}
-                height={241}
-                alt="Uploaded Preview"
-                className={`${classes} object-contain`}
-              />
-            )}
+      <div className={`w-full`}>
+        <div className={`${classes} flex justify-center items-center`}>
+          {isSVG ? (
+            <object
+              data={previewImage}
+              width={160}
+              height={160}
+              className="h-[160px] w-[160px]"
+            />
+          ) : (
+            <img
+              src={previewImage}
+              width={160}
+              height={160}
+              alt="Uploaded Preview"
+              className="h-[160px] w-[160px]"
+            />
+          )}
 
-            {!isAgent && (
-              <label
-                className={`absolute ${iconClasses} ${disabled && "hidden"}`}
-              >
-                <input
-                  type="file"
-                  className="hidden"
-                  onChange={handleFileSelected}
-                  disabled={disabled}
-                />
-                <img
-                  src={edit_circle}
-                  alt="Edit Icon"
-                  className="cursor-pointer"
-                />
-              </label>
-            )}
-          </div>
-        ) : (
-          <div className={`${classes} flex justify-center items-center`}>
+          <label
+            className={`absolute ${iconClasses} ${
+              disabled && "hidden"
+            } right-[2px] bottom-0`}
+          >
             <input
-              id={id}
               type="file"
               className="hidden"
               onChange={handleFileSelected}
               disabled={disabled}
             />
-            <label className="absolute">
-              <div className="flex flex-col items-center gap-y-[10px]">
-                {/* <img src={fileUploadIcon} alt="Upload Icon" /> */}
-                <span
-                  className={`bg-primary px-3 py-2 ${
-                    !disabled && "cursor-pointer"
-                  } text-white text-sm font-medium rounded-lg`}
-                  onClick={() => document.getElementById(id)?.click()}
-                >
-                  {translate("common.upload_button")}
-                </span>
-              </div>
-            </label>
-          </div>
-        )}
+            <img src={edit_circle} alt="Edit Icon" className="cursor-pointer" />
+          </label>
+        </div>
       </div>
       {errorMessage && <p className="text-red text-sm mt-2">{errorMessage}</p>}
     </div>

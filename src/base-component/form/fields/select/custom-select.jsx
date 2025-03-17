@@ -65,7 +65,7 @@ export const SelectBox = ({
 
   const defaultClasses = `${
     disabled ? "cursor-default" : "cursor-pointer"
-  } placeholder:text-dark h-10 xMini:h-12 py-[10px] flex items-center justify-between text-left text-dark bg-white rounded-lg border border-lightGray focus:border-primary outline-none w-full ${
+  } placeholder:text-dark h-10 xMini:h-12 py-[10px] flex items-center justify-between text-left text-dark bg-white rounded-lg border border-borderColor focus:border-primary outline-none w-full ${
     success ? "pl-4 pr-10" : "pl-11 pr-4"
   }`;
 
@@ -105,8 +105,12 @@ export const SelectBox = ({
             transition={{ duration: 0.4 }}
             className="select_scrollbar absolute overflow-x-hidden top-[56px] max-h-[180px] h-fit overflow-scroll w-full bg-white border border-lightGray rounded-br-lg rounded-bl-lg rounded-lg z-10"
           >
-            <div className="flex items-center border border-lightGray rounded-md w-full mb-2">
-              <img src={searchIcon} alt="Search" className="search-icon" />
+            <div className="flex items-center border border-borderColor rounded-md m-2">
+              <img
+                src={searchIcon}
+                alt="Search"
+                className="ml-1 w-4 h-4 absolute"
+              />
               <input
                 type="text"
                 value={search.current}
@@ -115,23 +119,21 @@ export const SelectBox = ({
                 className="w-full ps-6 focus:outline-primary focus:outline rounded-md p-2 placeholder:text-sm bg-[#f6f6f7]"
               />
             </div>
-            <ul>
-              {displayedOptions?.length === 0 ? (
-                <p className="text-sm text-center text-[#BB060B]">
-                  {"No Match Data"}
-                </p>
-              ) : (
-                displayedOptions?.map(({ value, label }) => (
-                  <li
-                    key={value}
-                    onClick={() => selectedOptionHandler(value)}
-                    className="p-2 hover:bg-[#eaebec] cursor-pointer rounded-sm hoverTransetion"
-                  >
-                    {label}
-                  </li>
-                ))
-              )}
-            </ul>
+            {displayedOptions?.length === 0 ? (
+              <p className="text-sm text-center text-[#BB060B] mb-2">
+                {"No Match Data"}
+              </p>
+            ) : (
+              displayedOptions?.map(({ value, label }) => (
+                <li
+                  key={value}
+                  onClick={() => selectedOptionHandler(value)}
+                  className="p-2 hover:bg-[#eaebec] cursor-pointer rounded-sm hoverTransetion m-2"
+                >
+                  {label}
+                </li>
+              ))
+            )}
           </motion.div>
         )}
       </AnimatePresence>

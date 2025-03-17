@@ -148,4 +148,6 @@ export const Field = {
   span: "span",
   div: "div",
   button: "button",
+  profileUploadField: "profileUploadField",
+  otpField: "otpField",
 };

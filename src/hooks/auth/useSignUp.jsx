@@ -1,10 +1,10 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { LoginContactFormFields } from "../../components/auth/fields/login-fields";
-import { generateLoginValidationSchema } from "../../validation/auth-validation";
+import { SignUpFormFields } from "../../components/auth/fields/sign-up-fields";
+import { generateSignUpValidationSchema } from "../../validation/auth-validation";
 
-export const useLogin = () => {
-  const schema = generateLoginValidationSchema();
+export const useSignUp = () => {
+  const schema = generateSignUpValidationSchema();
 
   const {
     register,
@@ -20,10 +20,10 @@ export const useLogin = () => {
 
   const loading = false;
 
-  const fields = LoginContactFormFields(register, loading, control);
+  const fields = SignUpFormFields(register, loading, control);
 
   const onSubmit = (data) => {
-    console.log("Login Data:", data);
+    console.log("Sign Data:", data);
   };
 
   return {

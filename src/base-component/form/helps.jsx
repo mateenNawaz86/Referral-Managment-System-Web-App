@@ -7,6 +7,8 @@ import {
   CheckBox,
   PasswordField,
   DatePicker,
+  ProfileControllerField,
+  OtpControllerField,
 } from "./fields/index";
 import { Button } from "../ui/button/button";
 import { DivField } from "./fields/div-field";
@@ -23,6 +25,8 @@ const fieldComponents = {
   span: SpanField,
   div: DivField,
   button: Button,
+  profileUploadField: ProfileControllerField,
+  otpField: OtpControllerField,
 };
 
 export const getTypedFieldComponent = (type, props, error, errors) => {
@@ -48,6 +52,8 @@ export function isFieldType(type) {
     "span",
     "div",
     "button",
+    "profileUploadField",
+    "otpField",
   ].includes(type);
 }
 

@@ -12,7 +12,6 @@ export const ProfileControllerField = ({
   disabled,
   isMailSetting,
   isMailField,
-  isAgent,
 }) => {
   return (
     <Controller
@@ -27,7 +26,6 @@ export const ProfileControllerField = ({
           disabled={disabled}
           isMailSetting={isMailSetting}
           isMailField={isMailField}
-          isAgent={isAgent}
         />
       )}
     />
@@ -44,5 +42,4 @@ ProfileControllerField.propTypes = {
   disabled: PropTypes.bool,
   isMailSetting: PropTypes.bool,
   isMailField: PropTypes.bool,
-  isAgent: PropTypes.bool,
 };
