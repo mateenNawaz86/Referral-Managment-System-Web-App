@@ -13,7 +13,7 @@ export const PhoneVarification = () => {
         Phone Verification
       </p>
 
-      <p className="text-[#808080] text-sm font-medium md:font-semibold md:text-[22px] mb-[35px] text-center">
+      <p className="text-[#808080] text-sm font-medium md:font-semibold md:text-[22px] mb-[35px] text-center leading-10">
         Enter the OTP code sent to your phone number +5624*****465
         <span className="text-primary text-sm font-medium md:font-semibold md:text-[22px] pl-2 underline cursor-pointer">
           Change phone number

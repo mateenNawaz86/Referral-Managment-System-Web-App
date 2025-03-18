@@ -108,7 +108,7 @@ export const useYearlyUsers = () => {
 
   const headings = ["User details", "Installed", "Subscribed", "Clearance"];
 
-  const { pageTitle } = getPageTitles(location);
+  const { pageTitle, mobilePageTitle } = getPageTitles(location);
 
   const totalCount = records.length;
   const itemsPerPage = 5;
@@ -149,6 +149,7 @@ export const useYearlyUsers = () => {
     currentPage,
     headings,
     pageTitle,
-    records
+    mobilePageTitle,
+    records,
   };
 };

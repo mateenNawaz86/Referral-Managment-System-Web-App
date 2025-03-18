@@ -41,7 +41,9 @@ export const FreeUserListing = () => {
       {records?.length > 0 ? (
         <div className="md:hidden mb-10">
           <div className="flex items-center justify-between mt-[15px] mb-3">
-            <p className="text-[20px] font-semibold">User Listing</p>
+            <p className="text-[20px] font-semibold min-w-[123px]">
+              User Listing
+            </p>
 
             <SelectField
               // handleChange={(value) => hanldeSortChange(value)}

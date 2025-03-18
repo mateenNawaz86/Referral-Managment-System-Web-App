@@ -13,16 +13,20 @@ export const DashboardCard = ({ points, title, icon, bgColor, link }) => {
   return (
     <div className="h-full flex flex-col">
       <div
-        className={`px-[25px] py-[30px] flex flex-col rounded-t-[10px]`}
+        className={`px-[15px] md:px-[25px] py-5 md:py-[30px] flex flex-col rounded-t-[10px] md:h-[180px]`}
         style={{ backgroundColor: bgColor }}
       >
         <div className="flex items-start gap-x-[15px]">
-          <div className="bg-white rounded-full h-[70px] w-[70px] flex items-center justify-center">
+          <div className="bg-white rounded-full w-[56px] h-[56px] md:h-[70px] md:w-[70px] flex items-center justify-center">
             {icon}
           </div>
-          <div className="flex flex-col gap-y-2">
-            <span className="text-[30px] font-bold text-white">{points}</span>
-            <span className="text-lg font-bold text-white">{title}</span>
+          <div className="flex flex-col gap-y-2 flex-1">
+            <span className="text-[26px] md:text-[30px] font-bold text-white">
+              {points}
+            </span>
+            <span className="text-base md:text-lg font-bold text-white line-clamp-2 overflow-hidden">
+              {title}
+            </span>
           </div>
         </div>
       </div>
@@ -33,9 +37,7 @@ export const DashboardCard = ({ points, title, icon, bgColor, link }) => {
         } rounded-b-[10px]`}
       >
         <div className="flex items-center justify-center gap-x-1 py-[7px]">
-          <span className="text-[13px] font-semibold text-white">
-            More Info
-          </span>
+          <span className="text-base font-semibold text-white">More Info</span>
           <img src={arrowRightIcon} alt="icon" className="h-[18px] w-[18px]" />
         </div>
       </div>

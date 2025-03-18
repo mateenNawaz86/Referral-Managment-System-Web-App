@@ -20,6 +20,7 @@ export const YearlyPremUsers = () => {
     headings,
     records,
     pageTitle,
+    mobilePageTitle,
     currentPageRows,
     handlePageChange,
   } = useYearlyUsers();
@@ -42,7 +43,9 @@ export const YearlyPremUsers = () => {
       {records?.length > 0 ? (
         <div className="md:hidden mb-10">
           <div className="flex items-center justify-between mt-[15px] mb-3">
-            <p className="text-[20px] font-semibold">{pageTitle}</p>
+            <p className="text-[20px] font-semibold min-w-fit">
+              {mobilePageTitle}
+            </p>
             <SelectField
               // handleChange={(value) => hanldeSortChange(value)}
               value={"None"}

@@ -15,12 +15,12 @@ export const ReferralGuide = () => {
   ];
 
   return (
-    <div className="bg-white h-full py-[45px] border border-[#E0E0E0] rounded-[14px] flex flex-col items-center">
+    <div className="md:bg-white h-full py-4 md:py-[45px] md:border md:border-[#E0E0E0] md:rounded-[14px] flex flex-col items-center">
       <h1 className="text-[21px] font-semibold text-center">
         How to get paid by sharing this app?
       </h1>
 
-      <div className="px-10 xMaxSize:pl-[200px] xMaxSize:pr-[147px] mt-[33.8px]">
+      <div className="px-[50px] md:pl-[200px] md:pr-[147px] mt-[33.8px]">
         <div className="relative">
           <StepIndecator
             heading={1}
@@ -34,8 +34,9 @@ export const ReferralGuide = () => {
             paid subscribers for this app.
           </p>
 
-          <div className="grid grid-cols-2 mt-[27px] w-full">
+          <div className="flex flex-col gap-y-6 md:flex-row justify-between mt-[27px] w-full">
             <IosLinks iosHandler={iosHandler} />
+            <div className="bg-[#E0E0E0] w-[1.2px] hidden md:block" />
             <AndriodLinks iosHandler={iosHandler} />
           </div>
         </div>

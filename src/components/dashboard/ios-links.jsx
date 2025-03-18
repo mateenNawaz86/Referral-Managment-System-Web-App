@@ -21,7 +21,7 @@ export const IosLinks = ({ iosHandler }) => {
   ];
 
   return (
-    <div className="flex flex-col gap-y-4 border-r borderf-r-[#E0E0E0]">
+    <div className="flex flex-col gap-y-4 pb-6 border-b border-b-[#E0E0E0] md:border-b-0">
       <div className="flex flex-col gap-y-1 items-center">
         <img src={appStoreIcon} alt="icon" className="h-[43px] w-[43px]" />
         <span className="text-base font-bold text-[#055860]">iOS Appstore</span>

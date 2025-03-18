@@ -3,7 +3,7 @@ import React, { useState, useRef } from "react";
 export const CustomOtpField = ({
   length = 6,
   onComplete,
-  field, // Controlled by React Hook Form
+  field,
   id,
   className,
   disabled,
@@ -13,21 +13,18 @@ export const CustomOtpField = ({
 
   const handleChange = (index, e) => {
     const value = e.target.value;
-    if (!/^\d*$/.test(value)) return; // Only allow numbers
+    if (!/^\d*$/.test(value)) return;
 
     const newOtp = [...otp];
     newOtp[index] = value;
     setOtp(newOtp);
 
-    // Update React Hook Form field value
     field.onChange(newOtp.join(""));
 
-    // Move to the next input
     if (value && index < length - 1) {
       inputRefs.current[index + 1]?.focus();
     }
 
-    // Call onComplete when all fields are filled
     if (newOtp.every((digit) => digit !== "")) {
       onComplete?.(newOtp.join(""));
     }
@@ -40,7 +37,7 @@ export const CustomOtpField = ({
   };
 
   return (
-    <div className={`flex gap-x-[15px] ${className}`}>
+    <div className={`flex justify-between md:gap-x-[15px] ${className}`}>
       {otp.map((digit, index) => (
         <input
           key={index}

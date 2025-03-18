@@ -52,8 +52,8 @@ export const Results = () => {
   ];
 
   return (
-    <div className="border border-[#E0E0E0] rounded-[14px] bg-white h-full pt-10 px-[27px]">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[31px] pb-[474px]">
+    <div className="md:border border-[#E0E0E0] rounded-[14px] bg-white h-full pt-[18px] md:pt-10 md:px-[27px]">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-[15px] md:gap-[31px] md:pb-[474px]">
         {cardData?.map((item, index) => (
           <div key={index} className="h-full">
             <DashboardCard

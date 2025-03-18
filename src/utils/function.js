@@ -47,5 +47,15 @@ export const getPageTitles = (location) => {
         : "Yearly Premium"
       : pageTitle;
 
-  return { pageTitle, mobileHeaderTitle };
+  let mobilePageTitle =
+    (isMonthly || isYearly) &&
+    ["trial", "subscribed", "cancelled"].includes(status)
+      ? status === "trial"
+        ? "Trial Users"
+        : status === "subscribed"
+        ? "Subscribed Users"
+        : "Cancelled Users"
+      : pageTitle;
+
+  return { pageTitle, mobileHeaderTitle, mobilePageTitle };
 };
