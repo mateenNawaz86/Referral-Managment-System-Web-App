@@ -6,8 +6,8 @@ import { Pagination } from "../../base-component/ui/pagination/pagination";
 import { FreeUsersTableHeadings } from "./table/table-heading";
 import { FreeUserCard } from "./mobile/free-user-card";
 import { NoDataEmptyState } from "../../base-component/ui/loadingEffect/no-data-state";
-import { FilterSortIcon } from "../../assets/svgs/components/filter-sort-icon";
 import SelectField from "../../base-component/ui/fields/select-fields";
+import ResultPerPage from "../../base-component/ui/resultPerPage/results-per-page";
 
 export const FreeUserListing = () => {
   const {
@@ -72,6 +72,8 @@ export const FreeUserListing = () => {
           />
         </div>
       )}
+
+      {/* <ResultPerPage totalItems={records.length} data={records} /> */}
 
       <div className="hidden md:block">
         <Pagination
