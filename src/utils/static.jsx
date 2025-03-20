@@ -152,8 +152,9 @@ export const Field = {
   otpField: "otpField",
 };
 
-export const DetailScreenStages = {
+export const AuthScreens = {
+  LANDING: "LANDING",
+  PROFILE_CREATION: "PROFILE_CREATION",
   NUMBER_STAGE: "NUMBER_STAGE",
   PHONE_VERIFICATION: "PHONE_VERIFICATION",
-  PROFILE_CREATION: "PROFILE_CREATION",
 };

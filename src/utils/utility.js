@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { DetailScreenStages } from "./static";
 
 export const combineClasses = (defaultClasses, className = "") => {
   if (!className) return defaultClasses;
@@ -26,33 +25,10 @@ export const combineClasses = (defaultClasses, className = "") => {
   return [...defaultSet, ...customSet].join(" ");
 };
 
-export const conditionHandlerLogin = (response, connect = false) => {
+export const conditionHandlerLogin = () => {
   const navigate = useNavigate();
 
-  if (!connect) {
-    if (!response?.data?.data?.User?.isEmailVerified) {
-      navigate("/login-success");
-    } else if (!response?.data?.data?.User?.isProfileComplete) {
-      navigate("/profile");
-    } else if (
-      staticEnums["User"]["role"][response?.data?.data?.User?.role] === 1 &&
-      !response?.data?.data?.User?.plan?.id
-    ) {
-      navigate("/plan");
-    } else {
-      if (staticEnums["User"]["role"][response?.data?.data?.User?.role] === 0) {
-        navigate("/admin/dashboard");
-      } else if (
-        staticEnums["User"]["role"][response?.data?.data?.User?.role] === 3
-      ) {
-        navigate("/agent/dashboard");
-      } else {
-        navigate("/dashboard");
-      }
-    }
-  } else {
-    navigate("/dashboard");
-  }
+  navigate("/dashboard?status=ref-guide");
 };
 
 export function setErrors(setError, errors, translate) {
@@ -159,23 +135,23 @@ export const scrollToTop = () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 };
 
-export const getNextFormStage = (current) => {
-  const stages = Object?.values(DetailScreenStages);
-  const currentIndex = stages.indexOf(current);
-  if (currentIndex !== -1 && currentIndex < stages.length - 1) {
-    return stages[currentIndex + 1];
-  }
-  return null;
-};
+// export const getNextFormStage = (current) => {
+//   const stages = Object?.values(DetailScreenStages);
+//   const currentIndex = stages.indexOf(current);
+//   if (currentIndex !== -1 && currentIndex < stages.length - 1) {
+//     return stages[currentIndex + 1];
+//   }
+//   return null;
+// };
 
-export const getBackFormStage = (current) => {
-  const stages = Object.values(DetailScreenStages);
-  const currentIndex = stages.indexOf(current);
-  if (currentIndex !== -1 && currentIndex > 0) {
-    return stages[currentIndex - 1];
-  }
-  return null;
-};
+// export const getBackFormStage = (current) => {
+//   const stages = Object.values(DetailScreenStages);
+//   const currentIndex = stages.indexOf(current);
+//   if (currentIndex !== -1 && currentIndex > 0) {
+//     return stages[currentIndex - 1];
+//   }
+//   return null;
+// };
 
 export function returnStep(
   data,
@@ -184,7 +160,7 @@ export function returnStep(
   currentFormStage,
   nextFormHandler
 ) {
-  const navigate = useNavigate(); // Replaces Next.js router
+  const navigate = useNavigate();
 
   if (currentFormStage === DetailScreensStages.CompanyDetails) {
     return updateProfileStep1({

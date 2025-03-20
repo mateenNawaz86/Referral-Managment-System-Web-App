@@ -1,9 +1,10 @@
 import { Form } from "../../../base-component/form/form";
 import { BackIcon } from "../../../assets/svgs/components/back-icon";
-import { useLogin } from "../../../hooks/auth/useLogin";
+import { usePhoneVerification } from "../../../hooks/auth/usePhoneVerification";
 
 export const PhoneVarification = () => {
-  const { handleSubmit, errors, fields, onSubmit } = useLogin();
+  const { handleSubmit, errors, fields, onSubmit } = usePhoneVerification();
+
   return (
     <div className="md:border md:border-[#cccccc] md:rounded-[12px] bg-white p-[22px] md:py-[60px] md:px-[130px] md:w-[790px]">
       <span className="md:hidden mt-3">

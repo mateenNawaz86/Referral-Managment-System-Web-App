@@ -6,9 +6,8 @@ export const LoginContactFormFields = (register, loading, control) => {
       containerClass: "mb-2",
       field: {
         type: Field.phone,
-        id: "CONTACT_NUMBER",
-        name: "CONTACT_NUMBER",
-        // value: user?.company?.mobileNumber,
+        id: "phoneNo",
+        name: "phoneNo",
         control,
         className: "!px-4 h-[42px]",
       },
@@ -40,7 +39,6 @@ export const PhoneVarificationFormFields = (register, loading, control) => {
         name: "OTP",
         // value: user?.company?.mobileNumber,
         control,
-        className: "",
       },
     },
     {

@@ -1,21 +1,15 @@
 import axios from "axios";
-import { getRefreshToken, getToken, logout } from "../utils/auth";
+import { logout } from "../utils/auth";
 
 const API_DOMAIN = import.meta.env.VITE_API_DOMAIN;
 
-export const BASEURL = API_DOMAIN + "/api";
+export const BASEURL = API_DOMAIN + "api";
 
 export async function getApiRequestHeader() {
-  // const [authToken, refreshToken] = await Promise.all([
-  //   getToken(),
-  //   getRefreshToken(),
-  // ]);
   return {
-    Accept: "application/ecmascript",
+    Accept: "application/json",
     "Content-Type": "application/json",
     "Access-Control-Allow-Origin": "*",
-    // accessToken: authToken,
-    // refreshToken: refreshToken,
   };
 }
 

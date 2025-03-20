@@ -17,6 +17,7 @@
     "axios": "^1.8.1",
     "framer-motion": "^12.4.10",
     "js-cookie": "^3.0.5",
+    "libphonenumber-js": "^1.12.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.2",
