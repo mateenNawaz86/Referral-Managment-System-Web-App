@@ -1,4 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   loading: false,
@@ -7,6 +8,24 @@ const initialState = {
     data: null,
   },
 };
+
+const BASEURL = "https://apis.famocare.com/api";
+export const uploadFile = createAsyncThunk(
+  "file/upload",
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(BASEURL + "/upload/image", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      return response?.data?.data.imageUrl;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || error.message);
+    }
+  }
+);
 
 const globalSlice = createSlice({
   name: "global",

@@ -1,23 +1,21 @@
 import axios from "axios";
 import { getRefreshToken, getToken, logout } from "../utils/auth";
 
-const API_DOMAIN = "http://localhost:3000";
+const API_DOMAIN = import.meta.env.VITE_API_DOMAIN;
 
 export const BASEURL = API_DOMAIN + "/api";
 
-export const TAX_PERCENTAGE = "8.1";
 export async function getApiRequestHeader() {
-  const [authToken, refreshToken] = await Promise.all([
-    getToken(),
-    getRefreshToken(),
-  ]);
+  // const [authToken, refreshToken] = await Promise.all([
+  //   getToken(),
+  //   getRefreshToken(),
+  // ]);
   return {
-    Accept: "application/json",
+    Accept: "application/ecmascript",
     "Content-Type": "application/json",
     "Access-Control-Allow-Origin": "*",
-    accessToken: authToken,
-    refreshToken: refreshToken,
-    lang: JSON.parse(localStorage.getItem("locale")),
+    // accessToken: authToken,
+    // refreshToken: refreshToken,
   };
 }
 

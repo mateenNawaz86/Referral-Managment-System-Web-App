@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import edit_circle from "../../../../assets/svgs/edit_circle.svg";
 import profileDummy from "../../../../assets/svgs/profile_dummy.svg";
 import { combineClasses } from "../../../../utils/utility";
+import { uploadFile } from "../../../../api/slices/globalSlice/global";
 
 export const ProfileUpload = ({
   id,
@@ -37,11 +38,19 @@ export const ProfileUpload = ({
       const imageUrl = URL.createObjectURL(file);
       setPreviewImage(imageUrl);
 
-      // Upload file logic (Uncomment when using Redux)
-      // const formData = new FormData();
-      // formData.append("file", file);
-      // const res = await dispatch(uploadFileToFirebase(formData));
-      // field.onChange(res?.payload);
+      const formData = new FormData();
+      formData.append("image", file);
+
+      try {
+        const res = await dispatch(uploadFile(formData));
+
+        if (res.payload) {
+          field.onChange(res.payload);
+          setPreviewImage(res.payload);
+        }
+      } catch (error) {
+        console.error("Upload failed:", error);
+      }
     }
   };
 
@@ -59,7 +68,7 @@ export const ProfileUpload = ({
               data={previewImage}
               width={160}
               height={160}
-              className="h-[160px] w-[160px]"
+              className="h-[160px] w-[160px] rounded-full object-cover"
             />
           ) : (
             <img
@@ -67,7 +76,7 @@ export const ProfileUpload = ({
               width={160}
               height={160}
               alt="Uploaded Preview"
-              className="h-[160px] w-[160px]"
+              className="h-[160px] w-[160px] rounded-full object-cover"
             />
           )}
 

@@ -1,11 +1,14 @@
-import { useState } from "react";
 import { SelectBox } from "./custom-select";
+import { Controller } from "react-hook-form";
 
 export const SelectField = ({
   id,
   options,
-  value = "",
+  value: defaultValue,
   svg,
+  name,
+  control,
+  trigger,
   onItemChange,
   className,
   disabled,
@@ -13,27 +16,28 @@ export const SelectField = ({
   isLocalCustomer,
   onSearchCustomer,
 }) => {
-  const [selectedValue, setSelectedValue] = useState(value);
-
-  const handleSelectChange = (newValue) => {
-    setSelectedValue(newValue);
-    if (onItemChange) {
-      onItemChange(newValue, fieldIndex);
-    }
-  };
-
   return (
-    <SelectBox
-      id={id}
-      svg={svg}
-      onItemChange={handleSelectChange}
-      options={options}
-      value={selectedValue}
-      className={className}
-      disabled={disabled}
-      fieldIndex={fieldIndex}
-      isLocalCustomer={isLocalCustomer}
-      onSearchCustomer={onSearchCustomer}
+    <Controller
+      name={name}
+      control={control}
+      defaultValue={defaultValue}
+      render={({ field, fieldState: { error } }) => (
+        <SelectBox
+          id={id}
+          svg={svg}
+          onItemChange={onItemChange}
+          options={options}
+          value={defaultValue || ""}
+          field={field}
+          trigger={trigger}
+          className={className}
+          disabled={disabled}
+          key={id}
+          fieldIndex={fieldIndex}
+          isLocalCustomer={isLocalCustomer}
+          onSearchCustomer={onSearchCustomer}
+        />
+      )}
     />
   );
 };

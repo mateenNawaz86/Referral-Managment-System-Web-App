@@ -9,9 +9,9 @@ export const phoneVarification = {
 };
 
 export const signup = {
-  PROFILE: "PROFILE",
-  NAME: "NAME",
-  COUNTRY: "COUNTRY",
+  imageUrl: "imageUrl",
+  name: "name",
+  country: "country",
 };
 
 export const generateLoginValidationSchema = () => {
@@ -32,8 +32,8 @@ export const generateOtpValidationSchema = () => {
 
 export const generateSignUpValidationSchema = () => {
   return yup.object().shape({
-    [signup.PROFILE]: yup.string().required("validationMessages.required"),
-    [signup.NAME]: yup.string().required("validationMessages.required"),
-    [signup.COUNTRY]: yup.string().required("validationMessages.required"),
+    [signup.imageUrl]: yup.string().required("validationMessages.required"),
+    [signup.name]: yup.string().required("validationMessages.required"),
+    [signup.country]: yup.string().required("validationMessages.required"),
   });
 };

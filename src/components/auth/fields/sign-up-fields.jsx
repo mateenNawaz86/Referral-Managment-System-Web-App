@@ -7,8 +7,8 @@ export const SignUpFormFields = (register, loading, control) => {
       field: {
         type: Field.profileUploadField,
         className: "!h-[165px] !w-[165px] !rounded-full border border-primary",
-        id: "profile",
-        name: "profile",
+        id: "imageUrl",
+        name: "imageUrl",
         control,
       },
     },
@@ -27,8 +27,8 @@ export const SignUpFormFields = (register, loading, control) => {
       containerClass: "my-[22px]",
       field: {
         type: Field.input,
-        id: "fullName",
-        name: "fullName",
+        id: "name",
+        name: "name",
         inputType: "text",
         placeholder: "Enter Your Name",
         className: "w-full pl-[18px]",
@@ -40,11 +40,10 @@ export const SignUpFormFields = (register, loading, control) => {
       field: {
         className: "pl-4 !border-[#BFBFBF]",
         type: Field.select,
-        id: `company.address.city`,
-        name: `company.address.city`,
+        id: `country`,
+        name: `country`,
         options: [{ label: "Countries", value: "Countries" }],
         control,
-        // value: Object.keys(staticEnums.Country)[0],
       },
     },
 

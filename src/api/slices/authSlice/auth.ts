@@ -37,52 +37,19 @@ export const loginUser: AsyncThunk<boolean, object, object> | any =
     }
   });
 
-export const resetPassword: AsyncThunk<boolean, object, object> | any =
-  createAsyncThunk("reset/user", async (args, thunkApi) => {
-    const { router, data } = args as any;
-    try {
-      const response = await apiServices.resetPassword({
-        otp: router.asPath?.split("=")[1],
-        data,
-      });
-
-      router.pathname = "/login";
-      updateQuery(router, "en");
-
-      return true;
-    } catch (e: any) {
-      thunkApi.dispatch(setErrorMessage(e?.data?.message));
-
-      return false;
-    }
-  });
-
-export const forgotPassword: AsyncThunk<boolean, object, object> | any =
-  createAsyncThunk("forgot/user", async (args, thunkApi) => {
-    const { translate, data, setError } = args as any;
-    try {
-      await apiServices.forgotPassword(data);
-      return true;
-    } catch (e: any) {
-      setErrors(setError, e?.data.data, translate);
-      thunkApi.dispatch(setErrorMessage(e?.data?.message));
-
-      return false;
-    }
-  });
-
 export const signUp: AsyncThunk<boolean, object, object> | any =
   createAsyncThunk("signup/user", async (args, thunkApi) => {
-    const { data, router, setError, translate } = args as any;
+    const { data, navigate, setError } = args as any;
     try {
       const response = await apiServices.singUp(data);
+      console.log(response, "response");
+
       thunkApi.dispatch(setErrorMessage(null));
-      router.pathname = "/login-success";
-      updateQuery(router, router.locale as string);
+      navigate("/login");
       saveUser(response.data.data.User);
       return response;
     } catch (e: any) {
-      setErrors(setError, e?.data.data, translate);
+      setErrors(setError, e?.data.data);
       thunkApi.dispatch(setErrorMessage(e?.data?.data?.message));
       return e;
     }
@@ -120,15 +87,6 @@ const authSlice = createSlice({
       if (action?.payload) state.user = action.payload.user;
     });
     builder.addCase(signUp.rejected, (state) => {
-      state.loading = false;
-    });
-    builder.addCase(forgotPassword.pending, (state) => {
-      state.loading = true;
-    });
-    builder.addCase(forgotPassword.fulfilled, (state, action) => {
-      state.loading = false;
-    });
-    builder.addCase(forgotPassword.rejected, (state) => {
       state.loading = false;
     });
   },
