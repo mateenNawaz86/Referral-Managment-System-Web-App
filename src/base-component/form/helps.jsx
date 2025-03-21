@@ -35,7 +35,7 @@ export const getTypedFieldComponent = (type, props, error, errors) => {
   return Component ? (
     <>
       <Component {...props} errors={errors} />
-      {error && <span className="mt-[3px] text-red text-sm">{error}</span>}
+      {error && <span className="mt-[3px] text-red-500 text-sm">{error}</span>}
     </>
   ) : null;
 };

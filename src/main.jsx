@@ -8,10 +8,12 @@ import { BrowserRouter } from "react-router-dom";
 import { ModalManager } from "./components/modalManager/modal-manager.jsx";
 
 createRoot(document.getElementById("root")).render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <ModalManager />
-      <App />
-    </BrowserRouter>
-  </Provider>
+  <React.StrictMode>
+    <Provider store={store}>
+      <BrowserRouter>
+        <ModalManager />
+        <App />
+      </BrowserRouter>
+    </Provider>
+  </React.StrictMode>
 );

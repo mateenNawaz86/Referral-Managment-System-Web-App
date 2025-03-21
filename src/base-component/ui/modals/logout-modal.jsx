@@ -2,8 +2,18 @@ import React from "react";
 import { BaseModal } from "./base-modal";
 import logoutIcon from "../../../assets/svgs/logout.svg";
 import { BaseButton } from "../button/base-button";
+import { logout } from "../../../utils/auth";
+import { useNavigate } from "react-router-dom";
 
 export const LogoutModal = ({ onClose }) => {
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await dispatch(logoutUser());
+    logout();
+    navigate("/");
+  };
+
   return (
     <BaseModal
       onClose={onClose}
@@ -22,6 +32,7 @@ export const LogoutModal = ({ onClose }) => {
 
         <BaseButton
           text="Yes, Logout"
+          onClick={handleLogout}
           containerClassName="px-5 md:py-[18px] md:px-[66px] text-[16px] md:text-[26px] font-extrabold rounded-[10px] text-white"
         />
       </div>

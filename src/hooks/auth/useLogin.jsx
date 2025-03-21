@@ -8,7 +8,9 @@ import { parsePhoneNumberFromString } from "libphonenumber-js";
 
 export const useLogin = ({ onLoginSuccess, onSignUp }) => {
   const dispatch = useDispatch();
-  const { loading } = useSelector((state) => state.auth);
+  const { loading, user } = useSelector((state) => state.auth);
+
+  console.log(user, "loging user");
 
   const schema = generateLoginValidationSchema();
 

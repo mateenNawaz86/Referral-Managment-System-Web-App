@@ -25,13 +25,21 @@ export const combineClasses = (defaultClasses, className = "") => {
   return [...defaultSet, ...customSet].join(" ");
 };
 
+export function formatStrings(str, replaceValues) {
+  let formattedString = str;
+  for (const [index, value] of replaceValues.entries()) {
+    formattedString = formattedString.replace(`{${index}}`, value);
+  }
+  return formattedString;
+}
+
 export const conditionHandlerLogin = () => {
   const navigate = useNavigate();
 
   navigate("/dashboard?status=ref-guide");
 };
 
-export function setErrors(setError, errors, translate) {
+export function setErrors(setError, errors) {
   if (!errors) return;
   let newObj = {};
 
@@ -55,12 +63,17 @@ export function setErrors(setError, errors, translate) {
     } else {
       setError(key, {
         message: formatStrings(
-          translate(`validationMessages.${value?.split(":")[0]}`),
+          `${value?.split(":")[0]}`,
           value?.split(":").slice(1)
         ),
       });
     }
   });
+}
+
+export function setErrorMessage(error) {
+  if (!error) return "";
+  return `${error}`;
 }
 
 export const getButtonClass = (condition, activeClass, inactiveClass = "") => {
@@ -134,24 +147,6 @@ export const findErrorMessage = (errors, data = [], fieldName) => {
 export const scrollToTop = () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 };
-
-// export const getNextFormStage = (current) => {
-//   const stages = Object?.values(DetailScreenStages);
-//   const currentIndex = stages.indexOf(current);
-//   if (currentIndex !== -1 && currentIndex < stages.length - 1) {
-//     return stages[currentIndex + 1];
-//   }
-//   return null;
-// };
-
-// export const getBackFormStage = (current) => {
-//   const stages = Object.values(DetailScreenStages);
-//   const currentIndex = stages.indexOf(current);
-//   if (currentIndex !== -1 && currentIndex > 0) {
-//     return stages[currentIndex - 1];
-//   }
-//   return null;
-// };
 
 export function returnStep(
   data,

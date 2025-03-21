@@ -11,6 +11,7 @@ import { RequestRedeemPage } from "./pages/requestRedeem";
 import { RedeemHistoryPage } from "./pages/redeemHistory";
 import { scrollToTop } from "./utils/utility";
 import { AuthPage } from "./pages/auth";
+import { ToastContainer } from "react-toastify";
 
 const App = () => {
   const location = useLocation();
@@ -33,6 +34,9 @@ const App = () => {
   return (
     <>
       {/* <RedirectToDashboard /> */}
+
+      <ToastContainer position="top-right" autoClose={3000} />
+
       <Routes>
         <Route path="/" element={<AuthPage />} />
         <Route path="/dashboard" element={<DashboardPage />} />

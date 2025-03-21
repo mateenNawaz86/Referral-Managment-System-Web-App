@@ -51,7 +51,12 @@ export const LoginContactFormFields = (register, loading, control) => {
   return formField;
 };
 
-export const PhoneVarificationFormFields = (register, loading, control) => {
+export const PhoneVarificationFormFields = (
+  register,
+  loading,
+  control,
+  onBack
+) => {
   let formField = [
     {
       containerClass: "mb-[35px]",
@@ -80,6 +85,7 @@ export const PhoneVarificationFormFields = (register, loading, control) => {
         id: "button",
         text: "RESEND",
         inputType: "button",
+        onClick: onBack,
         className: "bg-none w-fit hover:bg-none text-primary",
         loading,
       },

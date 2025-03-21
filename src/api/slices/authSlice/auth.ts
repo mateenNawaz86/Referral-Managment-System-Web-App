@@ -6,7 +6,7 @@ import {
 } from "@reduxjs/toolkit";
 import apiServices from "../../../services/requestHandler";
 import { setErrors } from "../../../utils/utility";
-// import { saveUser } from "../../../utils/auth";
+import { saveUser, setToken } from "../../../utils/auth";
 
 const initialState = {
   user: undefined,
@@ -22,9 +22,24 @@ export const logIn: AsyncThunk<boolean, object, object> | any =
 
     try {
       const response = await apiServices.login(data);
-      // saveUser(response?.data);
-      thunkApi.dispatch(setUser(response.data));
-      return response?.data;
+
+      const accessToken = response?.headers?.["Access-Token"];
+      const userData = response?.data;
+
+      if (accessToken) {
+        setToken(accessToken);
+      } else {
+        console.warn("No access token found in response headers");
+      }
+
+      if (userData) {
+        saveUser(userData);
+        thunkApi.dispatch(setUser(userData));
+      } else {
+        console.warn("No user data found in response");
+      }
+
+      return userData;
     } catch (e: any) {
       thunkApi.dispatch(setErrorMessage(e?.data?.message || "Login failed"));
       setErrors(setError, e?.data?.data || {});
@@ -45,6 +60,16 @@ export const signUp: AsyncThunk<boolean, object, object> | any =
       setErrors(setError, e?.data.data);
       thunkApi.dispatch(setErrorMessage(e?.data?.data?.message));
       return e;
+    }
+  });
+
+export const logout: AsyncThunk<boolean, object, object> | any =
+  createAsyncThunk("user/logout", async (data, thunkApi) => {
+    try {
+      apiServices.logoutUser({ data });
+      return true;
+    } catch (e: any) {
+      return false;
     }
   });
 

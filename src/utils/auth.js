@@ -4,25 +4,33 @@ import localStore from "./localStore";
 export const getToken = () => Cookies.get("referralToken");
 export const getRefreshToken = () => Cookies.get("referralRefreshToken");
 
-// export const setToken = (token) =>
-//   setCookie("referralToken", token, {
-//     httpOnly: false,
-//     sameSite: true,
-//     secure: false,
-//   });
+export const setToken = (token) =>
+  Cookies.set("referralToken", token, {
+    httpOnly: false,
+    sameSite: true,
+    secure: false,
+  });
 
-// export const setRefreshToken = (token) =>
-//   setCookie("referralRefreshToken", token, {
-//     httpOnly: false,
-//     sameSite: true,
-//     secure: false,
-//   });
+export const getUser = () => {
+  const user = Cookies.get("referralUser");
+  if (!user) return null;
+  try {
+    return JSON.parse(user);
+  } catch (error) {
+    console.error("Error parsing referralUser cookie:", error);
+    return null;
+  }
+};
 
-export const setUserRole = (token) =>
-  localStore.store_data("referralUserRole", token);
-
-export const getUser = () => Cookies.get("referralUser");
-// export const saveUser = (user) => setCookie("referralUser", user);
+export const saveUser = (user) => {
+  if (user) {
+    Cookies.set("referralUser", JSON.stringify(user), {
+      httpOnly: false,
+      sameSite: true,
+      secure: false,
+    });
+  }
+};
 
 export const logout = () => {
   Cookies.remove("referralToken");
@@ -42,12 +50,13 @@ class Auth {
   }
 
   setUserFromLocal() {
-    const user = getToken();
-    this.user = user ? JSON.parse(user) : {};
+    const user = getUser();
+    this.user = user || {};
   }
 
   set setUser(user) {
     this.user = user;
+    saveUser(user);
   }
 
   get getUser() {

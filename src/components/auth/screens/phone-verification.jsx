@@ -2,8 +2,11 @@ import { Form } from "../../../base-component/form/form";
 import { BackIcon } from "../../../assets/svgs/components/back-icon";
 import { usePhoneVerification } from "../../../hooks/auth/usePhoneVerification";
 
-export const PhoneVarification = ({ onBack,onSignUp }) => {
-  const { handleSubmit, errors, fields, onSubmit } = usePhoneVerification(onSignUp);
+export const PhoneVarification = ({ onBack, onSignUp }) => {
+  const { handleSubmit, errors, fields, onSubmit } = usePhoneVerification({
+    onSignUp,
+    onBack,
+  });
 
   return (
     <div className="md:border md:border-[#cccccc] md:rounded-[12px] bg-white p-[22px] md:py-[60px] md:px-[130px] md:w-[790px]">
