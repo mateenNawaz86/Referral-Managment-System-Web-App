@@ -4,31 +4,25 @@ import localStore from "./localStore";
 export const getToken = () => Cookies.get("referralToken");
 export const getRefreshToken = () => Cookies.get("referralRefreshToken");
 
-export const setToken = (token) =>
-  setCookie("buroToken", token, {
-    httpOnly: false,
-    sameSite: true,
-    secure: false,
-  });
+// export const setToken = (token) =>
+//   setCookie("referralToken", token, {
+//     httpOnly: false,
+//     sameSite: true,
+//     secure: false,
+//   });
 
-export const setRefreshToken = (token) =>
-  setCookie("buroRefreshToken", token, {
-    httpOnly: false,
-    sameSite: true,
-    secure: false,
-  });
+// export const setRefreshToken = (token) =>
+//   setCookie("referralRefreshToken", token, {
+//     httpOnly: false,
+//     sameSite: true,
+//     secure: false,
+//   });
 
 export const setUserRole = (token) =>
   localStore.store_data("referralUserRole", token);
 
 export const getUser = () => Cookies.get("referralUser");
-
-export const saveUser = (user) =>
-  Cookies.set("referralUser", user, {
-    expires: 7,
-    sameSite: "Strict",
-    secure: false,
-  });
+// export const saveUser = (user) => setCookie("referralUser", user);
 
 export const logout = () => {
   Cookies.remove("referralToken");
@@ -67,37 +61,6 @@ class Auth {
 }
 
 export const authClass = new Auth();
-
-export const envCheck = () => {
-  const origin = window.location.origin;
-  if (
-    origin === "https://ewvillabd.com" ||
-    origin === "https://www.ewvillabd.com" ||
-    origin === "www.ewvillabd.com"
-  ) {
-    return "PROD";
-  } else if (
-    origin === "https://ewvm.herokuapp.com" ||
-    origin === "https://www.ewvm.herokuapp.com" ||
-    origin === "www.ewvm.herokuapp.com/"
-  ) {
-    return "TEST";
-  } else {
-    return "DEV";
-  }
-};
-
-export const userRole = {
-  Admin: 0,
-  personal: 1,
-  business: 2,
-};
-
-export const userRoleObject = {
-  Admin: 0,
-  Individual: 1,
-  Business: 2,
-};
 
 export function getKeyByValue(object, value) {
   return Object.keys(object).find((key) => object[key] === value);

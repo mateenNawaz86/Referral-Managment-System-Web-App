@@ -2,8 +2,11 @@ import logo from "../../../assets/svgs/logo.svg";
 import { Form } from "../../../base-component/form/form";
 import { useLogin } from "../../../hooks/auth/useLogin";
 
-export const Login = ({onLoginSuccess}) => {
-  const { handleSubmit, errors, fields, onSubmit } = useLogin(onLoginSuccess);
+export const Login = ({ onLoginSuccess, onSignUp }) => {
+  const { handleSubmit, errors, fields, onSubmit } = useLogin({
+    onLoginSuccess,
+    onSignUp,
+  });
   return (
     <div className="bg-white rounded-[12px] border border-[#CFD6E9] p-[22px] md:px-[140px] md:py-[60px]">
       <div className="flex items-center flex-col">

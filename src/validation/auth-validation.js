@@ -5,7 +5,7 @@ export const login = {
 };
 
 export const phoneVarification = {
-  OTP_CODE: "OTP_CODE",
+  otp: "otp",
 };
 
 export const signup = {
@@ -22,9 +22,7 @@ export const generateLoginValidationSchema = () => {
 
 export const generateOtpValidationSchema = () => {
   return yup.object().shape({
-    [phoneVarification.OTP_CODE]: yup
-      .string()
-      .required("This field is required"),
+    [phoneVarification.otp]: yup.string().required("This field is required"),
   });
 };
 

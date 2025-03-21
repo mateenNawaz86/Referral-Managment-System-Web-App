@@ -5,8 +5,8 @@ import {
   createSlice,
 } from "@reduxjs/toolkit";
 import apiServices from "../../../services/requestHandler";
-import { conditionHandlerLogin, setErrors } from "../../../utils/utility";
-import { saveUser, setToken } from "../../../utils/auth";
+import { setErrors } from "../../../utils/utility";
+// import { saveUser } from "../../../utils/auth";
 
 const initialState = {
   user: undefined,
@@ -22,8 +22,8 @@ export const logIn: AsyncThunk<boolean, object, object> | any =
 
     try {
       const response = await apiServices.login(data);
-
-      // conditionHandlerLogin();
+      // saveUser(response?.data);
+      thunkApi.dispatch(setUser(response.data));
       return response?.data;
     } catch (e: any) {
       thunkApi.dispatch(setErrorMessage(e?.data?.message || "Login failed"));
@@ -37,11 +37,10 @@ export const signUp: AsyncThunk<boolean, object, object> | any =
     const { data, navigate, setError } = args as any;
     try {
       const response = await apiServices.singUp(data);
-      console.log(response, "response");
       thunkApi.dispatch(setErrorMessage(null));
       navigate("/login");
-      saveUser(response.data.data.User);
-      return response;
+      // saveUser(response.data);
+      return response.data;
     } catch (e: any) {
       setErrors(setError, e?.data.data);
       thunkApi.dispatch(setErrorMessage(e?.data?.data?.message));

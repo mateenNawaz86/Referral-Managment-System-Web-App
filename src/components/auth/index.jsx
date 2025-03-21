@@ -1,8 +1,8 @@
 import { SignUp } from "./screens/sign-up";
+import { useEffect, useState } from "react";
 import { Login } from "./screens/login-screen";
 import { LandingPage } from "./screens/landing-page";
 import { PhoneVarification } from "./screens/phone-verification";
-import { useEffect, useState } from "react";
 
 export const Auth = () => {
   const [currentScreen, setCurrentScreen] = useState("landing");
@@ -27,11 +27,17 @@ export const Auth = () => {
     setCurrentScreen("login");
   };
 
+  const handleSignUp = () => {
+    setCurrentScreen("signup");
+  };
+
   const screens = {
     landing: <LandingPage />,
     signup: <SignUp onSignupSuccess={handleSignupSuccess} />,
-    login: <Login onLoginSuccess={handleLoginSuccess} />,
-    phone: <PhoneVarification onBack={handleBack} />,
+    login: (
+      <Login onLoginSuccess={handleLoginSuccess} onSignUp={handleSignUp} />
+    ),
+    phone: <PhoneVarification onBack={handleBack} onSignUp={handleSignUp}/>,
   };
 
   return (

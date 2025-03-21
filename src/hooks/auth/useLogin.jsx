@@ -6,7 +6,7 @@ import { LoginContactFormFields } from "../../components/auth/fields/login-field
 import { logIn } from "../../api/slices/authSlice/auth";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
 
-export const useLogin = () => {
+export const useLogin = ({ onLoginSuccess, onSignUp }) => {
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.auth);
 
@@ -24,36 +24,6 @@ export const useLogin = () => {
 
   const fields = LoginContactFormFields(register, loading, control);
 
-  // const onSubmit = async (data) => {
-  //   const phoneNumber = parsePhoneNumberFromString(data?.phoneNo);
-
-  //   if (!phoneNumber || !phoneNumber.isValid()) {
-  //     throw new Error(
-  //       "Invalid phone number. Please check the number and try again."
-  //     );
-  //   }
-
-  //   const countryCode = `+${phoneNumber.countryCallingCode}`;
-  //   const nationalNumber = phoneNumber.nationalNumber;
-
-  //   const formattedData = {
-  //     ...data,
-  //     phoneCode: countryCode,
-  //     phoneNo: nationalNumber,
-  //   };
-
-  //   delete data?.phoneNo;
-
-  //   try {
-  //     const res = await dispatch(logIn({ data: formattedData, setError }));
-
-  //     console.log(res.data, "res");
-  //   } catch (error) {
-  //     console.error("Login error:", error);
-  //     throw error;
-  //   }
-  // };
-
   const onSubmit = async (data) => {
     const phoneNumber = parsePhoneNumberFromString(data?.phoneNo);
 
@@ -66,20 +36,25 @@ export const useLogin = () => {
     const countryCode = `+${phoneNumber.countryCallingCode}`;
     const nationalNumber = phoneNumber.nationalNumber;
 
-    const formattedData = {
-      ...data,
-      phoneCode: countryCode,
-      phoneNo: nationalNumber,
-    };
+    const formData = new FormData();
+    formData.append("phoneCode", countryCode);
+    formData.append("phoneNo", nationalNumber);
 
-    delete data?.phoneNo;
+    Object?.keys(data)?.forEach((key) => {
+      if (key !== "phoneNo") {
+        formData.append(key, data[key]);
+      }
+    });
 
     try {
-      const res = await dispatch(logIn({ data: formattedData, setError }));
-      if (res.meta.requestStatus === "fulfilled") {
-        console.log(res.payload, "res"); // Use res.payload for the fulfilled value
+      const res = await dispatch(logIn({ data: formData, setError }));
+
+      const isReqistered = res?.payload?.data?.isRegistered;
+
+      if (isReqistered) {
+        onLoginSuccess();
       } else {
-        console.log("Login failed:", res);
+        onSignUp();
       }
     } catch (error) {
       console.error("Login error:", error);

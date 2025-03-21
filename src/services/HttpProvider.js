@@ -5,11 +5,15 @@ const API_DOMAIN = import.meta.env.VITE_API_DOMAIN;
 
 export const BASEURL = API_DOMAIN + "api";
 
-export async function getApiRequestHeader() {
+export async function getApiRequestHeader(data) {
+  if (data instanceof FormData) {
+    return {
+      Accept: "application/json",
+    };
+  }
   return {
     Accept: "application/json",
     "Content-Type": "application/json",
-    // "Access-Control-Allow-Origin": "*",
   };
 }
 
@@ -19,14 +23,14 @@ const instance = axios.create({
   withCredentials: false,
 });
 
-export async function updateHeaders() {
-  const header = await getApiRequestHeader();
+export async function updateHeaders(data) {
+  const header = await getApiRequestHeader(data);
   instance.defaults.headers = header;
 }
 
 export async function request({ method, url, data, headers }) {
   if (headers === undefined) {
-    await updateHeaders();
+    await updateHeaders(data);
   }
 
   const promise = instance[method](url, data);
@@ -34,9 +38,6 @@ export async function request({ method, url, data, headers }) {
   try {
     response = await promise;
   } catch (error) {
-    console.log("API Error:", error);
-    console.log("Error Response:", error.response);
-
     showError(`${error?.response?.data?.message}`);
 
     if (error?.response?.data?.code === 401) {

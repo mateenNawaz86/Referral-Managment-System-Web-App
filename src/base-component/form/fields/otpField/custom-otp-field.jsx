@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 export const CustomOtpField = ({
   length = 6,
@@ -10,6 +10,19 @@ export const CustomOtpField = ({
 }) => {
   const [otp, setOtp] = useState(new Array(length).fill(""));
   const inputRefs = useRef(new Array(length).fill(null));
+
+  useEffect(() => {
+    if (field.value) {
+      const otpArray = field.value.split("").slice(0, length); 
+      const newOtp = new Array(length)?.fill("");
+      otpArray?.forEach((digit, index) => {
+        newOtp[index] = digit; 
+      });
+      setOtp(newOtp);
+    } else {
+      setOtp(new Array(length).fill("")); 
+    }
+  }, [field.value, length]);
 
   const handleChange = (index, e) => {
     const value = e.target.value;
@@ -38,7 +51,7 @@ export const CustomOtpField = ({
 
   return (
     <div className={`flex justify-between md:gap-x-[15px] ${className}`}>
-      {otp.map((digit, index) => (
+      {otp?.map((digit, index) => (
         <input
           key={index}
           ref={(el) => (inputRefs.current[index] = el)}
