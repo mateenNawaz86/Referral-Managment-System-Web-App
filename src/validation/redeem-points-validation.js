@@ -8,6 +8,6 @@ export const generateRedeemPointsValidationSchema = () => {
   return yup.object().shape({
     [redeemPoints.REDEEM_POINTS]: yup
       .string()
-      .required("validationMessages.required"),
+      .required("This field is required"),
   });
 };

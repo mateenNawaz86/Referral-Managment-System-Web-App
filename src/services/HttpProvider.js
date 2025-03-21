@@ -9,7 +9,7 @@ export async function getApiRequestHeader() {
   return {
     Accept: "application/json",
     "Content-Type": "application/json",
-    "Access-Control-Allow-Origin": "*",
+    // "Access-Control-Allow-Origin": "*",
   };
 }
 
@@ -17,7 +17,6 @@ const instance = axios.create({
   baseURL: BASEURL,
   timeout: 60000,
   withCredentials: false,
-  dataType: "jsonp",
 });
 
 export async function updateHeaders() {
@@ -35,15 +34,16 @@ export async function request({ method, url, data, headers }) {
   try {
     response = await promise;
   } catch (error) {
-    showError(
-      translate(`validationMessages.${error?.response?.data?.message}`)
-    );
+    console.log("API Error:", error);
+    console.log("Error Response:", error.response);
+
+    showError(`${error?.response?.data?.message}`);
 
     if (error?.response?.data?.code === 401) {
       logout();
       window.location = "/";
     }
-    throw error.response;
+    throw error;
   }
   return response;
 }
@@ -58,9 +58,7 @@ export async function deleteRequestWithBody({ method, url, data, headers }) {
   try {
     response = await promise;
   } catch (error) {
-    showError(
-      translate(`validationMessages.${error?.response?.data?.message}`)
-    );
+    showError(`${error?.response?.data?.message}`);
 
     if (error?.response?.data?.code === 401) {
       logout();
@@ -80,9 +78,7 @@ export async function newRequest({ method, url, data, headers }) {
   try {
     response = await promise;
   } catch (error) {
-    showError(
-      translate(`validationMessages.${error?.response?.data?.message}`)
-    );
+    showError(`${error?.response?.data?.message}`);
 
     if (error?.response?.data?.code === 401) {
       logout();

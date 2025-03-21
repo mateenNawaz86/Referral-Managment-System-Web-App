@@ -16,7 +16,7 @@ export const signup = {
 
 export const generateLoginValidationSchema = () => {
   return yup.object().shape({
-    [login.phoneNo]: yup.string().required("validationMessages.required"),
+    [login.phoneNo]: yup.string().required("This field is required"),
   });
 };
 
@@ -24,14 +24,14 @@ export const generateOtpValidationSchema = () => {
   return yup.object().shape({
     [phoneVarification.OTP_CODE]: yup
       .string()
-      .required("validationMessages.required"),
+      .required("This field is required"),
   });
 };
 
 export const generateSignUpValidationSchema = () => {
   return yup.object().shape({
-    [signup.imageUrl]: yup.string().required("validationMessages.required"),
-    [signup.name]: yup.string().required("validationMessages.required"),
-    [signup.country]: yup.string().required("validationMessages.required"),
+    [signup.imageUrl]: yup.string().required("This field is required"),
+    [signup.name]: yup.string().required("This field is required"),
+    [signup.country]: yup.string().required("This field is required"),
   });
 };

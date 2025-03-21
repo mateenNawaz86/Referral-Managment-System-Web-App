@@ -1,5 +1,5 @@
 import { combineClasses } from "../../../utils/utility";
-import { Loader } from "../loader";
+import Loader from "../loadingEffect/loader";
 
 export const Button = ({
   inputType,
@@ -31,13 +31,13 @@ export const Button = ({
       id={id}
       type={inputType}
       className={`hover:bg-buttonHover hover:text-white text-dark ${
-        success ? "flex items-center gap-x-2" : ""
+        success && "flex items-center gap-x-2"
       } flex items-center justify-center ${classes}`}
       onClick={onClick}
       disabled={disabled}
     >
       {icon && <img src={icon} alt={iconAlt || "icon"} className="mr-1" />}
-      {success ? "Geändert" : text}
+      {success ? "Changed" : text}
     </button>
   );
 };

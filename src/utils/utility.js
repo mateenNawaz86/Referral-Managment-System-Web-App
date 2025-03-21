@@ -46,7 +46,7 @@ export function setErrors(setError, errors, translate) {
           newObj = {
             ...newObj,
             [index]: {
-              [newKey]: { message: translate(`validationMessages.${value1}`) },
+              [newKey]: { message: `${value1}` },
             },
           };
         });

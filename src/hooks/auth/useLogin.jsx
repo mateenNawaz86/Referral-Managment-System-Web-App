@@ -24,6 +24,36 @@ export const useLogin = () => {
 
   const fields = LoginContactFormFields(register, loading, control);
 
+  // const onSubmit = async (data) => {
+  //   const phoneNumber = parsePhoneNumberFromString(data?.phoneNo);
+
+  //   if (!phoneNumber || !phoneNumber.isValid()) {
+  //     throw new Error(
+  //       "Invalid phone number. Please check the number and try again."
+  //     );
+  //   }
+
+  //   const countryCode = `+${phoneNumber.countryCallingCode}`;
+  //   const nationalNumber = phoneNumber.nationalNumber;
+
+  //   const formattedData = {
+  //     ...data,
+  //     phoneCode: countryCode,
+  //     phoneNo: nationalNumber,
+  //   };
+
+  //   delete data?.phoneNo;
+
+  //   try {
+  //     const res = await dispatch(logIn({ data: formattedData, setError }));
+
+  //     console.log(res.data, "res");
+  //   } catch (error) {
+  //     console.error("Login error:", error);
+  //     throw error;
+  //   }
+  // };
+
   const onSubmit = async (data) => {
     const phoneNumber = parsePhoneNumberFromString(data?.phoneNo);
 
@@ -46,8 +76,11 @@ export const useLogin = () => {
 
     try {
       const res = await dispatch(logIn({ data: formattedData, setError }));
-
-      console.log(res.data, "res");
+      if (res.meta.requestStatus === "fulfilled") {
+        console.log(res.payload, "res"); // Use res.payload for the fulfilled value
+      } else {
+        console.log("Login failed:", res);
+      }
     } catch (error) {
       console.error("Login error:", error);
       throw error;

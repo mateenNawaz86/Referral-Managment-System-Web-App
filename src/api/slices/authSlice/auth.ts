@@ -26,9 +26,9 @@ export const logIn: AsyncThunk<boolean, object, object> | any =
       // conditionHandlerLogin();
       return response?.data;
     } catch (e: any) {
-      thunkApi.dispatch(setErrorMessage(e?.data?.message));
-      setErrors(setError, e?.data.data);
-      return false;
+      thunkApi.dispatch(setErrorMessage(e?.data?.message || "Login failed"));
+      setErrors(setError, e?.data?.data || {});
+      return thunkApi.rejectWithValue(e);
     }
   });
 
