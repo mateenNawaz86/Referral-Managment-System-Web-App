@@ -1,12 +1,14 @@
 import { useState, useEffect, useMemo } from "react";
 import { getPageFromURL } from "../../utils/utility";
-import { freeUserListing } from "../../api/slices/freeUserSlice/freeUser";
 import { useDispatch, useSelector } from "react-redux";
+import { readFreeUserListing } from "../../api/slices/freeUserSlice/freeUser";
 
 export const useFreeUser = () => {
   const dispatch = useDispatch();
-  const { freeUser, loading, error } = useSelector((state) => state.freeUser);
   const { user } = useSelector((state) => state.auth);
+  const [currentPageRows, setCurrentPageRows] = useState([]);
+  const [currentPage, setCurrentPage] = useState(getPageFromURL());
+  const { freeUser, loading } = useSelector((state) => state.freeUser);
 
   const dummyData = [
     { title: "Total Users", points: "45.50k" },
@@ -15,71 +17,69 @@ export const useFreeUser = () => {
     { title: "Revenue", points: "$78.6k" },
   ];
 
-  const records = [
-    {
-      username: "James Anderson",
-      date: "May 15 2024 11:35 PM",
-      status: "Free",
-    },
-    {
-      username: "Sophia Martinez",
-      date: "June 10 2024 09:20 AM",
-      status: "Subscribed",
-    },
-    {
-      username: "Michael Johnson",
-      date: "April 5 2024 03:45 PM",
-      status: "Trial",
-    },
-    {
-      username: "Emma Wilson",
-      date: "March 28 2024 07:10 AM",
-      status: "Cancelled",
-    },
-    {
-      username: "Daniel Brown",
-      date: "July 2 2024 05:50 PM",
-      status: "Subscribed",
-    },
-    {
-      username: "Olivia Davis",
-      date: "August 18 2024 02:30 PM",
-      status: "Free",
-    },
-    {
-      username: "William Taylor",
-      date: "September 25 2024 10:15 AM",
-      status: "Trial",
-    },
-    {
-      username: "Isabella Moore",
-      date: "October 12 2024 08:40 PM",
-      status: "Cancelled",
-    },
-    {
-      username: "Ethan Thomas",
-      date: "November 6 2024 06:25 AM",
-      status: "Subscribed",
-    },
-    {
-      username: "Ava Harris",
-      date: "December 30 2024 04:50 PM",
-      status: "Trial",
-    },
-  ];
+  // const records = [
+  //   {
+  //     username: "James Anderson",
+  //     date: "May 15 2024 11:35 PM",
+  //     status: "Free",
+  //   },
+  //   {
+  //     username: "Sophia Martinez",
+  //     date: "June 10 2024 09:20 AM",
+  //     status: "Subscribed",
+  //   },
+  //   {
+  //     username: "Michael Johnson",
+  //     date: "April 5 2024 03:45 PM",
+  //     status: "Trial",
+  //   },
+  //   {
+  //     username: "Emma Wilson",
+  //     date: "March 28 2024 07:10 AM",
+  //     status: "Cancelled",
+  //   },
+  //   {
+  //     username: "Daniel Brown",
+  //     date: "July 2 2024 05:50 PM",
+  //     status: "Subscribed",
+  //   },
+  //   {
+  //     username: "Olivia Davis",
+  //     date: "August 18 2024 02:30 PM",
+  //     status: "Free",
+  //   },
+  //   {
+  //     username: "William Taylor",
+  //     date: "September 25 2024 10:15 AM",
+  //     status: "Trial",
+  //   },
+  //   {
+  //     username: "Isabella Moore",
+  //     date: "October 12 2024 08:40 PM",
+  //     status: "Cancelled",
+  //   },
+  //   {
+  //     username: "Ethan Thomas",
+  //     date: "November 6 2024 06:25 AM",
+  //     status: "Subscribed",
+  //   },
+  //   {
+  //     username: "Ava Harris",
+  //     date: "December 30 2024 04:50 PM",
+  //     status: "Trial",
+  //   },
+  // ];
 
   const headings = ["User details", "Installed", "Status"];
 
-  const totalCount = records.length;
+  const totalCount = freeUser?.length;
   const itemsPerPage = 5;
   const totalItems = totalCount;
 
-  const [currentPage, setCurrentPage] = useState(getPageFromURL());
-
-  const currentPageRows = useMemo(() => {
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    return records?.slice(startIndex, startIndex + itemsPerPage);
-  }, [currentPage, records]);
+  // const currentPageRows = useMemo(() => {
+  //   const startIndex = (currentPage - 1) * itemsPerPage;
+  //   return freeUser?.slice(startIndex, startIndex + itemsPerPage);
+  // }, [currentPage, freeUser]);
 
   useEffect(() => {
     const handlePopState = () => {
@@ -93,15 +93,15 @@ export const useFreeUser = () => {
     const fetchFreeUsers = async () => {
       const uid = user?.user?.id;
       const formData = new FormData();
-      formData.append("uid", uid);
+      formData.append("uid", 1);
 
       try {
         await dispatch(
-          freeUserListing({
+          readFreeUserListing({
             data: formData,
           })
         ).then((response) => {
-          if (response?.payload) setCurrentPage(response?.payload?.data);
+          if (response?.payload) setCurrentPageRows(response?.payload?.data);
         });
       } catch (err) {
         console.error("Error fetching free users:", err);
@@ -119,6 +119,8 @@ export const useFreeUser = () => {
     window.history.pushState({}, "", `?${params.toString()}`);
   };
 
+  console.log(currentPageRows, "currentPageRows");
+
   return {
     dummyData,
     currentPageRows,
@@ -129,6 +131,6 @@ export const useFreeUser = () => {
     handlePageChange,
     currentPage,
     headings,
-    records,
+    freeUser,
   };
 };

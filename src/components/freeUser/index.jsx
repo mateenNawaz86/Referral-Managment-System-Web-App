@@ -17,12 +17,13 @@ export const FreeUserListing = () => {
     headings,
     currentPageRows,
     handlePageChange,
-    records,
+    freeUser,
+    totalCount,
   } = useFreeUser();
 
   const CurrentComponent = useEmptyStates(
     <FreeUsersTableRows data={currentPageRows} />,
-    currentPageRows?.length !== 0,
+    totalCount !== 0,
     loading
   );
 
@@ -35,7 +36,7 @@ export const FreeUserListing = () => {
         {CurrentComponent}
       </div>
 
-      {records?.length > 0 ? (
+      {freeUser?.length > 0 ? (
         <div className="md:hidden mb-10">
           <div className="flex items-center justify-between mt-[15px] mb-3">
             <p className="text-[20px] font-semibold min-w-[123px]">
@@ -58,7 +59,7 @@ export const FreeUserListing = () => {
               containerClassName="w-[350px]"
             />
           </div>
-          <FreeUserCard data={records} />
+          <FreeUserCard data={freeUser} />
         </div>
       ) : (
         <div className="md:hidden">
@@ -72,7 +73,7 @@ export const FreeUserListing = () => {
 
       <div className="hidden md:block">
         <Pagination
-          totalItems={currentPageRows?.length}
+          totalItems={itemsPerPage}
           itemsPerPage={itemsPerPage}
           onPageChange={handlePageChange}
           currentPage={currentPage}

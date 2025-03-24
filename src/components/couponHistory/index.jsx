@@ -9,21 +9,20 @@ import { NoDataEmptyState } from "../../base-component/ui/loadingEffect/no-data-
 
 export const CouponHistory = () => {
   const {
-    totalCount,
     totalItems,
-    isLoading,
+    loading,
     itemsPerPage,
     currentPage,
     headings,
-    records,
+    couponHistory,
     currentPageRows,
     handlePageChange,
   } = useCouponHistory();
 
   const CurrentComponent = useEmptyStates(
     <CouponHistoryTableRows data={currentPageRows} />,
-    totalCount !== 0,
-    isLoading
+    currentPageRows?.length !== 0,
+    loading
   );
 
   return (
@@ -33,7 +32,7 @@ export const CouponHistory = () => {
         {CurrentComponent}
       </div>
 
-      {records?.length > 0 ? (
+      {couponHistory?.length > 0 ? (
         <div className="md:hidden mb-10">
           <div className="flex items-center justify-between mt-[15px] mb-3">
             <p className="text-[20px] font-semibold">Redeemed Listing</p>
@@ -56,7 +55,7 @@ export const CouponHistory = () => {
               ]}
             />
           </div>
-          <CouponDetailsCard data={records} />
+          <CouponDetailsCard data={couponHistory} />
         </div>
       ) : (
         <div className="md:hidden">

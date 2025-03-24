@@ -5,7 +5,8 @@ const SERVICE_URLS = {
   sign_up: "/auth/signup",
   login: "/auth/send-otp",
   logout: "/auth/logout",
-  freeUser: "/referrals/users/free",
+  free_user: "/referrals/users/free",
+  coupon_history: "/referrals/coupons/all",
 };
 
 const signUp = (data) =>
@@ -18,13 +19,17 @@ const logout = (data) =>
   del(SERVICE_URLS.logout, data, { feature: featureConstants.login });
 
 const freeUser = (data) =>
-  post(SERVICE_URLS.freeUser, data, { feature: featureConstants.login });
+  post(SERVICE_URLS.free_user, data, { feature: featureConstants.login });
+
+const couponHistory = (data) =>
+  post(SERVICE_URLS.coupon_history, data, { feature: featureConstants.login });
 
 const apiServices = {
   signUp,
   login,
   logout,
   freeUser,
+  couponHistory,
 };
 
 export default apiServices;

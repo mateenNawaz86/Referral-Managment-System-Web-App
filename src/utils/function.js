@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export function formatDateString(dateString) {
   const date = new Date(dateString);
   const year = date.getUTCFullYear();
@@ -67,3 +69,7 @@ export function isJSON(str) {
     return str;
   }
 }
+
+export const formatDate = (isoString) => {
+  return moment(isoString).format("MMM DD YYYY hh:mm A");
+};

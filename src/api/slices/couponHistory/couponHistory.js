@@ -3,18 +3,18 @@ import apiServices from "../../../services/requestHandler";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  freeUser: [],
+  couponHistory: [],
   loading: false,
   error: null,
 };
 
-export const readFreeUserListing = createAsyncThunk(
-  "free/user",
+export const readCouponHistory = createAsyncThunk(
+  "coupon/history",
   async (args, thunkApi) => {
     const { data, setError } = args;
 
     try {
-      const response = await apiServices.freeUser(data);
+      const response = await apiServices.couponHistory(data);
 
       return response?.data;
     } catch (e) {
@@ -25,8 +25,8 @@ export const readFreeUserListing = createAsyncThunk(
   }
 );
 
-const freeUserSlice = createSlice({
-  name: "free-user",
+const couponHistorySlice = createSlice({
+  name: "coupon-history",
   initialState,
   reducers: {
     setErrorMessage: (state, action) => {
@@ -34,18 +34,18 @@ const freeUserSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(readFreeUserListing.pending, (state) => {
+    builder.addCase(readCouponHistory.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(readFreeUserListing.fulfilled, (state, action) => {
-      if (action?.payload) state.freeUser = action.payload.data;
+    builder.addCase(readCouponHistory.fulfilled, (state, action) => {
+      if (action?.payload) state.couponHistory = action.payload.data;
       state.loading = false;
     });
-    builder.addCase(readFreeUserListing.rejected, (state) => {
+    builder.addCase(readCouponHistory.rejected, (state) => {
       state.loading = false;
     });
   },
 });
 
-export default freeUserSlice.reducer;
-export const { setErrorMessage } = freeUserSlice.actions;
+export default couponHistorySlice.reducer;
+export const { setErrorMessage } = couponHistorySlice.actions;
