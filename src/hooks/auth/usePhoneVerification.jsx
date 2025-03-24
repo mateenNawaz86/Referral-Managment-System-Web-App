@@ -7,10 +7,12 @@ import { PhoneVarificationFormFields } from "../../components/auth/fields/login-
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-export const usePhoneVerification = ({ onSignUp, onBack }) => {
+export const usePhoneVerification = ({ onBack }) => {
   const navigate = useNavigate();
   const { loading, user } = useSelector((state) => state.auth);
   const schema = generateOtpValidationSchema();
+
+  console.log(user, "user");
 
   const {
     register,
@@ -26,8 +28,8 @@ export const usePhoneVerification = ({ onSignUp, onBack }) => {
   const enteredOtp = watch("otp");
 
   useEffect(() => {
-    if (user?.data?.otp) {
-      const otpString = user?.data?.otp?.toString();
+    if (user?.otp) {
+      const otpString = user?.otp?.toString();
       reset({ otp: otpString });
     }
   }, [user, reset]);
@@ -41,7 +43,7 @@ export const usePhoneVerification = ({ onSignUp, onBack }) => {
 
   const onSubmit = (data) => {
     try {
-      const expectedOtp = user?.data?.otp?.toString();
+      const expectedOtp = user?.otp?.toString();
 
       if (!expectedOtp) {
         toast.error("No OTP available to verify. Please try again.");
@@ -49,7 +51,7 @@ export const usePhoneVerification = ({ onSignUp, onBack }) => {
       }
 
       if (enteredOtp === expectedOtp) {
-        toast.success("OTP verified successfully!");
+        toast.success("Login successfully!");
         navigate("/dashboard?status=ref-guide");
       } else {
         toast.error("Invalid OTP. Please try again.");

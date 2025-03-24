@@ -10,7 +10,7 @@ export const useSignUp = (onSignupSuccess) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { loading } = useSelector((state) => state.auth);
+  const { loading, errorData } = useSelector((state) => state.auth);
 
   const schema = generateSignUpValidationSchema();
 
@@ -27,9 +27,32 @@ export const useSignUp = (onSignupSuccess) => {
   const fields = SignUpFormFields(register, loading, control);
 
   const onSubmit = async (data) => {
+    console.log(data, "data");
+
     try {
-      const res = await dispatch(signUp({ data, navigate, setError }));
-      if (res?.payload) {
+      const formData = new FormData();
+
+      if (errorData?.phoneCode && errorData?.phoneNo) {
+        formData.append("phoneCode", errorData.phoneCode);
+        formData.append("phoneNo", errorData.phoneNo);
+      } else {
+        console.warn("phoneCode or phoneNo missing in errorData");
+      }
+
+      if (data.name) {
+        formData.append("name", data.name);
+      }
+      if (data.imageUrl) {
+        formData.append("imageUrl", data.imageUrl);
+      }
+      if (data.country) {
+        formData.append("country", data.country);
+      }
+
+      const res = await dispatch(
+        signUp({ data: formData, navigate, setError })
+      );
+      if (res?.meta?.requestStatus === "fulfilled") {
         onSignupSuccess();
       }
     } catch (error) {

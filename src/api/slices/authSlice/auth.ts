@@ -6,14 +6,13 @@ import {
 } from "@reduxjs/toolkit";
 import apiServices from "../../../services/requestHandler";
 import { setErrors } from "../../../utils/utility";
-import { saveUser, setToken } from "../../../utils/auth";
+import { saveUser, setRefereshToken, setToken } from "../../../utils/auth";
 
 const initialState = {
   user: undefined,
-  userRole: null,
   loading: false,
   error: null,
-  email: null,
+  errorData: null,
 };
 
 export const logIn: AsyncThunk<boolean, object, object> | any =
@@ -23,18 +22,25 @@ export const logIn: AsyncThunk<boolean, object, object> | any =
     try {
       const response = await apiServices.login(data);
 
-      const accessToken = response?.headers?.["Access-Token"];
+      const accessToken =
+        response?.headers?.["access-token"] || response?.headers?.accessToken;
+
+      const refreshToken =
+        response?.headers?.["refresh-token"] || response?.headers?.refreshToken;
       const userData = response?.data;
 
       if (accessToken) {
         setToken(accessToken);
+      }
+      if (refreshToken) {
+        setRefereshToken(refreshToken);
       } else {
         console.warn("No access token found in response headers");
       }
 
       if (userData) {
-        saveUser(userData);
-        thunkApi.dispatch(setUser(userData));
+        saveUser(userData?.data);
+        thunkApi.dispatch(setUser(userData?.data));
       } else {
         console.warn("No user data found in response");
       }
@@ -43,18 +49,20 @@ export const logIn: AsyncThunk<boolean, object, object> | any =
     } catch (e: any) {
       thunkApi.dispatch(setErrorMessage(e?.data?.message || "Login failed"));
       setErrors(setError, e?.data?.data || {});
-      return thunkApi.rejectWithValue(e);
+
+      return thunkApi.rejectWithValue({
+        error: e?.response?.data?.message || "Login failed",
+        data: e?.response?.data?.data,
+      });
     }
   });
 
 export const signUp: AsyncThunk<boolean, object, object> | any =
   createAsyncThunk("signup/user", async (args, thunkApi) => {
-    const { data, navigate, setError } = args as any;
+    const { data, setError } = args as any;
     try {
-      const response = await apiServices.singUp(data);
+      const response = await apiServices.signUp(data);
       thunkApi.dispatch(setErrorMessage(null));
-      navigate("/login");
-      // saveUser(response.data);
       return response.data;
     } catch (e: any) {
       setErrors(setError, e?.data.data);
@@ -83,9 +91,6 @@ const authSlice = createSlice({
     setErrorMessage: (state, action) => {
       state.error = action.payload;
     },
-    setEmail: (state, action) => {
-      state.email = action.payload;
-    },
   },
   extraReducers: (builder) => {
     builder.addCase(signUp.pending, (state) => {
@@ -105,10 +110,12 @@ const authSlice = createSlice({
     builder.addCase(logIn.fulfilled, (state, action) => {
       state.loading = false;
     });
-    builder.addCase(logIn.rejected, (state) => {
+    builder.addCase(logIn.rejected, (state, action) => {
       state.loading = false;
+
+      state.errorData = action.payload?.data || null;
     });
   },
 });
 export default authSlice.reducer;
-export const { setUser, setErrorMessage, setEmail } = authSlice.actions;
+export const { setUser, setErrorMessage } = authSlice.actions;

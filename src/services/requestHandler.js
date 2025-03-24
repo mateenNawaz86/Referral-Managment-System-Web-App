@@ -7,7 +7,7 @@ const SERVICE_URLS = {
   logout: "/auth/logout",
 };
 
-const singUp = (data) =>
+const signUp = (data) =>
   post(SERVICE_URLS.sign_up, data, { feature: featureConstants.login });
 
 const login = (data) =>
@@ -17,7 +17,7 @@ const logout = (data) =>
   del(SERVICE_URLS.logout, data, { feature: featureConstants.login });
 
 const apiServices = {
-  singUp,
+  signUp,
   login,
   logout,
 };

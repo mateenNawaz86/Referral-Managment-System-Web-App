@@ -5,7 +5,14 @@ export const getToken = () => Cookies.get("referralToken");
 export const getRefreshToken = () => Cookies.get("referralRefreshToken");
 
 export const setToken = (token) =>
-  Cookies.set("referralToken", token, {
+  Cookies.set("referralAccessToken", token, {
+    httpOnly: false,
+    sameSite: true,
+    secure: false,
+  });
+
+export const setRefereshToken = (token) =>
+  Cookies.set("referralAccessToken", token, {
     httpOnly: false,
     sameSite: true,
     secure: false,

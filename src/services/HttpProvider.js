@@ -1,5 +1,6 @@
 import axios from "axios";
 import { logout } from "../utils/auth";
+import { toast } from "react-toastify";
 
 const API_DOMAIN = import.meta.env.VITE_API_DOMAIN;
 
@@ -38,7 +39,7 @@ export async function request({ method, url, data, headers }) {
   try {
     response = await promise;
   } catch (error) {
-    showError(`${error?.response?.data?.message}`);
+    toast.error(`${error?.response?.data?.message}`);
 
     if (error?.response?.data?.code === 401) {
       logout();
@@ -59,7 +60,7 @@ export async function deleteRequestWithBody({ method, url, data, headers }) {
   try {
     response = await promise;
   } catch (error) {
-    showError(`${error?.response?.data?.message}`);
+    toast.error(`${error?.response?.data?.message}`);
 
     if (error?.response?.data?.code === 401) {
       logout();
@@ -79,7 +80,7 @@ export async function newRequest({ method, url, data, headers }) {
   try {
     response = await promise;
   } catch (error) {
-    showError(`${error?.response?.data?.message}`);
+    toast.error(`${error?.response?.data?.message}`);
 
     if (error?.response?.data?.code === 401) {
       logout();

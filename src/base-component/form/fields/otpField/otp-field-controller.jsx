@@ -18,6 +18,7 @@ export const OtpControllerField = ({
       control={control}
       render={({ field }) => (
         <CustomOtpField
+          key={field.value}
           id={id}
           field={field}
           className={className}
