@@ -11,9 +11,7 @@ import SelectField from "../../base-component/ui/fields/select-fields";
 export const FreeUserListing = () => {
   const {
     dummyData,
-    totalCount,
-    totalItems,
-    isLoading,
+    loading,
     itemsPerPage,
     currentPage,
     headings,
@@ -22,12 +20,10 @@ export const FreeUserListing = () => {
     records,
   } = useFreeUser();
 
-  console.log("currentPageRows", currentPageRows);
-
   const CurrentComponent = useEmptyStates(
     <FreeUsersTableRows data={currentPageRows} />,
-    totalCount !== 0,
-    isLoading
+    currentPageRows?.length !== 0,
+    loading
   );
 
   return (
@@ -74,11 +70,9 @@ export const FreeUserListing = () => {
         </div>
       )}
 
-      {/* <ResultPerPage totalItems={records.length} data={records} /> */}
-
       <div className="hidden md:block">
         <Pagination
-          totalItems={totalItems}
+          totalItems={currentPageRows?.length}
           itemsPerPage={itemsPerPage}
           onPageChange={handlePageChange}
           currentPage={currentPage}

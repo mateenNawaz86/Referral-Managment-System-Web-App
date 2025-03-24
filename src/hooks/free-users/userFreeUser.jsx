@@ -73,7 +73,6 @@ export const useFreeUser = () => {
   const totalCount = records.length;
   const itemsPerPage = 5;
   const totalItems = totalCount;
-  const isLoading = false;
 
   const [currentPage, setCurrentPage] = useState(getPageFromURL());
 
@@ -125,7 +124,7 @@ export const useFreeUser = () => {
     currentPageRows,
     totalItems,
     totalCount,
-    isLoading,
+    loading,
     itemsPerPage,
     handlePageChange,
     currentPage,

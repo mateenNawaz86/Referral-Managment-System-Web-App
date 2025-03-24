@@ -37,8 +37,6 @@ export const useEmptyStates = (CurrentComponent, condition, isLoading) => {
 export const useGlobalUser = (user, dispatch) => {
   const cookieUser = isJSON(getUser());
 
-  console.log("cookieUser", cookieUser);
-
   if (!user) {
     dispatch(setUser(cookieUser));
     dispatch(setSignedUser(cookieUser));
