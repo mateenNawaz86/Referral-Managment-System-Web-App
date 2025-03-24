@@ -1,4 +1,4 @@
-import { Field } from "../../../utils/static";
+import { countries, Field } from "../../../utils/static";
 
 export const SignUpFormFields = (register, loading, control) => {
   let formField = [
@@ -42,7 +42,12 @@ export const SignUpFormFields = (register, loading, control) => {
         type: Field.select,
         id: `country`,
         name: `country`,
-        options: [{ label: "Countries", value: "Countries" }],
+        options:
+          countries?.map((item) => ({
+            label: item?.label,
+            value: item?.value,
+          })) || [],
+
         control,
       },
     },

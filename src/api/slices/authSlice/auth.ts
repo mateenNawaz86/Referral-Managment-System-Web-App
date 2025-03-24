@@ -13,6 +13,7 @@ const initialState = {
   loading: false,
   error: null,
   errorData: null,
+  signedUser: null,
 };
 
 export const logIn: AsyncThunk<boolean, object, object> | any =
@@ -88,6 +89,9 @@ const authSlice = createSlice({
     setUser: (state, action) => {
       state.user = action.payload;
     },
+    setSignedUser: (state, action) => {
+      state.signedUser = action.payload;
+    },
     setErrorMessage: (state, action) => {
       state.error = action.payload;
     },
@@ -98,7 +102,7 @@ const authSlice = createSlice({
     });
     builder.addCase(signUp.fulfilled, (state, action: PayloadAction<any>) => {
       state.loading = false;
-      if (action?.payload) state.user = action.payload.user;
+      if (action?.payload) state.signedUser = action.payload.data;
     });
     builder.addCase(signUp.rejected, (state) => {
       state.loading = false;

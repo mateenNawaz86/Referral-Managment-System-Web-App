@@ -12,8 +12,6 @@ export const usePhoneVerification = ({ onBack }) => {
   const { loading, user } = useSelector((state) => state.auth);
   const schema = generateOtpValidationSchema();
 
-  console.log(user, "user");
-
   const {
     register,
     handleSubmit,

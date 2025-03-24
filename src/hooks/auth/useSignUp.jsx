@@ -27,8 +27,6 @@ export const useSignUp = (onSignupSuccess) => {
   const fields = SignUpFormFields(register, loading, control);
 
   const onSubmit = async (data) => {
-    console.log(data, "data");
-
     try {
       const formData = new FormData();
 
