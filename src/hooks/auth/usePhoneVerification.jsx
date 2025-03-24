@@ -26,8 +26,8 @@ export const usePhoneVerification = ({ onBack }) => {
   const enteredOtp = watch("otp");
 
   useEffect(() => {
-    if (user?.otp) {
-      const otpString = user?.otp?.toString();
+    if (user?.user?.otp) {
+      const otpString = user?.user?.otp?.toString();
       reset({ otp: otpString });
     }
   }, [user, reset]);
@@ -41,7 +41,7 @@ export const usePhoneVerification = ({ onBack }) => {
 
   const onSubmit = (data) => {
     try {
-      const expectedOtp = user?.otp?.toString();
+      const expectedOtp = user?.user?.otp?.toString();
 
       if (!expectedOtp) {
         toast.error("No OTP available to verify. Please try again.");

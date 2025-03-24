@@ -5,6 +5,7 @@ const SERVICE_URLS = {
   sign_up: "/auth/signup",
   login: "/auth/send-otp",
   logout: "/auth/logout",
+  freeUser: "/referrals/users/free",
 };
 
 const signUp = (data) =>
@@ -16,10 +17,14 @@ const login = (data) =>
 const logout = (data) =>
   del(SERVICE_URLS.logout, data, { feature: featureConstants.login });
 
+const freeUser = (data) =>
+  post(SERVICE_URLS.freeUser, data, { feature: featureConstants.login });
+
 const apiServices = {
   signUp,
   login,
   logout,
+  freeUser,
 };
 
 export default apiServices;

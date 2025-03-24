@@ -7,7 +7,6 @@ import { FreeUsersTableHeadings } from "./table/table-heading";
 import { FreeUserCard } from "./mobile/free-user-card";
 import { NoDataEmptyState } from "../../base-component/ui/loadingEffect/no-data-state";
 import SelectField from "../../base-component/ui/fields/select-fields";
-import ResultPerPage from "../../base-component/ui/resultPerPage/results-per-page";
 
 export const FreeUserListing = () => {
   const {
@@ -22,6 +21,8 @@ export const FreeUserListing = () => {
     handlePageChange,
     records,
   } = useFreeUser();
+
+  console.log("currentPageRows", currentPageRows);
 
   const CurrentComponent = useEmptyStates(
     <FreeUsersTableRows data={currentPageRows} />,

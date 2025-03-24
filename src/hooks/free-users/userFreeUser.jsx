@@ -1,7 +1,13 @@
 import { useState, useEffect, useMemo } from "react";
 import { getPageFromURL } from "../../utils/utility";
+import { freeUserListing } from "../../api/slices/freeUserSlice/freeUser";
+import { useDispatch, useSelector } from "react-redux";
 
 export const useFreeUser = () => {
+  const dispatch = useDispatch();
+  const { freeUser, loading, error } = useSelector((state) => state.freeUser);
+  const { user } = useSelector((state) => state.auth);
+
   const dummyData = [
     { title: "Total Users", points: "45.50k" },
     { title: "This Month", points: "35.50k" },
@@ -83,6 +89,28 @@ export const useFreeUser = () => {
     window.addEventListener("popstate", handlePopState);
     return () => window.removeEventListener("popstate", handlePopState);
   }, []);
+
+  useEffect(() => {
+    const fetchFreeUsers = async () => {
+      const uid = user?.user?.id;
+      const formData = new FormData();
+      formData.append("uid", uid);
+
+      try {
+        await dispatch(
+          freeUserListing({
+            data: formData,
+          })
+        ).then((response) => {
+          if (response?.payload) setCurrentPage(response?.payload?.data);
+        });
+      } catch (err) {
+        console.error("Error fetching free users:", err);
+      }
+    };
+
+    fetchFreeUsers();
+  }, [dispatch]);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);

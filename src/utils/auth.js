@@ -11,7 +11,7 @@ export const setToken = (token) =>
     secure: false,
   });
 
-export const setRefereshToken = (token) =>
+export const setRefreshToken = (token) =>
   Cookies.set("referralAccessToken", token, {
     httpOnly: false,
     sameSite: true,
@@ -21,12 +21,6 @@ export const setRefereshToken = (token) =>
 export const getUser = () => {
   const user = Cookies.get("referralUser");
   if (!user) return null;
-  try {
-    return JSON.parse(user);
-  } catch (error) {
-    console.error("Error parsing referralUser cookie:", error);
-    return null;
-  }
 };
 
 export const saveUser = (user) => {

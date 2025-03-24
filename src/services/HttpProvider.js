@@ -1,19 +1,27 @@
 import axios from "axios";
 import { logout } from "../utils/auth";
 import { toast } from "react-toastify";
+import Cookies from "js-cookie";
 
 const API_DOMAIN = import.meta.env.VITE_API_DOMAIN;
 
 export const BASEURL = API_DOMAIN + "api";
 
 export async function getApiRequestHeader(data) {
+  const accessToken = Cookies.get("accessToken");
+  const baseHeaders = {
+    Accept: "application/json",
+  };
+
+  if (accessToken) {
+    baseHeaders["Authorization"] = `Bearer ${accessToken}`;
+  }
+
   if (data instanceof FormData) {
-    return {
-      Accept: "application/json",
-    };
+    return baseHeaders;
   }
   return {
-    Accept: "application/json",
+    ...baseHeaders,
     "Content-Type": "application/json",
   };
 }

@@ -1,6 +1,9 @@
 import React from "react";
 import { NoDataEmptyState } from "../base-component/ui/loadingEffect/no-data-state";
 import { CustomLoader } from "../base-component/ui/loadingEffect/custom-loader";
+import { isJSON } from "./function";
+import { getUser } from "./auth";
+import { setSignedUser, setUser } from "../api/slices/authSlice/auth";
 
 export const EmptyStateType = {
   hasData: "hasData",
@@ -29,4 +32,15 @@ export const useEmptyStates = (CurrentComponent, condition, isLoading) => {
   };
 
   return lookup[isEmpty];
+};
+
+export const useGlobalUser = (user, dispatch) => {
+  const cookieUser = isJSON(getUser());
+
+  console.log("cookieUser", cookieUser);
+
+  if (!user) {
+    dispatch(setUser(cookieUser));
+    dispatch(setSignedUser(cookieUser));
+  }
 };

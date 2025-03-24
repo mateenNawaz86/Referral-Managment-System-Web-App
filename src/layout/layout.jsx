@@ -5,9 +5,13 @@ import { SideBar } from "../base-component/Sidebar";
 import { MobileHeader } from "../base-component/mobile-header";
 import { useLocation } from "react-router-dom";
 import { getPageTitles } from "../utils/function";
+import { useGlobalUser } from "../utils/hooks";
+import { useDispatch, useSelector } from "react-redux";
 
 export const Layout = ({ children }) => {
   const location = useLocation();
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isDrawer, setIsDrawer] = useState(false);
   const [isAboveMlg, setIsAboveMlg] = useState(
@@ -15,6 +19,10 @@ export const Layout = ({ children }) => {
   );
 
   const { pageTitle, mobileHeaderTitle } = getPageTitles(location);
+
+  useEffect(() => {
+    if (user) useGlobalUser(user, dispatch);
+  }, []);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(min-width:1280px)");

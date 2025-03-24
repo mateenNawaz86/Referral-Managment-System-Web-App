@@ -59,3 +59,11 @@ export const getPageTitles = (location) => {
 
   return { pageTitle, mobileHeaderTitle, mobilePageTitle };
 };
+
+export function isJSON(str) {
+  try {
+    return JSON.parse(str);
+  } catch (e) {
+    return str;
+  }
+}
