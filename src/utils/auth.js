@@ -1,18 +1,19 @@
 import Cookies from "js-cookie";
 import localStore from "./localStore";
+import { updateHeaders } from "../services/HttpProvider";
 
 export const getToken = () => Cookies.get("referralToken");
 export const getRefreshToken = () => Cookies.get("referralRefreshToken");
 
 export const setToken = (token) =>
-  Cookies.set("referralAccessToken", token, {
+  Cookies.set("accessToken", token, {
     httpOnly: false,
     sameSite: true,
     secure: false,
   });
 
 export const setRefreshToken = (token) =>
-  Cookies.set("referralAccessToken", token, {
+  Cookies.set("refreshToken", token, {
     httpOnly: false,
     sameSite: true,
     secure: false,
@@ -34,14 +35,15 @@ export const saveUser = (user) => {
 };
 
 export const logout = () => {
-  Cookies.remove("referralToken");
-  Cookies.remove("referralRefreshToken");
+  Cookies.remove("accessToken");
+  Cookies.remove("refreshToken");
   Cookies.remove("referralUser");
-  localStore.remove_data("referralUserRole");
   localStore.remove_data("fcm");
   localStore.remove_data("roomToken");
   localStore.remove_data("ChatUser");
   localStore.remove_data("chatToken");
+  updateHeaders();
+
   return true;
 };
 

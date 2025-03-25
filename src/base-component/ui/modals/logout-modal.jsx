@@ -1,16 +1,20 @@
 import React from "react";
 import { BaseModal } from "./base-modal";
-import logoutIcon from "../../../assets/svgs/logout.svg";
-import { BaseButton } from "../button/base-button";
+import { useDispatch } from "react-redux";
 import { logout } from "../../../utils/auth";
 import { useNavigate } from "react-router-dom";
+import { BaseButton } from "../button/base-button";
+import logoutIcon from "../../../assets/svgs/logout.svg";
+import { logoutUser } from "../../../api/slices/authSlice/auth";
 
 export const LogoutModal = ({ onClose }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleLogout = async () => {
     await dispatch(logoutUser());
     logout();
+    onClose();
     navigate("/");
   };
 

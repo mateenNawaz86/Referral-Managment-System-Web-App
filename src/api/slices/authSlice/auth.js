@@ -68,16 +68,14 @@ export const signUp = createAsyncThunk(
   }
 );
 
-export const logout = createAsyncThunk(
+export const logoutUser = createAsyncThunk(
   "user/logout",
   async (data, thunkApi) => {
     try {
       await apiServices.logoutUser({ data });
-      // Clear cookies
       Cookies.remove("accessToken");
       Cookies.remove("refreshToken");
       Cookies.remove("referralUser");
-      // Reset state
       thunkApi.dispatch(setUser(undefined));
       thunkApi.dispatch(setSignedUser(null));
       thunkApi.dispatch(setErrorMessage(null));
@@ -128,6 +126,16 @@ const authSlice = createSlice({
       state.loading = false;
 
       state.errorData = action.payload?.data || null;
+    });
+
+    builder.addCase(logoutUser.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(logoutUser.fulfilled, (state, action) => {
+      state.loading = false;
+    });
+    builder.addCase(logoutUser.rejected, (state) => {
+      state.loading = false;
     });
   },
 });

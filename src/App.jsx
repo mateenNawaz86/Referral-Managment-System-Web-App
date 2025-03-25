@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import { DashboardPage } from "./pages/dashboard";
 import { FreeUserPage } from "./pages/freeUser";
 import { MonthlyUserPage } from "./pages/monthlyUsers";
@@ -12,6 +11,7 @@ import { RedeemHistoryPage } from "./pages/redeemHistory";
 import { scrollToTop } from "./utils/utility";
 import { AuthPage } from "./pages/auth";
 import { ToastContainer } from "react-toastify";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 
 const App = () => {
   const location = useLocation();
