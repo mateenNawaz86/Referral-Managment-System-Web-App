@@ -12,28 +12,6 @@ export const LoginContactFormFields = (register, loading, control) => {
         className: "!px-4 h-[42px]",
       },
     },
-    // {
-    //   containerClass: "mb-2",
-    //   field: {
-    //     type: Field.input,
-    //     id: "email",
-    //     name: "email",
-    //     inputType: "email",
-    //     className: "w-full pl-[18px]",
-    //     register,
-    //   },
-    // },
-    // {
-    //   containerClass: "mb-2",
-    //   field: {
-    //     type: Field.input,
-    //     id: "password",
-    //     name: "password",
-    //     inputType: "password",
-    //     className: "w-full pl-[18px]",
-    //     register,
-    //   },
-    // },
 
     {
       containerClass: "mb-0 mt-10",

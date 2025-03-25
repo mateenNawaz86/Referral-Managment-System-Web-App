@@ -1,10 +1,10 @@
 import { RewardBalanceIcon } from "../../assets/svgs/components/reward-balance-icon";
 import { WarningIcon } from "../../assets/svgs/components/warning-icon";
 import { useRedeemRequest } from "../../hooks/redeemRequest/useRedeemRequest";
-import { SendRequestField } from "./send-request-field";
+import { Form } from "../../base-component/form/form";
 
 export const RequestRedeem = () => {
-  const { handleRedeemRequest } = useRedeemRequest();
+  const { errors, fields, handleSubmit, onSubmit } = useRedeemRequest();
 
   return (
     <div className="flex items-center justify-center md:p-10 maxSize:py-[139px] maxSize:px-[185px]">
@@ -38,7 +38,15 @@ export const RequestRedeem = () => {
           </span>
         </div>
 
-        <SendRequestField onSendRedeemRequest={handleRedeemRequest} />
+        {/* <SendRequestField onSendRedeemRequest={handleRedeemRequest} />
+         */}
+
+        <Form
+          formFields={fields}
+          handleSubmit={handleSubmit}
+          onSubmit={onSubmit}
+          errors={errors}
+        />
       </div>
     </div>
   );
