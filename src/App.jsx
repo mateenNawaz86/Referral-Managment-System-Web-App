@@ -25,10 +25,13 @@ const App = () => {
 
   useEffect(() => {
     if (user) {
-      navigate("/dashboard?status=ref-guide", { replace: true });
       dispatch(setUser(user));
+
+      if (location.pathname === "/") {
+        navigate("/dashboard?status=ref-guide", { replace: true });
+      }
     }
-  }, [user]);
+  }, [user, location.pathname, navigate, dispatch]);
 
   useEffect(() => {
     scrollToTop();

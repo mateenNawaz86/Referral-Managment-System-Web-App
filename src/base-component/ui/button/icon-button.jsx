@@ -12,8 +12,6 @@ export const IconButton = ({
     containerClassName
   );
 
-  console.log(onClick, "onClick");
-
   return (
     <button onClick={onClick} className={containerClasses}>
       {Icon && <Icon iconClassName={iconClassName} />} {text}
