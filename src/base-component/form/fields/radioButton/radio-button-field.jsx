@@ -6,7 +6,7 @@ export const RadioButtonField = ({
   value,
   name,
   register,
-  className = "",
+  className,
   label,
   checked,
   setValue,
@@ -14,7 +14,7 @@ export const RadioButtonField = ({
   onClick,
   onChange,
   fieldIndex,
-  colorClasses = "",
+  colorClasses,
   labelClassName,
 }) => {
   const defaultClasses =

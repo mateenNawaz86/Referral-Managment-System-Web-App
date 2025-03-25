@@ -1,11 +1,11 @@
 import { useDispatch } from "react-redux";
 import { ModalType } from "../../types/ui";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { PointIcon } from "../../assets/svgs/components/point-icon";
 import { updateModalType } from "../../api/slices/globalSlice/global";
 import { GetCouponIcon } from "../../assets/svgs/components/get-coupon-icon";
 import { GetCouponFormFields } from "../../components/myRewards/get-coupon-fields";
-import { useNavigate } from "react-router-dom";
 
 export const useMyRewards = () => {
   const dispatch = useDispatch();
@@ -52,7 +52,8 @@ export const useMyRewards = () => {
   const fields = GetCouponFormFields(register);
 
   const onSubmit = async (data) => {
-    console.log(data);
+    console.log(data, "data");
+
     handleRedeemPoints();
   };
 
