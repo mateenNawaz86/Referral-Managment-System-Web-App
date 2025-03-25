@@ -120,18 +120,12 @@ export const useCouponHistory = () => {
           if (response?.payload) setCurrentPageRows(response?.payload?.data);
         });
       } catch (err) {
-        console.error("Error fetching free users:", err);
+        console.error("Error fetching coupon history records:", err);
       }
     };
 
     couponHistoryRecords();
   }, [dispatch]);
-
-  const headings = ["Type", "Coupon", "Redeemed Date", "Status"];
-
-  const totalCount = couponHistory?.length;
-  const itemsPerPage = 5;
-  const totalItems = totalCount;
 
   useEffect(() => {
     const handlePopState = () => {
@@ -140,6 +134,12 @@ export const useCouponHistory = () => {
     window.addEventListener("popstate", handlePopState);
     return () => window.removeEventListener("popstate", handlePopState);
   }, []);
+
+  const headings = ["Type", "Coupon", "Redeemed Date", "Status"];
+
+  const itemsPerPage = 5;
+  const totalItems = totalCount;
+  const totalCount = couponHistory?.length;
 
   const handlePageChange = (page) => {
     setCurrentPage(page);

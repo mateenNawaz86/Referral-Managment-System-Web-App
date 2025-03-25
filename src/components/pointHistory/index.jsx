@@ -9,21 +9,20 @@ import { NoDataEmptyState } from "../../base-component/ui/loadingEffect/no-data-
 
 export const PointHistory = () => {
   const {
-    totalCount,
     totalItems,
-    isLoading,
+    loading,
     itemsPerPage,
     currentPage,
     headings,
-    records,
+    pointsHistory,
     currentPageRows,
     handlePageChange,
   } = usePointHistory();
 
   const CurrentComponent = useEmptyStates(
     <PointHistoryTableRows data={currentPageRows} />,
-    totalCount !== 0,
-    isLoading
+    currentPageRows?.length !== 0,
+    loading
   );
 
   return (
@@ -33,7 +32,7 @@ export const PointHistory = () => {
         {CurrentComponent}
       </div>
 
-      {records?.length > 0 ? (
+      {pointsHistory?.length > 0 ? (
         <div className="md:hidden mb-10">
           <div className="flex items-center justify-between mt-[15px] mb-3">
             <p className="text-[20px] font-semibold">Users Listing</p>
@@ -60,7 +59,7 @@ export const PointHistory = () => {
               ]}
             />
           </div>
-          <RecordCard data={records} isPointHistory={true} />
+          <RecordCard data={pointsHistory} isPointHistory={true} />
         </div>
       ) : (
         <div className="md:hidden">

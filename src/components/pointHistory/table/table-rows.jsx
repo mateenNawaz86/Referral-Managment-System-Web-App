@@ -10,11 +10,11 @@ export const PointHistoryTableRows = ({ data }) => {
         >
           <div className="flex items-center gap-x-[18px]">
             <img
-              src={profile}
+              src={item?.image || profile}
               alt="profile"
               className="min-w-[50px] min-h-[50px] max-w-[50px] max-h-[50px] rounded-full object-cover"
             />
-            <span className="text-base font-medium">{item?.username}</span>
+            <span className="text-base font-medium">{item?.name}</span>
           </div>
 
           <span className="text-base font-medium flex items-center justify-center">
