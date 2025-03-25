@@ -18,9 +18,14 @@ export const readCouponHistory = createAsyncThunk(
 
       return response?.data;
     } catch (e) {
-      thunkApi.dispatch(setErrorMessage(e?.data?.response?.message));
-      setErrors(setError, e?.data?.response?.data || {});
-      return e;
+      const errorMessage = e?.response?.data?.message || "Network Error";
+      thunkApi.dispatch(setErrorMessage(errorMessage));
+      setErrors(setError, e?.response?.data || {});
+
+      return thunkApi.rejectWithValue({
+        message: errorMessage,
+        status: e?.response?.status || 500,
+      });
     }
   }
 );

@@ -22,6 +22,7 @@ export const setRefreshToken = (token) =>
 export const getUser = () => {
   const user = Cookies.get("referralUser");
   if (!user) return null;
+  return user;
 };
 
 export const saveUser = (user) => {

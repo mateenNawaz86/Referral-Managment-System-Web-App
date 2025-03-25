@@ -11,30 +11,31 @@ import { RedeemHistoryPage } from "./pages/redeemHistory";
 import { scrollToTop } from "./utils/utility";
 import { AuthPage } from "./pages/auth";
 import { ToastContainer } from "react-toastify";
+import { isJSON } from "./utils/function";
+import { getUser } from "./utils/auth";
+import { setUser } from "./api/slices/authSlice/auth";
+import { useDispatch } from "react-redux";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 
 const App = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const user = isJSON(getUser());
+
+  useEffect(() => {
+    if (user) {
+      navigate("/dashboard?status=ref-guide", { replace: true });
+      dispatch(setUser(user));
+    }
+  }, [user]);
 
   useEffect(() => {
     scrollToTop();
   }, [location.pathname]);
 
-  const RedirectToDashboard = () => {
-    useEffect(() => {
-      if (location.pathname === "/") {
-        navigate("/dashboard?status=ref-guide", { replace: true });
-      }
-    }, [location, navigate]);
-
-    return null;
-  };
-
   return (
     <>
-      {/* <RedirectToDashboard /> */}
-
       <ToastContainer position="top-right" autoClose={3000} />
 
       <Routes>

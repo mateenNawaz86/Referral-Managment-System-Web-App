@@ -1,12 +1,12 @@
 import { DetailCards } from "./detail-card";
 import { useEmptyStates } from "../../utils/hooks";
-import { FreeUsersTableRows } from "./table/table-rows";
-import { useFreeUser } from "../../hooks/free-users/userFreeUser";
-import { Pagination } from "../../base-component/ui/pagination/pagination";
-import { FreeUsersTableHeadings } from "./table/table-heading";
 import { FreeUserCard } from "./mobile/free-user-card";
-import { NoDataEmptyState } from "../../base-component/ui/loadingEffect/no-data-state";
+import { FreeUsersTableRows } from "./table/table-rows";
+import { FreeUsersTableHeadings } from "./table/table-heading";
+import { useFreeUser } from "../../hooks/free-users/userFreeUser";
 import SelectField from "../../base-component/ui/fields/select-fields";
+import { Pagination } from "../../base-component/ui/pagination/pagination";
+import { NoDataEmptyState } from "../../base-component/ui/loadingEffect/no-data-state";
 
 export const FreeUserListing = () => {
   const {

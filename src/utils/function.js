@@ -63,6 +63,7 @@ export const getPageTitles = (location) => {
 };
 
 export function isJSON(str) {
+  if (!str) return null;
   try {
     return JSON.parse(str);
   } catch (e) {

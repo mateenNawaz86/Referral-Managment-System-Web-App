@@ -35,7 +35,7 @@ export const logIn = createAsyncThunk("login/user", async (args, thunkApi) => {
 
     if (userData) {
       saveUser(userData?.data);
-      thunkApi.dispatch(setUser(userData?.data));
+      thunkApi.dispatch(setUser(userData));
     } else {
       console.warn("No user data found in response");
     }
