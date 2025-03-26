@@ -1,10 +1,20 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { getPageFromURL } from "../../utils/utility";
 import { getPageTitles } from "../../utils/function";
-import { useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { readPremiumUsers } from "../../api/slices/premiumUser/premium-user";
 
 export const useMonthlyUses = () => {
   const location = useLocation();
+  const dispatch = useDispatch();
+  const [currentPageRows, setCurrentPageRows] = useState([]);
+  const [currentPage, setCurrentPage] = useState(getPageFromURL());
+  const { user, loading: authLoading } = useSelector((state) => state.auth);
+  const { loading, premiumUsers } = useSelector((state) => state.premiumUsers);
+
+  const { mobilePageTitle, pageTitle } = getPageTitles(location);
+
   const dummyData = [
     { title: "Total Users", points: "45.50k" },
     { title: "This Month", points: "35.50k" },
@@ -105,21 +115,42 @@ export const useMonthlyUses = () => {
     },
   ];
 
-  const headings = ["User details", "Installed", "Subscribed", "Clearance"];
+  useEffect(() => {
+    if (authLoading) return;
 
-  const { mobilePageTitle, pageTitle } = getPageTitles(location);
+    const redeemHistoryRecords = async () => {
+      const uid = user?.user?.id;
+      if (!uid) return;
 
-  const totalCount = records.length;
-  const itemsPerPage = 5;
-  const totalItems = totalCount;
-  const isLoading = false;
+      const formData = new FormData();
+      formData.append("uid", uid);
 
-  const [currentPage, setCurrentPage] = useState(getPageFromURL());
+      try {
+        await dispatch(
+          readPremiumUsers({
+            data: formData,
+          })
+        ).then((response) => {
+          if (response?.payload) {
+            if (pageTitle === "Monthly Trial Users") {
+              const { data } = response.payload?.data?.monthlyTrialUsers;
+              setCurrentPageRows(data);
+            } else if (pageTitle === "Monthly Subscribed Users") {
+              const { data } = response.payload?.data?.monthlySubscribedUsers;
+              setCurrentPageRows(data);
+            } else if (pageTitle === "Monthly Cancelled Users") {
+              const { data } = response.payload?.data?.monthlyCanceledUsers;
+              setCurrentPageRows(data);
+            }
+          }
+        });
+      } catch (err) {
+        console.error("Error fetching monthly premium users:", err);
+      }
+    };
 
-  const currentPageRows = useMemo(() => {
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    return records?.slice(startIndex, startIndex + itemsPerPage);
-  }, [currentPage, records]);
+    redeemHistoryRecords();
+  }, [dispatch, user, authLoading]);
 
   useEffect(() => {
     const handlePopState = () => {
@@ -128,6 +159,12 @@ export const useMonthlyUses = () => {
     window.addEventListener("popstate", handlePopState);
     return () => window.removeEventListener("popstate", handlePopState);
   }, []);
+
+  const headings = ["User details", "Installed", "Subscribed", "Clearance"];
+
+  const totalCount = currentPageRows?.length;
+  const itemsPerPage = 5;
+  const totalItems = totalCount;
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -142,7 +179,7 @@ export const useMonthlyUses = () => {
     currentPageRows,
     totalItems,
     totalCount,
-    isLoading,
+    loading,
     itemsPerPage,
     handlePageChange,
     currentPage,

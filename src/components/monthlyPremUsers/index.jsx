@@ -6,7 +6,6 @@ import { useMonthlyUses } from "../../hooks/monthly-users/useMonthlyUsers";
 import { DetailCards } from "../freeUser/detail-card";
 import { RecordCard } from "../../base-component/ui/record-card";
 import { NoDataEmptyState } from "../../base-component/ui/loadingEffect/no-data-state";
-import { FilterSortIcon } from "../../assets/svgs/components/filter-sort-icon";
 import SelectField from "../../base-component/ui/fields/select-fields";
 
 export const MonthlyPremUsers = () => {
@@ -14,7 +13,7 @@ export const MonthlyPremUsers = () => {
     dummyData,
     totalCount,
     totalItems,
-    isLoading,
+    loading,
     itemsPerPage,
     currentPage,
     headings,
@@ -28,7 +27,7 @@ export const MonthlyPremUsers = () => {
   const CurrentComponent = useEmptyStates(
     <MonthlyPremUsersTableRows data={currentPageRows} />,
     totalCount !== 0,
-    isLoading
+    loading
   );
 
   return (
@@ -39,7 +38,7 @@ export const MonthlyPremUsers = () => {
         {CurrentComponent}
       </div>
 
-      {records?.length > 0 ? (
+      {currentPageRows?.length > 0 ? (
         <div className="md:hidden mb-10">
           <div className="flex items-center justify-between mt-[15px] mb-3">
             <p className="text-[20px] font-semibold min-w-fit">
@@ -72,7 +71,7 @@ export const MonthlyPremUsers = () => {
           <RecordCard data={records} pageTitle={pageTitle} />
         </div>
       ) : (
-        <div className="md:hidden">
+        <div className="md:hidden mt-10">
           <NoDataEmptyState
             imgClassName="w-14 h-14"
             textClassName="text-lg"
@@ -81,14 +80,16 @@ export const MonthlyPremUsers = () => {
         </div>
       )}
 
-      <div className="hidden md:block">
-        <Pagination
-          totalItems={totalItems}
-          itemsPerPage={itemsPerPage}
-          onPageChange={handlePageChange}
-          currentPage={currentPage}
-        />
-      </div>
+      {!loading && (
+        <div className="hidden md:block">
+          <Pagination
+            totalItems={totalItems}
+            itemsPerPage={itemsPerPage}
+            onPageChange={handlePageChange}
+            currentPage={currentPage}
+          />
+        </div>
+      )}
     </>
   );
 };

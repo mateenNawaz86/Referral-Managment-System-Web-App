@@ -5,6 +5,7 @@ import pointsHistory from "../slices/pointHistory/point-history";
 import couponHistorySlice from "../slices/couponHistory/couponHistory";
 import redeemRequest from "../slices/redeemRequest/redeem-request";
 import redeemHistorySlice from "../slices/redeemHistory/redeem-history";
+import premiumUsersSlice from "../slices/premiumUser/premium-user";
 
 const reducer = {
   auth,
@@ -14,6 +15,7 @@ const reducer = {
   pointsHistory: pointsHistory,
   couponHistory: couponHistorySlice,
   redeemHistory: redeemHistorySlice,
+  premiumUsers: premiumUsersSlice,
 };
 
 export default reducer;

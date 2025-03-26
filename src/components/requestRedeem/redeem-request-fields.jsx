@@ -14,7 +14,7 @@ export const RedeemRequestFormFields = (register, loading, control) => {
               type: Field.input,
               id: "points",
               name: "points",
-              inputType: "text",
+              inputType: "number",
               placeholder: "Enter points you want to redeem",
               className: "w-full pl-[18px]",
               register,

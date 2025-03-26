@@ -10,6 +10,7 @@ import { redeemRequest } from "../../api/slices/redeemRequest/redeem-request";
 export const useRedeemRequest = () => {
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.redeemRequest);
+  const { user } = useSelector((state) => state.auth);
 
   const handleRedeemRequest = () => {
     dispatch(updateModalType({ type: ModalType.REDEEM_REQUEST_SUCCESS }));
@@ -30,10 +31,12 @@ export const useRedeemRequest = () => {
   const fields = RedeemRequestFormFields(register, loading, control);
 
   const onSubmit = async (data) => {
-    console.log(data, "data");
-
     const formData = new FormData();
+    const uid = user?.user?.id;
+    if (!uid) return;
+
     formData.append("points", data?.points);
+    formData.append("uid", uid);
 
     try {
       const res = await dispatch(redeemRequest({ data: formData, setError }));

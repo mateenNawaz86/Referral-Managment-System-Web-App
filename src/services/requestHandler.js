@@ -10,6 +10,7 @@ const SERVICE_URLS = {
   coupon_history: "/referrals/coupons/all",
   redeem_request: "/referrals/points/redeem",
   redeem_history: "/referrals/redeem/history",
+  prem_user: "/referrals/users/details",
 };
 
 const signUp = (data) =>
@@ -36,6 +37,9 @@ const redeemRequest = (data) =>
 const redeemHistory = (data) =>
   post(SERVICE_URLS.redeem_history, data, { feature: featureConstants.login });
 
+const premiumUser = (data) =>
+  post(SERVICE_URLS.prem_user, data, { feature: featureConstants.login });
+
 const apiServices = {
   signUp,
   login,
@@ -45,6 +49,7 @@ const apiServices = {
   couponHistory,
   redeemRequest,
   redeemHistory,
+  premiumUser,
 };
 
 export default apiServices;
