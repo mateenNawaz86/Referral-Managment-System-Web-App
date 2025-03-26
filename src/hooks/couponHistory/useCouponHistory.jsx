@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { getPageFromURL } from "../../utils/utility";
 import { readCouponHistory } from "../../api/slices/couponHistory/couponHistory";
 import { useDispatch, useSelector } from "react-redux";

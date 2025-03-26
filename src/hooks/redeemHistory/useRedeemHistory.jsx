@@ -1,22 +1,26 @@
 import { ModalType } from "../../types/ui";
-import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { getPageFromURL } from "../../utils/utility";
+import { useDispatch, useSelector } from "react-redux";
 import { updateModalType } from "../../api/slices/globalSlice/global";
 import { readRedeemHistory } from "../../api/slices/redeemHistory/redeem-history";
 
 export const useRedeemHistory = () => {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.auth);
   const [currentPageRows, setCurrentPageRows] = useState([]);
   const [currentPage, setCurrentPage] = useState(getPageFromURL());
+  const { user, loading: authLoading } = useSelector((state) => state.auth);
   const { redeemHistory, loading } = useSelector(
     (state) => state.redeemHistory
   );
 
   useEffect(() => {
+    if (authLoading) return;
+
     const redeemHistoryRecords = async () => {
       const uid = user?.user?.id;
+      if (!uid) return;
+
       const formData = new FormData();
       formData.append("uid", uid);
 
@@ -34,7 +38,7 @@ export const useRedeemHistory = () => {
     };
 
     redeemHistoryRecords();
-  }, [dispatch]);
+  }, [dispatch, user, authLoading]);
 
   useEffect(() => {
     const handlePopState = () => {
