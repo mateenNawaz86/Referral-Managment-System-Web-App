@@ -1,7 +1,7 @@
-import { RewardBalanceIcon } from "../../assets/svgs/components/reward-balance-icon";
+import { Form } from "../../base-component/form/form";
 import { WarningIcon } from "../../assets/svgs/components/warning-icon";
 import { useRedeemRequest } from "../../hooks/redeemRequest/useRedeemRequest";
-import { Form } from "../../base-component/form/form";
+import { RewardBalanceIcon } from "../../assets/svgs/components/reward-balance-icon";
 
 export const RequestRedeem = () => {
   const { errors, fields, handleSubmit, onSubmit } = useRedeemRequest();

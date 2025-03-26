@@ -1,11 +1,11 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { getPageFromURL } from "../../utils/utility";
 import { useDispatch, useSelector } from "react-redux";
 import { readFreeUserListing } from "../../api/slices/freeUserSlice/freeUser";
 
 export const useFreeUser = () => {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.auth);
+  const { user, loading: authLoading } = useSelector((state) => state.auth);
   const [currentPageRows, setCurrentPageRows] = useState([]);
   const [currentPage, setCurrentPage] = useState(getPageFromURL());
   const { freeUser, loading } = useSelector((state) => state.freeUser);
@@ -23,11 +23,6 @@ export const useFreeUser = () => {
   const itemsPerPage = 5;
   const totalItems = totalCount;
 
-  // const currentPageRows = useMemo(() => {
-  //   const startIndex = (currentPage - 1) * itemsPerPage;
-  //   return freeUser?.slice(startIndex, startIndex + itemsPerPage);
-  // }, [currentPage, freeUser]);
-
   useEffect(() => {
     const handlePopState = () => {
       setCurrentPage(getPageFromURL());
@@ -37,8 +32,12 @@ export const useFreeUser = () => {
   }, []);
 
   useEffect(() => {
+    if (authLoading) return;
+
     const fetchFreeUsers = async () => {
       const uid = user?.user?.id;
+      if (!uid) return;
+
       const formData = new FormData();
       formData.append("uid", uid);
 
@@ -56,7 +55,7 @@ export const useFreeUser = () => {
     };
 
     fetchFreeUsers();
-  }, [dispatch]);
+  }, [dispatch, user, authLoading]);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);

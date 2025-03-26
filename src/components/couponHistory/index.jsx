@@ -58,7 +58,7 @@ export const CouponHistory = () => {
           <CouponDetailsCard data={couponHistory} />
         </div>
       ) : (
-        <div className="md:hidden">
+        <div className="md:hidden mt-10">
           <NoDataEmptyState
             imgClassName="w-14 h-14"
             textClassName="text-lg"
@@ -67,14 +67,16 @@ export const CouponHistory = () => {
         </div>
       )}
 
-      <div className="hidden md:block">
-        <Pagination
-          totalItems={totalItems}
-          itemsPerPage={itemsPerPage}
-          onPageChange={handlePageChange}
-          currentPage={currentPage}
-        />
-      </div>
+      {!loading && (
+        <div className="hidden md:block">
+          <Pagination
+            totalItems={totalItems}
+            itemsPerPage={itemsPerPage}
+            onPageChange={handlePageChange}
+            currentPage={currentPage}
+          />
+        </div>
+      )}
     </>
   );
 };

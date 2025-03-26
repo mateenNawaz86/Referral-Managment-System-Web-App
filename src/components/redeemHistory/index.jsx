@@ -5,16 +5,17 @@ import { Pagination } from "../../base-component/ui/pagination/pagination";
 import { useRedeemHistory } from "../../hooks/redeemHistory/useRedeemHistory";
 import SelectField from "../../base-component/ui/fields/select-fields";
 import { RedeemMobileCard } from "../../base-component/ui/redeem-mobile-card";
+import { NoDataEmptyState } from "../../base-component/ui/loadingEffect/no-data-state";
 
 export const RedeemHistory = () => {
   const {
     totalCount,
     totalItems,
-    isLoading,
+    loading,
     itemsPerPage,
     currentPage,
     headings,
-    records,
+    redeemHistory,
     currentPageRows,
     handlePageChange,
     handlePaymentDetails,
@@ -26,7 +27,7 @@ export const RedeemHistory = () => {
       onPaymentDetails={handlePaymentDetails}
     />,
     totalCount !== 0,
-    isLoading
+    loading
   );
 
   return (
@@ -36,7 +37,7 @@ export const RedeemHistory = () => {
         {CurrentComponent}
       </div>
 
-      {records?.length > 0 ? (
+      {redeemHistory?.length > 0 ? (
         <div className="md:hidden mb-10">
           <div className="flex items-center justify-between mt-[15px] mb-3">
             <p className="text-[20px] font-semibold">Redeemed Listing</p>
@@ -59,7 +60,10 @@ export const RedeemHistory = () => {
               ]}
             />
           </div>
-          <RedeemMobileCard data={records} onClick={handlePaymentDetails} />
+          <RedeemMobileCard
+            data={redeemHistory}
+            onClick={handlePaymentDetails}
+          />
         </div>
       ) : (
         <div className="md:hidden">
@@ -71,14 +75,16 @@ export const RedeemHistory = () => {
         </div>
       )}
 
-      <div className="hidden md:block">
-        <Pagination
-          totalItems={totalItems}
-          itemsPerPage={itemsPerPage}
-          onPageChange={handlePageChange}
-          currentPage={currentPage}
-        />
-      </div>
+      {!loading && (
+        <div className="hidden md:block">
+          <Pagination
+            totalItems={totalItems}
+            itemsPerPage={itemsPerPage}
+            onPageChange={handlePageChange}
+            currentPage={currentPage}
+          />
+        </div>
+      )}
     </>
   );
 };

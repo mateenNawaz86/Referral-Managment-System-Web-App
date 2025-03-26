@@ -1,86 +1,40 @@
-import { useState, useEffect, useMemo } from "react";
-import { getPageFromURL } from "../../utils/utility";
-import { useDispatch } from "react-redux";
-import { updateModalType } from "../../api/slices/globalSlice/global";
 import { ModalType } from "../../types/ui";
+import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import { getPageFromURL } from "../../utils/utility";
+import { updateModalType } from "../../api/slices/globalSlice/global";
+import { readRedeemHistory } from "../../api/slices/redeemHistory/redeem-history";
 
 export const useRedeemHistory = () => {
   const dispatch = useDispatch();
-  const records = [
-    { redeemDate: "Mar 05 2025 09:15 AM", redeemPoint: 150, status: "Pending" },
-    {
-      redeemDate: "Feb 20 2025 03:30 PM",
-      redeemPoint: 200,
-      status: "Successful",
-    },
-    {
-      redeemDate: "Jan 10 2025 06:45 PM",
-      redeemPoint: 300,
-      status: "Cancelled",
-    },
-    {
-      redeemDate: "Dec 25 2024 11:00 AM",
-      redeemPoint: 400,
-      status: "In Progress",
-    },
-    {
-      redeemDate: "Nov 30 2024 02:20 PM",
-      redeemPoint: 250,
-      status: "Successful",
-    },
-    { redeemDate: "Oct 15 2024 07:10 AM", redeemPoint: 180, status: "Pending" },
-    {
-      redeemDate: "Sep 05 2024 05:55 PM",
-      redeemPoint: 350,
-      status: "Cancelled",
-    },
-    {
-      redeemDate: "Aug 22 2024 10:25 AM",
-      redeemPoint: 100,
-      status: "In Progress",
-    },
-    { redeemDate: "Jul 14 2024 08:40 PM", redeemPoint: 275, status: "Pending" },
-    {
-      redeemDate: "Jun 10 2024 11:35 PM",
-      redeemPoint: 100,
-      status: "Successful",
-    },
-    {
-      redeemDate: "May 02 2024 01:05 PM",
-      redeemPoint: 500,
-      status: "Cancelled",
-    },
-    {
-      redeemDate: "Apr 18 2024 04:45 AM",
-      redeemPoint: 220,
-      status: "In Progress",
-    },
-    { redeemDate: "Mar 29 2024 09:50 PM", redeemPoint: 390, status: "Pending" },
-    {
-      redeemDate: "Feb 12 2024 07:20 AM",
-      redeemPoint: 175,
-      status: "Successful",
-    },
-    {
-      redeemDate: "Jan 05 2024 06:15 PM",
-      redeemPoint: 280,
-      status: "Cancelled",
-    },
-  ];
-
-  const headings = ["Redeemed Date", "Redeemed Points", "Status"];
-
-  const totalCount = records.length;
-  const itemsPerPage = 5;
-  const totalItems = totalCount;
-  const isLoading = false;
-
+  const { user } = useSelector((state) => state.auth);
+  const [currentPageRows, setCurrentPageRows] = useState([]);
   const [currentPage, setCurrentPage] = useState(getPageFromURL());
+  const { redeemHistory, loading } = useSelector(
+    (state) => state.redeemHistory
+  );
 
-  const currentPageRows = useMemo(() => {
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    return records?.slice(startIndex, startIndex + itemsPerPage);
-  }, [currentPage, records]);
+  useEffect(() => {
+    const redeemHistoryRecords = async () => {
+      const uid = user?.user?.id;
+      const formData = new FormData();
+      formData.append("uid", uid);
+
+      try {
+        await dispatch(
+          readRedeemHistory({
+            data: formData,
+          })
+        ).then((response) => {
+          if (response?.payload) setCurrentPageRows(response?.payload?.data);
+        });
+      } catch (err) {
+        console.error("Error fetching redeem history records:", err);
+      }
+    };
+
+    redeemHistoryRecords();
+  }, [dispatch]);
 
   useEffect(() => {
     const handlePopState = () => {
@@ -89,6 +43,12 @@ export const useRedeemHistory = () => {
     window.addEventListener("popstate", handlePopState);
     return () => window.removeEventListener("popstate", handlePopState);
   }, []);
+
+  const headings = ["Redeemed Date", "Redeemed Points", "Status"];
+
+  const totalCount = redeemHistory?.length;
+  const itemsPerPage = 5;
+  const totalItems = totalCount;
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -106,12 +66,12 @@ export const useRedeemHistory = () => {
     currentPageRows,
     totalItems,
     totalCount,
-    isLoading,
+    loading,
     itemsPerPage,
     handlePageChange,
     currentPage,
     headings,
-    records,
+    redeemHistory,
     handlePaymentDetails,
   };
 };

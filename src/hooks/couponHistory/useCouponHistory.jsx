@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 export const useCouponHistory = () => {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.auth);
+  const { user, loading: authLoading } = useSelector((state) => state.auth);
   const [currentPageRows, setCurrentPageRows] = useState([]);
   const [currentPage, setCurrentPage] = useState(getPageFromURL());
   const { couponHistory, loading } = useSelector(
@@ -13,8 +13,12 @@ export const useCouponHistory = () => {
   );
 
   useEffect(() => {
+    if (authLoading) return;
+
     const couponHistoryRecords = async () => {
       const uid = user?.user?.id;
+      if (!uid) return;
+
       const formData = new FormData();
       formData.append("uid", uid);
 
@@ -32,7 +36,7 @@ export const useCouponHistory = () => {
     };
 
     couponHistoryRecords();
-  }, [dispatch]);
+  }, [dispatch, user, authLoading]);
 
   useEffect(() => {
     const handlePopState = () => {

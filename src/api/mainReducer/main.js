@@ -3,7 +3,8 @@ import globalSlice from "../slices/globalSlice/global";
 import freeUserSlice from "../slices/freeUserSlice/freeUser";
 import pointsHistory from "../slices/pointHistory/point-history";
 import couponHistorySlice from "../slices/couponHistory/couponHistory";
-import { redeemRequest } from "../slices/redeemRequest/redeem-request";
+import redeemRequest from "../slices/redeemRequest/redeem-request";
+import redeemHistorySlice from "../slices/redeemHistory/redeem-history";
 
 const reducer = {
   auth,
@@ -12,6 +13,7 @@ const reducer = {
   redeemRequest: redeemRequest,
   pointsHistory: pointsHistory,
   couponHistory: couponHistorySlice,
+  redeemHistory: redeemHistorySlice,
 };
 
 export default reducer;
