@@ -74,3 +74,14 @@ export function isJSON(str) {
 export const formatDate = (isoString) => {
   return moment(isoString).format("MMM DD YYYY hh:mm A");
 };
+
+export const getLastHeading = (searchParams) => {
+  const queryParams = new URLSearchParams(searchParams);
+  const status = queryParams.get("status") || "trial";
+
+  return status === "subscribed"
+    ? "Cleared"
+    : status === "cancelled"
+    ? "Cancelled"
+    : "Clearance";
+};

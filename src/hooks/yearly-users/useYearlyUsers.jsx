@@ -1,10 +1,11 @@
 import { useState, useEffect, useMemo } from "react";
 import { getPageFromURL } from "../../utils/utility";
 import { useLocation } from "react-router-dom";
-import { getPageTitles } from "../../utils/function";
+import { getLastHeading, getPageTitles } from "../../utils/function";
 
 export const useYearlyUsers = () => {
   const location = useLocation();
+  const [currentPage, setCurrentPage] = useState(getPageFromURL());
 
   const dummyData = [
     { title: "Total Users", points: "45.50k" },
@@ -106,16 +107,14 @@ export const useYearlyUsers = () => {
     },
   ];
 
-  const headings = ["User details", "Installed", "Subscribed", "Clearance"];
-
+  const lastHeading = getLastHeading(location.search);
+  const headings = ["User details", "Installed", "Subscribed", lastHeading];
   const { pageTitle, mobilePageTitle } = getPageTitles(location);
 
   const totalCount = records.length;
   const itemsPerPage = 5;
   const totalItems = totalCount;
   const isLoading = false;
-
-  const [currentPage, setCurrentPage] = useState(getPageFromURL());
 
   const currentPageRows = useMemo(() => {
     const startIndex = (currentPage - 1) * itemsPerPage;

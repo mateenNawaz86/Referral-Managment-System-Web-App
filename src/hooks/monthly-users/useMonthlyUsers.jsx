@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { getPageFromURL } from "../../utils/utility";
-import { getPageTitles } from "../../utils/function";
+import { getLastHeading, getPageTitles } from "../../utils/function";
 import { useDispatch, useSelector } from "react-redux";
 import { readPremiumUsers } from "../../api/slices/premiumUser/premium-user";
 
@@ -12,15 +12,6 @@ export const useMonthlyUses = () => {
   const [currentPage, setCurrentPage] = useState(getPageFromURL());
   const { user, loading: authLoading } = useSelector((state) => state.auth);
   const { loading, premiumUsers } = useSelector((state) => state.premiumUsers);
-
-  const { mobilePageTitle, pageTitle } = getPageTitles(location);
-
-  const dummyData = [
-    { title: "Total Users", points: "45.50k" },
-    { title: "This Month", points: "35.50k" },
-    { title: "This Week", points: "38.50k" },
-    { title: "Revenue", points: "$78.6k" },
-  ];
 
   const records = [
     {
@@ -160,7 +151,16 @@ export const useMonthlyUses = () => {
     return () => window.removeEventListener("popstate", handlePopState);
   }, []);
 
-  const headings = ["User details", "Installed", "Subscribed", "Clearance"];
+  const lastHeading = getLastHeading(location.search);
+  const headings = ["User details", "Installed", "Subscribed", lastHeading];
+  const { mobilePageTitle, pageTitle } = getPageTitles(location);
+
+  const dummyData = [
+    { title: "Total Users", points: "45.50k" },
+    { title: "This Month", points: "35.50k" },
+    { title: "This Week", points: "38.50k" },
+    { title: "Revenue", points: "$78.6k" },
+  ];
 
   const totalCount = currentPageRows?.length;
   const itemsPerPage = 5;
