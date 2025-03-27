@@ -1,16 +1,16 @@
-import { useDispatch, useSelector } from "react-redux";
-import { ModalType } from "../../types/ui";
-import { updateModalType } from "../../api/slices/globalSlice/global";
 import { useForm } from "react-hook-form";
+import { ModalType } from "../../types/ui";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { generateRedeemPointsValidationSchema } from "../../validation/redeem-points-validation";
-import { RedeemRequestFormFields } from "../../components/requestRedeem/redeem-request-fields";
+import { useDispatch, useSelector } from "react-redux";
+import { updateModalType } from "../../api/slices/globalSlice/global";
 import { redeemRequest } from "../../api/slices/redeemRequest/redeem-request";
+import { RedeemRequestFormFields } from "../../components/requestRedeem/redeem-request-fields";
+import { generateRedeemPointsValidationSchema } from "../../validation/redeem-points-validation";
 
 export const useRedeemRequest = () => {
   const dispatch = useDispatch();
-  const { loading } = useSelector((state) => state.redeemRequest);
   const { user } = useSelector((state) => state.auth);
+  const { loading } = useSelector((state) => state.redeemRequest);
 
   const handleRedeemRequest = () => {
     dispatch(updateModalType({ type: ModalType.REDEEM_REQUEST_SUCCESS }));

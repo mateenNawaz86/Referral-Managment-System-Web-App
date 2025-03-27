@@ -1,7 +1,7 @@
+import { UsersIcon } from "../../assets/svgs/components/users-icon";
 import { DashboardCard } from "../../base-component/ui/dashboard-card";
 import { PointIcon } from "../../assets/svgs/components/point-icon";
 import { RedeeemHistoryIcon } from "../../assets/svgs/components/redeem-history-icon";
-import { UsersIcon } from "../../assets/svgs/components/users-icon";
 import { MonthlyPremIcon } from "../../assets/svgs/components/monthly-prem-icon";
 import { YearlyPremIcon } from "../../assets/svgs/components/yearly-prem-icon";
 

@@ -21,10 +21,10 @@ export const DashboardCard = ({ points, title, icon, bgColor, link }) => {
             {icon}
           </div>
           <div className="flex flex-col gap-y-2 flex-1">
-            <span className="text-[26px] md:text-[30px] font-bold text-white">
+            <span className="text-[26px] md:text-[30px] font-bold text-white select-none">
               {points}
             </span>
-            <span className="text-base md:text-lg font-bold text-white line-clamp-2 overflow-hidden">
+            <span className="text-base md:text-lg font-bold text-white line-clamp-2 overflow-hidden select-none">
               {title}
             </span>
           </div>
