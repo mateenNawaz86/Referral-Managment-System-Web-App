@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { getPageFromURL } from "../../utils/utility";
-import { getLastHeading, getPageTitles } from "../../utils/function";
 import { useDispatch, useSelector } from "react-redux";
+import { getLastHeading, getPageTitles } from "../../utils/function";
 import { readPremiumUsers } from "../../api/slices/premiumUser/premium-user";
 
 export const useMonthlyUses = () => {

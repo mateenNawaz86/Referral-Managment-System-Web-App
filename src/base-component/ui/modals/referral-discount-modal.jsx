@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { BaseModal } from "./base-modal";
-import discountCodeIcon from "../../../assets/pngs/discount-code-icon.png";
+import { LinkButton } from "../button/link-icon";
 import { CopyIcon } from "../../../assets/svgs/components/copy-icon";
 import { ShareIcon } from "../../../assets/svgs/components/share-icon";
-import { LinkButton } from "../button/link-icon";
+import discountCodeIcon from "../../../assets/pngs/discount-code-icon.png";
 
 export const ReferralDiscountModal = ({ onClose }) => {
   const [copyCode, setCopyCode] = useState(false);
@@ -35,7 +35,9 @@ export const ReferralDiscountModal = ({ onClose }) => {
             {discountCode}
           </span>
 
-          {copyCode && <p className="text-green-600 font-medium">Copied!</p>}
+          {/* {copyCode && (
+            <p className="text-green-600 font-medium h-5">Copied!</p>
+          )} */}
         </div>
 
         <div className="flex items-center gap-x-[15px] md:gap-x-[33px]">
