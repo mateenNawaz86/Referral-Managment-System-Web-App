@@ -17,7 +17,6 @@ export const MonthlyPremUsers = () => {
     itemsPerPage,
     currentPage,
     headings,
-    records,
     pageTitle,
     mobilePageTitle,
     currentPageRows,
@@ -68,7 +67,7 @@ export const MonthlyPremUsers = () => {
               containerClassName="w-[350px]"
             />
           </div>
-          <RecordCard data={records} pageTitle={pageTitle} />
+          <RecordCard data={currentPageRows} pageTitle={pageTitle} />
         </div>
       ) : (
         <div className="md:hidden mt-10">

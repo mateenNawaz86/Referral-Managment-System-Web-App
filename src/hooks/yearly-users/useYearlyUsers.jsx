@@ -121,6 +121,74 @@ export const useYearlyUsers = () => {
     return records?.slice(startIndex, startIndex + itemsPerPage);
   }, [currentPage, records]);
 
+
+
+    useEffect(() => {
+      if (authLoading) return;
+      const parsedPage = parseInt(page, 10);
+  
+      let resetPage = null;
+      if (!isNaN(parsedPage)) {
+        setCurrentPage(parsedPage);
+      } else {
+        resetPage = 1;
+        setCurrentPage(1);
+      }
+  
+      const queryStatus = searchParams.get("status");
+      const querySort = searchParams.get("sort");
+  
+      const redeemHistoryRecords = async () => {
+        const uid = user?.user?.id;
+        if (!uid) return;
+  
+        const queryParams = queryStatus || querySort;
+  
+        if (queryParams !== undefined) {
+          const filteredStatus =
+            queryStatus === "None"
+              ? "None"
+              : queryParams
+                  .toString()
+                  .split(",")
+                  .filter((item) => item !== "None");
+  
+          try {
+            await dispatch(
+              readPremiumUsers({
+                params: {
+                  uid: 1,
+                  type: "monthly",
+                  status: filteredStatus,
+                  sort: querySort,
+                  page: (Number(parsedPage) || resetPage) ?? currentPage,
+                  size: 10,
+                },
+              })
+            ).then((response) => {
+              if (response?.payload) {
+                if (pageTitle === "Monthly Trial Users") {
+                  const { data } = response.payload?.data?.monthlyTrialUsers;
+                  setCurrentPageRows(data);
+                } else if (pageTitle === "Monthly Subscribed Users") {
+                  const { data } = response.payload?.data?.monthlySubscribedUsers;
+                  setCurrentPageRows(data);
+                } else if (pageTitle === "Monthly Cancelled Users") {
+                  const { data } = response.payload?.data?.monthlyCanceledUsers;
+                  setCurrentPageRows(data);
+                }
+              }
+            });
+          } catch (err) {
+            console.error("Error fetching monthly premium users:", err);
+          }
+        }
+      };
+  
+      redeemHistoryRecords();
+    }, [authLoading]);
+    
+
   useEffect(() => {
     const handlePopState = () => {
       setCurrentPage(getPageFromURL());

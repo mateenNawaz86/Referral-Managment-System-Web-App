@@ -1,147 +1,81 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
 import { getPageFromURL } from "../../utils/utility";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useSearchParams } from "react-router-dom";
 import { getLastHeading, getPageTitles } from "../../utils/function";
 import { readPremiumUsers } from "../../api/slices/premiumUser/premium-user";
 
 export const useMonthlyUses = () => {
   const location = useLocation();
   const dispatch = useDispatch();
+  const [searchParams] = useSearchParams();
+  const page = searchParams.get("page");
+  const [currentPage, setCurrentPage] = useState(page || 1);
   const [currentPageRows, setCurrentPageRows] = useState([]);
-  const [currentPage, setCurrentPage] = useState(getPageFromURL());
   const { user, loading: authLoading } = useSelector((state) => state.auth);
-  const { loading, premiumUsers } = useSelector((state) => state.premiumUsers);
-
-  const records = [
-    {
-      username: "James Anderson",
-      installedDate: "May 15 2024 11:35 PM",
-      subscribeDate: "Jun 10 2024 11:35 PM",
-      clearanceDate: "Jul 10 2024 11:35 PM",
-    },
-    {
-      username: "Sophia Martinez",
-      installedDate: "Apr 20 2024 09:15 AM",
-      subscribeDate: "May 15 2024 02:45 PM",
-      clearanceDate: "Jun 20 2024 06:30 PM",
-    },
-    {
-      username: "Michael Johnson",
-      installedDate: "Mar 10 2024 07:25 AM",
-      subscribeDate: "Apr 05 2024 01:20 PM",
-      clearanceDate: "May 05 2024 08:55 PM",
-    },
-    {
-      username: "Emma Wilson",
-      installedDate: "Feb 05 2024 05:50 PM",
-      subscribeDate: "Mar 01 2024 04:35 PM",
-      clearanceDate: "Apr 01 2024 12:10 AM",
-    },
-    {
-      username: "Daniel Brown",
-      installedDate: "Jan 22 2024 10:10 AM",
-      subscribeDate: "Feb 18 2024 11:00 AM",
-      clearanceDate: "Mar 18 2024 03:45 PM",
-    },
-    {
-      username: "Olivia Davis",
-      installedDate: "Dec 12 2023 06:20 PM",
-      subscribeDate: "Jan 10 2024 08:30 AM",
-      clearanceDate: "Feb 10 2024 10:45 PM",
-    },
-    {
-      username: "William Taylor",
-      installedDate: "Nov 08 2023 09:40 AM",
-      subscribeDate: "Dec 02 2023 05:25 PM",
-      clearanceDate: "Jan 02 2024 07:10 PM",
-    },
-    {
-      username: "Isabella Moore",
-      installedDate: "Oct 03 2023 11:15 PM",
-      subscribeDate: "Nov 01 2023 01:55 PM",
-      clearanceDate: "Dec 01 2023 09:20 AM",
-    },
-    {
-      username: "Ethan Thomas",
-      installedDate: "Sep 25 2023 08:05 AM",
-      subscribeDate: "Oct 20 2023 04:10 PM",
-      clearanceDate: "Nov 20 2023 06:55 PM",
-    },
-    {
-      username: "Ava Harris",
-      installedDate: "Aug 14 2023 03:50 PM",
-      subscribeDate: "Sep 10 2023 09:40 AM",
-      clearanceDate: "Oct 10 2023 02:30 PM",
-    },
-    {
-      username: "Liam Walker",
-      installedDate: "Jul 10 2023 07:30 AM",
-      subscribeDate: "Aug 01 2023 06:15 PM",
-      clearanceDate: "Sep 01 2023 10:05 PM",
-    },
-    {
-      username: "Mia Robinson",
-      installedDate: "Jun 05 2023 05:20 PM",
-      subscribeDate: "Jul 01 2023 01:45 AM",
-      clearanceDate: "Aug 01 2023 04:20 PM",
-    },
-    {
-      username: "Benjamin Hall",
-      installedDate: "May 01 2023 02:40 PM",
-      subscribeDate: "May 28 2023 11:30 AM",
-      clearanceDate: "Jun 28 2023 07:55 PM",
-    },
-    {
-      username: "Charlotte Young",
-      installedDate: "Apr 18 2023 09:10 AM",
-      subscribeDate: "May 15 2023 06:20 PM",
-      clearanceDate: "Jun 15 2023 12:05 PM",
-    },
-    {
-      username: "Alexander King",
-      installedDate: "Mar 12 2023 11:45 PM",
-      subscribeDate: "Apr 10 2023 03:35 PM",
-      clearanceDate: "May 10 2023 09:25 AM",
-    },
-  ];
+  const { loading } = useSelector((state) => state.premiumUsers);
 
   useEffect(() => {
     if (authLoading) return;
+    const parsedPage = parseInt(page, 10);
+
+    let resetPage = null;
+    if (!isNaN(parsedPage)) {
+      setCurrentPage(parsedPage);
+    } else {
+      resetPage = 1;
+      setCurrentPage(1);
+    }
+
+    const queryStatus = searchParams.get("status");
+    const querySort = searchParams.get("sort");
 
     const redeemHistoryRecords = async () => {
       const uid = user?.user?.id;
       if (!uid) return;
 
-      const formData = new FormData();
-      formData.append("uid", uid);
+      const queryParams = queryStatus || querySort;
 
-      try {
-        await dispatch(
-          readPremiumUsers({
-            data: formData,
-          })
-        ).then((response) => {
+      if (queryParams !== undefined) {
+        const filteredStatus =
+          queryStatus === "None"
+            ? ""
+            : queryStatus === "subscribed"
+            ? "active"
+            : queryStatus === "cancelled"
+            ? "canceled"
+            : queryParams;
+        const filteredData = {
+          uid: 1,
+          type: "monthly",
+          page: (Number(parsedPage) || resetPage) ?? currentPage,
+          size: 10,
+        };
+
+        if (filteredStatus && filteredStatus.length > 0) {
+          filteredData.status = filteredStatus;
+        }
+
+        if (querySort) {
+          filteredData.sort = querySort;
+        }
+
+        try {
+          const response = await dispatch(
+            readPremiumUsers({ data: filteredData })
+          );
           if (response?.payload) {
-            if (pageTitle === "Monthly Trial Users") {
-              const { data } = response.payload?.data?.monthlyTrialUsers;
-              setCurrentPageRows(data);
-            } else if (pageTitle === "Monthly Subscribed Users") {
-              const { data } = response.payload?.data?.monthlySubscribedUsers;
-              setCurrentPageRows(data);
-            } else if (pageTitle === "Monthly Cancelled Users") {
-              const { data } = response.payload?.data?.monthlyCanceledUsers;
-              setCurrentPageRows(data);
-            }
+            const data = response.payload;
+            setCurrentPageRows(data);
           }
-        });
-      } catch (err) {
-        console.error("Error fetching monthly premium users:", err);
+        } catch (err) {
+          console.error("Error fetching monthly premium users:", err);
+        }
       }
     };
 
     redeemHistoryRecords();
-  }, [dispatch, user, authLoading]);
+  }, [searchParams, user, authLoading]);
 
   useEffect(() => {
     const handlePopState = () => {
@@ -156,14 +90,14 @@ export const useMonthlyUses = () => {
   const { mobilePageTitle, pageTitle } = getPageTitles(location);
 
   const dummyData = [
-    { title: "Total Users", points: "45.50k" },
-    { title: "This Month", points: "35.50k" },
-    { title: "This Week", points: "38.50k" },
-    { title: "Revenue", points: "$78.6k" },
+    { title: "Total Users", points: currentPageRows?.metrics?.total },
+    { title: "This Month", points: currentPageRows?.metrics?.thisMonth },
+    { title: "This Week", points: currentPageRows?.metrics?.thisWeek },
+    { title: "Revenue", points: currentPageRows?.metrics?.totalrevenue },
   ];
 
-  const totalCount = currentPageRows?.length;
-  const itemsPerPage = 5;
+  const totalCount = currentPageRows?.pagination?.total;
+  const itemsPerPage = 10;
   const totalItems = totalCount;
 
   const handlePageChange = (page) => {
@@ -184,7 +118,6 @@ export const useMonthlyUses = () => {
     handlePageChange,
     currentPage,
     headings,
-    records,
     pageTitle,
     mobilePageTitle,
   };

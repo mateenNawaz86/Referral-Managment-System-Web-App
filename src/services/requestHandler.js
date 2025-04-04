@@ -1,4 +1,4 @@
-import { del, post } from "./HttpProvider";
+import { del, post, get } from "./HttpProvider";
 import featureConstants from "./features-constants";
 
 const SERVICE_URLS = {
