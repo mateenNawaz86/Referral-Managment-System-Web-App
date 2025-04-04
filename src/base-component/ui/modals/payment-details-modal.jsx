@@ -4,9 +4,11 @@ import { BaseModal } from "./base-modal";
 import { LinkButton } from "../button/link-icon";
 import { SaveIcon } from "../../../assets/svgs/components/save-icon";
 import { ShareDetailIcon } from "../../../assets/svgs/components/share-details-icon";
+import { useSelector } from "react-redux";
 
 export const PaymentDetailsModal = ({ onClose }) => {
   const modalRef = useRef(null);
+  const {} = useSelector((state) => state.global.modal.data) || {};
 
   const paymentDetailsData = [
     {

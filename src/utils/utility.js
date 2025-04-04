@@ -91,11 +91,19 @@ export const getRedeemStatusStyles = (status) => {
       bg: "bg-[#d9f3e1]",
       text: "text-[#05B035]",
     },
+    successful: {
+      bg: "bg-[#d9f3e1]",
+      text: "text-[#05B035]",
+    },
     "In Progress": {
       bg: "bg-[#fdf0e4]",
       text: "text-[#F2994A]",
     },
     Pending: {
+      bg: "bg-[#e0ecfc]",
+      text: "text-[#2F80ED]",
+    },
+    pending: {
       bg: "bg-[#e0ecfc]",
       text: "text-[#2F80ED]",
     },

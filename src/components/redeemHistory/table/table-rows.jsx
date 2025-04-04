@@ -1,3 +1,4 @@
+import { formatDate } from "../../../utils/function";
 import { getRedeemStatusStyles } from "../../../utils/utility";
 
 export const RedeemHistoryTableRows = ({ data, onPaymentDetails }) => {
@@ -11,17 +12,21 @@ export const RedeemHistoryTableRows = ({ data, onPaymentDetails }) => {
             onClick={onPaymentDetails}
             className="bg-white cursor-pointer hover:bg-tableHoverColor rounded-[5px] py-[26px] px-10 grid grid-cols-[minmax(170px,_3fr)_minmax(170px,_3fr)_minmax(170px,_170px)] items-center"
           >
-            <span className="text-base font-medium">{item?.redeemDate}</span>
+            <span className="text-base font-medium">
+              {formatDate(item?.createdAt)}
+            </span>
 
             <span className="text-base font-medium flex items-center justify-center">
-              {item?.redeemPoint}
+              {item?.points}
             </span>
 
             <div className="flex items-center justify-center">
               <div
                 className={`px-[7.2px] py-[5px] min-w-[77px] max-w-[77px] rounded-[3px] text-center ${bg} ${text}`}
               >
-                <span className={`text-xs font-medium`}>{item?.status}</span>
+                <span className={`text-xs font-medium ${bg} ${text}`}>
+                  {item?.status}
+                </span>
               </div>
             </div>
           </div>

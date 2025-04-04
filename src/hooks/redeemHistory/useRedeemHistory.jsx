@@ -22,7 +22,7 @@ export const useRedeemHistory = () => {
       if (!uid) return;
 
       const formData = new FormData();
-      formData.append("uid", uid);
+      formData.append("uid", 2);
 
       try {
         await dispatch(

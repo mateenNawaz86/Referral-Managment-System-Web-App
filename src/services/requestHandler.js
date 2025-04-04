@@ -11,6 +11,7 @@ const SERVICE_URLS = {
   redeem_request: "/referrals/points/redeem",
   redeem_history: "/referrals/redeem/history",
   prem_user: "/referrals/users/details",
+  view_results: "/referrals/get/counts",
 };
 
 const signUp = (data) =>
