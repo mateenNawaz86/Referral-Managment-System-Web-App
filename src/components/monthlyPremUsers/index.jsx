@@ -24,7 +24,7 @@ export const MonthlyPremUsers = () => {
   } = useMonthlyUses();
 
   const CurrentComponent = useEmptyStates(
-    <MonthlyPremUsersTableRows data={currentPageRows} />,
+    <MonthlyPremUsersTableRows data={currentPageRows?.metrics?.data} />,
     totalCount !== 0,
     loading
   );
@@ -37,7 +37,7 @@ export const MonthlyPremUsers = () => {
         {CurrentComponent}
       </div>
 
-      {currentPageRows?.length > 0 ? (
+      {currentPageRows?.metrics?.data?.length > 0 ? (
         <div className="md:hidden mb-10">
           <div className="flex items-center justify-between mt-[15px] mb-3">
             <p className="text-[20px] font-semibold min-w-fit">
@@ -67,7 +67,10 @@ export const MonthlyPremUsers = () => {
               containerClassName="w-[350px]"
             />
           </div>
-          <RecordCard data={currentPageRows} pageTitle={pageTitle} />
+          <RecordCard
+            data={currentPageRows?.metrics?.data}
+            pageTitle={pageTitle}
+          />
         </div>
       ) : (
         <div className="md:hidden mt-10">

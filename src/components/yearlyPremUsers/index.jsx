@@ -1,13 +1,12 @@
 import { useEmptyStates } from "../../utils/hooks";
-import { Pagination } from "../../base-component/ui/pagination/pagination";
-import { YearlyPremUserTableHeadings } from "./table/table-heading";
 import { DetailCards } from "../freeUser/detail-card";
-import { useYearlyUsers } from "../../hooks/yearly-users/useYearlyUsers";
-import { MonthlyPremUsersTableRows } from "./table/table-rows";
-import { FilterSortIcon } from "../../assets/svgs/components/filter-sort-icon";
+import { YearlyPremUsersTableRows } from "./table/table-rows";
 import { RecordCard } from "../../base-component/ui/record-card";
-import { NoDataEmptyState } from "../../base-component/ui/loadingEffect/no-data-state";
+import { YearlyPremUserTableHeadings } from "./table/table-heading";
 import SelectField from "../../base-component/ui/fields/select-fields";
+import { useYearlyUsers } from "../../hooks/yearly-users/useYearlyUsers";
+import { Pagination } from "../../base-component/ui/pagination/pagination";
+import { NoDataEmptyState } from "../../base-component/ui/loadingEffect/no-data-state";
 
 export const YearlyPremUsers = () => {
   const {
@@ -18,7 +17,6 @@ export const YearlyPremUsers = () => {
     itemsPerPage,
     currentPage,
     headings,
-    records,
     pageTitle,
     mobilePageTitle,
     currentPageRows,
@@ -26,7 +24,7 @@ export const YearlyPremUsers = () => {
   } = useYearlyUsers();
 
   const CurrentComponent = useEmptyStates(
-    <MonthlyPremUsersTableRows data={currentPageRows} />,
+    <YearlyPremUsersTableRows data={currentPageRows?.metrics?.data} />,
     totalCount !== 0,
     isLoading
   );
@@ -40,7 +38,7 @@ export const YearlyPremUsers = () => {
         {CurrentComponent}
       </div>
 
-      {records?.length > 0 ? (
+      {currentPageRows?.metrics?.data?.length > 0 ? (
         <div className="md:hidden mb-10">
           <div className="flex items-center justify-between mt-[15px] mb-3">
             <p className="text-[20px] font-semibold min-w-fit">
@@ -69,10 +67,13 @@ export const YearlyPremUsers = () => {
               ]}
             />
           </div>
-          <RecordCard data={records} pageTitle={pageTitle} />
+          <RecordCard
+            data={currentPageRows?.metrics?.data}
+            pageTitle={pageTitle}
+          />
         </div>
       ) : (
-        <div className="md:hidden">
+        <div className="md:hidden mt-10">
           <NoDataEmptyState
             imgClassName="w-14 h-14"
             textClassName="text-lg"

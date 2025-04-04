@@ -1,4 +1,4 @@
-import profile from "../../assets/pngs/profile.jpg";
+import { formatDate } from "../../utils/function";
 
 export const RecordCard = ({ data, pageTitle, isPointHistory }) => {
   const clearanceLabel = pageTitle?.includes("Trial")
@@ -19,18 +19,20 @@ export const RecordCard = ({ data, pageTitle, isPointHistory }) => {
           >
             <div className="flex gap-x-2 px-[15px]">
               <img
-                src={profile}
+                src={item?.image}
                 alt="profile"
                 className="min-w-[55px] min-h-[55px] max-w-[55px] max-h-[55px] rounded-[5px] object-cover"
               />
               <div className="flex flex-col gap-y-2">
-                <p className="text-base font-semibold">{item?.username}</p>
+                <p className="text-base font-semibold">{item?.name}</p>
                 <div className="flex items-center gap-x-1">
                   <span className="text-[#848484] text-xs font-medium">
                     {isPointHistory ? "Earned Points:" : "Installed on:"}
                   </span>
                   <span className="font-medium text-xs">
-                    {isPointHistory ? item?.points : item?.installedDate}
+                    {isPointHistory
+                      ? item?.points
+                      : formatDate(item?.installedDate)}
                   </span>
                 </div>
               </div>
@@ -43,7 +45,9 @@ export const RecordCard = ({ data, pageTitle, isPointHistory }) => {
                     : " Subscribed Date & Time"}
                 </span>
                 <span className="text-[11px] font-medium">
-                  {isPointHistory ? item?.installedDate : item?.subscribeDate}
+                  {isPointHistory
+                    ? formatDate(item?.installedDate)
+                    : formatDate(item?.subscribeDate)}
                 </span>
               </div>
 
@@ -52,9 +56,7 @@ export const RecordCard = ({ data, pageTitle, isPointHistory }) => {
                   {isPointHistory ? "Subscribed Date & Time" : clearanceLabel}
                 </span>
                 <span className="text-[11px] font-medium">
-                  {isPointHistory
-                    ? item?.subscribeDate
-                    : "Jun 10 2024 11:35 PM"}
+                  {isPointHistory ? formatDate(item?.subscribeDate) : ""}
                 </span>
               </div>
             </div>

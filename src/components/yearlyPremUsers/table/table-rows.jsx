@@ -1,6 +1,6 @@
-import profile from "../../../assets/pngs/profile.jpg";
+import { formatDate } from "../../../utils/function";
 
-export const MonthlyPremUsersTableRows = ({ data }) => {
+export const YearlyPremUsersTableRows = ({ data }) => {
   return (
     <div className={`overflow-y-visible flex flex-col gap-y-[10px]`}>
       {data?.map((item, index) => (
@@ -10,21 +10,21 @@ export const MonthlyPremUsersTableRows = ({ data }) => {
         >
           <div className="flex items-center gap-x-[18px]">
             <img
-              src={profile}
+              src={item?.image}
               alt="profile"
               className="min-w-[50px] min-h-[50px] max-w-[50px] max-h-[50px] rounded-full object-cover"
             />
-            <span className="text-base font-medium">{item?.username}</span>
+            <span className="text-base font-medium">{item?.name}</span>
           </div>
 
           <span className="text-base font-medium flex items-center justify-center">
-            {item?.installedDate}
+            {formatDate(item?.installedDate)}
           </span>
           <span className="text-base font-medium flex items-center justify-center">
-            {item?.subscribeDate}
+            {formatDate(item?.subscribeDate)}
           </span>
           <span className="text-base font-medium flex items-center justify-center">
-            {item?.clearanceDate}
+            {formatDate(item?.clearanceDate)}
           </span>
         </div>
       ))}
