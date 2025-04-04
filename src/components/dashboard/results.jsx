@@ -5,45 +5,45 @@ import { RedeeemHistoryIcon } from "../../assets/svgs/components/redeem-history-
 import { MonthlyPremIcon } from "../../assets/svgs/components/monthly-prem-icon";
 import { YearlyPremIcon } from "../../assets/svgs/components/yearly-prem-icon";
 
-export const Results = () => {
+export const Results = ({ data }) => {
   const cardData = [
     {
-      points: "2100",
+      points: data?.points?.total,
       title: "Total Points Earned",
       icon: <PointIcon iconClassName="#1392A4" />,
       bgColor: "#17A2B7",
       link: "#",
     },
     {
-      points: "1500",
+      points: data?.points?.redeemed,
       title: "Total Points Redeemed",
       icon: <PointIcon iconClassName="#F3B700" />,
       bgColor: "#F3B700",
       link: "#",
     },
     {
-      points: "3200",
+      points: data?.points?.active,
       title: "Balance",
       icon: <RedeeemHistoryIcon iconClassName="#048345" />,
       bgColor: "#0F9D58",
       link: "#",
     },
     {
-      points: "500",
+      points: data?.freeUsers,
       title: "Free Users",
       icon: <UsersIcon iconClassName="#055860" />,
       bgColor: "#055860",
       link: "#",
     },
     {
-      points: "2750",
+      points: data?.monthlyPremium,
       title: "Monthly Premium Users",
       icon: <MonthlyPremIcon iconClassName="#F31A1A" />,
       bgColor: "#F31A1A",
       link: "#",
     },
     {
-      points: "1800",
+      points: data?.yearlyPremium,
       title: "Yearly Premium Users",
       icon: <YearlyPremIcon iconClassName="#9AA000" />,
       bgColor: "#9AA000",

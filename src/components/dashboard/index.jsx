@@ -2,11 +2,17 @@ import { Results } from "./results";
 import { useLocation } from "react-router-dom";
 import { ReferralGuide } from "./referral-guide";
 import { useDashboard } from "../../hooks/dashboard/useDashboard";
+import { CustomLoader } from "../../base-component/ui/loadingEffect/custom-loader";
 
 export const Dashboard = () => {
   const location = useLocation();
-  const { handleRefLinkModal, handleQRCodeModal, handleRefDiscountCodeModal } =
-    useDashboard();
+  const {
+    handleRefLinkModal,
+    handleQRCodeModal,
+    handleRefDiscountCodeModal,
+    loading,
+    results,
+  } = useDashboard();
 
   const queryParams = new URLSearchParams(location.search);
   const status = queryParams.get("status");
@@ -19,8 +25,14 @@ export const Dashboard = () => {
 
   return (
     <div className="mb-10">
-      {status === "ref-guide" && <ReferralGuide iosHandler={iosHandler} />}
-      {status === "results" && <Results />}
+      {loading ? (
+        <CustomLoader />
+      ) : (
+        <>
+          {status === "ref-guide" && <ReferralGuide iosHandler={iosHandler} />}
+          {status === "results" && <Results data={results} />}
+        </>
+      )}
     </div>
   );
 };

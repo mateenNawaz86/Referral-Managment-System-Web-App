@@ -41,6 +41,9 @@ const redeemHistory = (data) =>
 const premiumUser = (data) =>
   post(SERVICE_URLS.prem_user, data, { feature: featureConstants.login });
 
+const viewResults = (data) =>
+  post(SERVICE_URLS.view_results, data, { feature: featureConstants.login });
+
 const apiServices = {
   signUp,
   login,
@@ -51,6 +54,7 @@ const apiServices = {
   redeemRequest,
   redeemHistory,
   premiumUser,
+  viewResults,
 };
 
 export default apiServices;
