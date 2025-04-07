@@ -5,31 +5,40 @@ import { LinkButton } from "../button/link-icon";
 import { SaveIcon } from "../../../assets/svgs/components/save-icon";
 import { ShareDetailIcon } from "../../../assets/svgs/components/share-details-icon";
 import { useSelector } from "react-redux";
+import { formatDate } from "../../../utils/function";
+import { getRedeemStatusStyles } from "../../../utils/utility";
 
 export const PaymentDetailsModal = ({ onClose }) => {
   const modalRef = useRef(null);
-  const {} = useSelector((state) => state.global.modal.data) || {};
+  const {
+    reqSentDate,
+    points,
+    reqApprovedDate,
+    paymentMethod,
+    paymentDate,
+    status,
+  } = useSelector((state) => state.global.modal.data) || {};
 
   const paymentDetailsData = [
     {
       heading: "Request Sent",
-      data: "May 14, 2023 / 12:45 AM",
+      data: reqSentDate ? formatDate(reqSentDate) : "N/A",
     },
     {
       heading: "Points Redeemed",
-      data: 180,
+      data: points ?? "N/A",
     },
     {
       heading: "Request Approved",
-      data: "May 15, 2023 / 12:45 AM",
+      data: reqApprovedDate ? formatDate(reqApprovedDate) : "N/A",
     },
     {
       heading: "Payment Method",
-      data: "JazzCash",
+      data: paymentMethod ?? "N/A",
     },
     {
       heading: "Payment Date",
-      data: "May 15, 2023 / 12:45 AM",
+      data: paymentDate ? formatDate(paymentDate) : "N/A",
     },
   ];
 
@@ -47,6 +56,8 @@ export const PaymentDetailsModal = ({ onClose }) => {
     }
   };
 
+  const { bg, text } = getRedeemStatusStyles(status);
+
   return (
     <BaseModal
       onClose={onClose}
@@ -58,9 +69,11 @@ export const PaymentDetailsModal = ({ onClose }) => {
             Payment Details
           </span>
           <div
-            className={`px-[4.5px] md:px-[7.5px] py-[2.5px] md:py-[5px] rounded-[3px] text-center bg-primary`}
+            className={`px-[4.5px] md:px-[7.5px] py-[2.5px] md:py-[5px] rounded-[3px] text-center  ${bg} ${text}`}
           >
-            <span className={`text-xs font-medium text-white`}>Successful</span>
+            <span className={`text-xs font-medium ${bg} ${text}`}>
+              {status}
+            </span>
           </div>
         </div>
         {paymentDetailsData?.map((item, index) => {

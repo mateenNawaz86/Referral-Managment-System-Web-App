@@ -28,11 +28,13 @@ export const useModalManager = () => {
       <ReferralDiscountModal onClose={closeModal} />
     ),
     [ModalType.GET_COUPON_MODAL]: <GetCouponModal onClose={closeModal} />,
-    [ModalType.PAYMENT_DETIALS]: <PaymentDetailsModal onClose={closeModal} />,
+    [ModalType.PAYMENT_DETAILS]: <PaymentDetailsModal onClose={closeModal} />,
     [ModalType.LOGOUT]: <LogoutModal onClose={closeModal} />,
     [ModalType.COUPON_POINTS]: <RedeemPointsModal onClose={closeModal} />,
     [ModalType.REDEEM_SUCCESS]: <RedeemSuccessModal onClose={closeModal} />,
-    [ModalType.REDEEM_REQUEST_SUCCESS]: <RedeemRequestSuccessModal onClose={closeModal} />,
+    [ModalType.REDEEM_REQUEST_SUCCESS]: (
+      <RedeemRequestSuccessModal onClose={closeModal} />
+    ),
   };
 
   const renderModal = () => {

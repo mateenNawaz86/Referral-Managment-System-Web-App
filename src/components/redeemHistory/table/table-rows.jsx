@@ -6,10 +6,20 @@ export const RedeemHistoryTableRows = ({ data, onPaymentDetails }) => {
     <div className={`overflow-y-visible flex flex-col gap-y-[10px]`}>
       {data?.map((item, index) => {
         const { bg, text } = getRedeemStatusStyles(item?.status);
+
         return (
           <div
             key={index}
-            onClick={onPaymentDetails}
+            onClick={() =>
+              onPaymentDetails(
+                item?.createdAt,
+                item?.points,
+                item?.approvedDate,
+                item?.paymentMethod,
+                item?.paymentDate,
+                item?.status
+              )
+            }
             className="bg-white cursor-pointer hover:bg-tableHoverColor rounded-[5px] py-[26px] px-10 grid grid-cols-[minmax(170px,_3fr)_minmax(170px,_3fr)_minmax(170px,_170px)] items-center"
           >
             <span className="text-base font-medium">

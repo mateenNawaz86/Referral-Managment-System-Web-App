@@ -66,7 +66,7 @@ export const RedeemHistory = () => {
           />
         </div>
       ) : (
-        <div className="md:hidden">
+        <div className="md:hidden mt-10">
           <NoDataEmptyState
             imgClassName="w-14 h-14"
             textClassName="text-lg"

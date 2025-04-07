@@ -62,8 +62,27 @@ export const useRedeemHistory = () => {
     window.history.pushState({}, "", `?${params.toString()}`);
   };
 
-  const handlePaymentDetails = () => {
-    dispatch(updateModalType({ type: ModalType.PAYMENT_DETIALS }));
+  const handlePaymentDetails = (
+    reqSentDate,
+    points,
+    reqApprovedDate,
+    paymentMethod,
+    paymentDate,
+    status
+  ) => {
+    dispatch(
+      updateModalType({
+        type: ModalType.PAYMENT_DETAILS,
+        data: {
+          reqSentDate,
+          points,
+          reqApprovedDate,
+          paymentMethod,
+          paymentDate,
+          status,
+        },
+      })
+    );
   };
 
   return {

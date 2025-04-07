@@ -25,13 +25,10 @@ export const Dashboard = () => {
 
   return (
     <div className="mb-10">
-      {loading ? (
-        <CustomLoader />
-      ) : (
-        <>
-          {status === "ref-guide" && <ReferralGuide iosHandler={iosHandler} />}
-          {status === "results" && <Results data={results} />}
-        </>
+      {status === "ref-guide" && <ReferralGuide iosHandler={iosHandler} />}
+
+      {status === "results" && (
+        <>{loading ? <CustomLoader /> : <Results data={results} />}</>
       )}
     </div>
   );
