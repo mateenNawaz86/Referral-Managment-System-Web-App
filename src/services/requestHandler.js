@@ -12,6 +12,7 @@ const SERVICE_URLS = {
   redeem_history: "/referrals/redeem/history",
   prem_user: "/referrals/users/details",
   view_results: "/referrals/get/counts",
+  view_links: "/referrals/apps/links",
 };
 
 const signUp = (data) =>
@@ -44,6 +45,9 @@ const premiumUser = (data) =>
 const viewResults = (data) =>
   post(SERVICE_URLS.view_results, data, { feature: featureConstants.login });
 
+const viewLinks = () =>
+  get(SERVICE_URLS.view_links, {}, { feature: featureConstants.login });
+
 const apiServices = {
   signUp,
   login,
@@ -55,6 +59,7 @@ const apiServices = {
   redeemHistory,
   premiumUser,
   viewResults,
+  viewLinks,
 };
 
 export default apiServices;

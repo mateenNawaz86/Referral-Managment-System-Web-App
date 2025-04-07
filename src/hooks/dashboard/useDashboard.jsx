@@ -2,12 +2,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { ModalType } from "../../types/ui";
 import { updateModalType } from "../../api/slices/globalSlice/global";
 import { useEffect, useState } from "react";
-import { readDashboardResults } from "../../api/slices/dashboard/dashboardSlice";
+import {
+  readDashboardLinks,
+  readDashboardResults,
+} from "../../api/slices/dashboard/dashboardSlice";
+import { useLocation } from "react-router-dom";
 
 export const useDashboard = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const [links, setLinks] = useState(null);
   const [results, setResults] = useState(null);
   const { loading } = useSelector((state) => state.dashboard);
+
+  const queryParams = new URLSearchParams(location.search);
+
+  const status = queryParams.get("status");
 
   const handleRefLinkModal = () => {
     dispatch(updateModalType({ type: ModalType.REFERRAL_LINK_MODAL }));
@@ -28,8 +38,6 @@ export const useDashboard = () => {
           readDashboardResults({ data: { uid: 2 } })
         );
         if (response?.payload) {
-          console.log(response?.payload?.counts, "response payload data");
-
           setResults(response?.payload?.counts);
         }
       } catch (err) {
@@ -37,7 +45,27 @@ export const useDashboard = () => {
       }
     };
 
-    fetchDashboardResults();
+    if (status === "results") {
+      fetchDashboardResults();
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    const fetchDashboardLinks = async () => {
+      try {
+        const response = await dispatch(readDashboardLinks({ params: {} }));
+
+        if (response?.payload) {
+          setLinks(response?.payload?.data);
+        }
+      } catch (err) {
+        console.error("Error fetching dashboard links:", err);
+      }
+    };
+
+    if (status === "ref-guide") {
+      fetchDashboardLinks();
+    }
   }, [dispatch]);
 
   return {
@@ -45,6 +73,7 @@ export const useDashboard = () => {
     handleQRCodeModal,
     handleRefDiscountCodeModal,
     results,
+    links,
     loading,
   };
 };

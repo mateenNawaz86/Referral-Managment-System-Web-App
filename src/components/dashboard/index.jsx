@@ -28,7 +28,7 @@ export const Dashboard = () => {
       {status === "ref-guide" && <ReferralGuide iosHandler={iosHandler} />}
 
       {status === "results" && (
-        <>{loading ? <CustomLoader /> : <Results data={results} />}</>
+        <>{loading?.results ? <CustomLoader /> : <Results data={results} />}</>
       )}
     </div>
   );

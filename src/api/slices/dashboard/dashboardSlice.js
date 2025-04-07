@@ -4,7 +4,11 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   results: null,
-  loading: false,
+  links: null,
+  loading: {
+    results: false,
+    links: false,
+  },
   error: null,
 };
 
@@ -29,6 +33,28 @@ export const readDashboardResults = createAsyncThunk(
   }
 );
 
+export const readDashboardLinks = createAsyncThunk(
+  "dashboard/links",
+  async (args, thunkApi) => {
+    const { setError } = args;
+
+    try {
+      const response = await apiServices.viewLinks();
+
+      return response?.data;
+    } catch (e) {
+      const errorMessage = e?.response?.data?.message || "Network Error";
+      thunkApi.dispatch(setErrorMessage(errorMessage));
+      setErrors(setError, e?.response?.data || {});
+
+      return thunkApi.rejectWithValue({
+        message: errorMessage,
+        status: e?.response?.status || 500,
+      });
+    }
+  }
+);
+
 const dashboardSlice = createSlice({
   name: "dashboard",
   initialState,
@@ -39,15 +65,27 @@ const dashboardSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(readDashboardResults.pending, (state) => {
-      state.loading = true;
+      state.loading.results = true;
       state.error = null;
     });
     builder.addCase(readDashboardResults.fulfilled, (state, action) => {
-      if (action?.payload) state.results = action.payload.data;
-      state.loading = false;
+      if (action?.payload) state.results = action.payload?.data;
+      state.loading.results = false;
     });
     builder.addCase(readDashboardResults.rejected, (state) => {
-      state.loading = false;
+      state.loading.results = false;
+      state.error = action.payload?.message || "Failed to fetch data";
+    });
+    builder.addCase(readDashboardLinks.pending, (state) => {
+      state.loading.links = true;
+      state.error = null;
+    });
+    builder.addCase(readDashboardLinks.fulfilled, (state, action) => {
+      if (action?.payload) state.links = action.payload?.data;
+      state.loading.links = false;
+    });
+    builder.addCase(readDashboardLinks.rejected, (state, action) => {
+      state.loading.links = false;
       state.error = action.payload?.message || "Failed to fetch data";
     });
   },
