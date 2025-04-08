@@ -14,13 +14,20 @@ export const useDashboard = () => {
   const [links, setLinks] = useState(null);
   const [results, setResults] = useState(null);
   const { loading } = useSelector((state) => state.dashboard);
+  const { user, loading: authLoading } = useSelector((state) => state.auth);
 
   const queryParams = new URLSearchParams(location.search);
-
   const status = queryParams.get("status");
 
-  const handleRefLinkModal = () => {
-    dispatch(updateModalType({ type: ModalType.REFERRAL_LINK_MODAL }));
+  const handleRefLinkModal = (deviceType) => {
+    console.log(deviceType, "deviceType");
+
+    dispatch(
+      updateModalType({
+        type: ModalType.REFERRAL_LINK_MODAL,
+        data: { links, linkLoading: loading?.links, deviceType },
+      })
+    );
   };
 
   const handleQRCodeModal = () => {
@@ -32,10 +39,15 @@ export const useDashboard = () => {
   };
 
   useEffect(() => {
+    if (authLoading) return;
+
     const fetchDashboardResults = async () => {
+      const uid = user?.user?.id;
+      if (!uid) return;
+
       try {
         const response = await dispatch(
-          readDashboardResults({ data: { uid: 2 } })
+          readDashboardResults({ data: { uid: uid } })
         );
         if (response?.payload) {
           setResults(response?.payload?.counts);
@@ -48,14 +60,16 @@ export const useDashboard = () => {
     if (status === "results") {
       fetchDashboardResults();
     }
-  }, [dispatch]);
+  }, [dispatch, user, authLoading]);
 
   useEffect(() => {
+    if (status !== "ref-guide") return;
+
     const fetchDashboardLinks = async () => {
       try {
-        const response = await dispatch(readDashboardLinks({ params: {} }));
+        const response = await dispatch(readDashboardLinks({}));
 
-        if (response?.payload) {
+        if (response?.payload?.data) {
           setLinks(response?.payload?.data);
         }
       } catch (err) {
@@ -66,7 +80,7 @@ export const useDashboard = () => {
     if (status === "ref-guide") {
       fetchDashboardLinks();
     }
-  }, [dispatch]);
+  }, [dispatch, status]);
 
   return {
     handleRefLinkModal,

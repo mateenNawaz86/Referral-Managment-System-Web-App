@@ -1,19 +1,9 @@
 import { IosLinks } from "./ios-links";
 import { AndriodLinks } from "./android-links";
-import { useDashboard } from "../../hooks/dashboard/useDashboard";
 import { StepIndecator } from "../../base-component/ui/step-indecator";
 import { BorderLine } from "../../base-component/ui/border-line";
 
-export const ReferralGuide = () => {
-  const { handleRefLinkModal, handleQRCodeModal, handleRefDiscountCodeModal } =
-    useDashboard();
-
-  const iosHandler = [
-    handleRefLinkModal,
-    handleRefDiscountCodeModal,
-    handleQRCodeModal,
-  ];
-
+export const ReferralGuide = ({ iosHandler }) => {
   return (
     <div className="md:bg-white h-full py-4 md:py-[45px] md:border md:border-[#E0E0E0] md:rounded-[14px] flex flex-col items-center">
       <h1 className="text-[21px] font-semibold text-center">

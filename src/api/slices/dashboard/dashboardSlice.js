@@ -36,8 +36,6 @@ export const readDashboardResults = createAsyncThunk(
 export const readDashboardLinks = createAsyncThunk(
   "dashboard/links",
   async (args, thunkApi) => {
-    const { setError } = args;
-
     try {
       const response = await apiServices.viewLinks();
 
@@ -45,7 +43,6 @@ export const readDashboardLinks = createAsyncThunk(
     } catch (e) {
       const errorMessage = e?.response?.data?.message || "Network Error";
       thunkApi.dispatch(setErrorMessage(errorMessage));
-      setErrors(setError, e?.response?.data || {});
 
       return thunkApi.rejectWithValue({
         message: errorMessage,
@@ -81,7 +78,7 @@ const dashboardSlice = createSlice({
       state.error = null;
     });
     builder.addCase(readDashboardLinks.fulfilled, (state, action) => {
-      if (action?.payload) state.links = action.payload?.data;
+      if (action?.payload) state.links = action.payload;
       state.loading.links = false;
     });
     builder.addCase(readDashboardLinks.rejected, (state, action) => {

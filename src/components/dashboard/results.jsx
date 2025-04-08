@@ -8,42 +8,41 @@ import { YearlyPremIcon } from "../../assets/svgs/components/yearly-prem-icon";
 export const Results = ({ data }) => {
   const cardData = [
     {
-      points: data?.points?.total,
+      points: data?.points?.total ? data?.points?.total : 0,
       title: "Total Points Earned",
       icon: <PointIcon iconClassName="#1392A4" />,
       bgColor: "#17A2B7",
       link: "#",
     },
     {
-      points: data?.points?.redeemed,
+      points: data?.points?.redeemed ? data?.points?.redeemed : 0,
       title: "Total Points Redeemed",
       icon: <PointIcon iconClassName="#F3B700" />,
       bgColor: "#F3B700",
       link: "#",
     },
     {
-      points: data?.points?.active,
+      points: data?.points?.active ? data?.points?.active : 0,
       title: "Balance",
       icon: <RedeeemHistoryIcon iconClassName="#048345" />,
       bgColor: "#0F9D58",
       link: "#",
     },
     {
-      points: data?.freeUsers,
-      title: "Free Users",
+      points: data?.freeUsers ? data?.freeUsers : 0,
       icon: <UsersIcon iconClassName="#055860" />,
       bgColor: "#055860",
       link: "#",
     },
     {
-      points: data?.monthlyPremium,
+      points: data?.monthlyPremium ? data?.monthlyPremium : 0,
       title: "Monthly Premium Users",
       icon: <MonthlyPremIcon iconClassName="#F31A1A" />,
       bgColor: "#F31A1A",
       link: "#",
     },
     {
-      points: data?.yearlyPremium,
+      points: data?.yearlyPremium ? data?.yearlyPremium : 0,
       title: "Yearly Premium Users",
       icon: <YearlyPremIcon iconClassName="#9AA000" />,
       bgColor: "#9AA000",

@@ -3,11 +3,18 @@ import { BaseModal } from "./base-modal";
 import { CopyIcon } from "../../../assets/svgs/components/copy-icon";
 import { ShareIcon } from "../../../assets/svgs/components/share-icon";
 import { LinkButton } from "../button/link-icon";
+import { useSelector } from "react-redux";
+import { CustomLoader } from "../loadingEffect/custom-loader";
 
 export const ReferralLinkModal = ({ onClose }) => {
   const [copied, setCopied] = useState(false);
-  const referralLink =
-    "https://apps.apple.com/us/app/disney/id1446075923?pt=123456&ct=20-06-16-IG-Stories-Summer";
+  const { links, linkLoading, deviceType } =
+    useSelector((state) => state.global.modal.data) || {};
+
+  const matchedLink = links?.find((item) => item.deviceType === deviceType);
+  const referralLink = matchedLink?.link
+    ? `https://${matchedLink.link}`
+    : "https://apps.apple.com/us/app/disney/id1446075923?pt=123456&ct=default";
 
   const handleCopy = () => {
     navigator.clipboard.writeText(referralLink);
@@ -24,13 +31,19 @@ export const ReferralLinkModal = ({ onClose }) => {
         <h3 className="text-[#5A5FDC] font-semibold md:font-bold text-[22px] md:text-2xl">
           IOS Appstore Referral Link
         </h3>
-        <p className="text-[#000AFF] font-medium text-base mt-3 md:mt-[34px] text-center md:hidden break-all">
+        {/* <p className="text-[#000AFF] font-medium text-base mt-3 md:mt-[34px] text-center md:hidden break-all">
           {referralLink}
-        </p>
+        </p> */}
 
-        <p className="text-[#000AFF] font-medium text-base mt-3 md:mt-5 text-center hidden md:block">
-          {referralLink}
-        </p>
+        {linkLoading ? (
+          <div>
+            <CustomLoader className="h-[100px]" />
+          </div>
+        ) : (
+          <p className="text-[#000AFF] font-medium text-base mt-3 md:mt-5 text-center hidden md:block">
+            {referralLink}
+          </p>
+        )}
 
         {copied && <p className="text-green-600 font-medium mt-2">Copied!</p>}
 

@@ -46,7 +46,12 @@ const viewResults = (data) =>
   post(SERVICE_URLS.view_results, data, { feature: featureConstants.login });
 
 const viewLinks = () =>
-  get(SERVICE_URLS.view_links, {}, { feature: featureConstants.login });
+  get(
+    SERVICE_URLS.view_links,
+    {},
+    { feature: featureConstants.login },
+    { detail: false }
+  );
 
 const apiServices = {
   signUp,

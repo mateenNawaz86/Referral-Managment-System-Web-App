@@ -8,7 +8,7 @@ export const AndriodLinks = ({ iosHandler }) => {
   const linksData = [
     {
       text: "Show Referral link",
-      onClick: handleRefLinkModal,
+      onClick: () => handleRefLinkModal("android"),
     },
     {
       text: "Show Discount code",
