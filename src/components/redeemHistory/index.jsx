@@ -6,6 +6,7 @@ import { useRedeemHistory } from "../../hooks/redeemHistory/useRedeemHistory";
 import SelectField from "../../base-component/ui/fields/select-fields";
 import { RedeemMobileCard } from "../../base-component/ui/redeem-mobile-card";
 import { NoDataEmptyState } from "../../base-component/ui/loadingEffect/no-data-state";
+import { CustomLoader } from "../../base-component/ui/loadingEffect/custom-loader";
 
 export const RedeemHistory = () => {
   const {
@@ -37,7 +38,11 @@ export const RedeemHistory = () => {
         {CurrentComponent}
       </div>
 
-      {redeemHistory?.length > 0 ? (
+      {loading ? (
+        <div className="flex justify-center items-center md:hidden">
+          <CustomLoader />
+        </div>
+      ) : redeemHistory?.length > 0 ? (
         <div className="md:hidden mb-10">
           <div className="flex items-center justify-between mt-[15px] mb-3">
             <p className="text-[20px] font-semibold">Redeemed Listing</p>

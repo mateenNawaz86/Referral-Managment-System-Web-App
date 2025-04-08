@@ -7,6 +7,7 @@ import { DetailCards } from "../freeUser/detail-card";
 import { RecordCard } from "../../base-component/ui/record-card";
 import { NoDataEmptyState } from "../../base-component/ui/loadingEffect/no-data-state";
 import SelectField from "../../base-component/ui/fields/select-fields";
+import { CustomLoader } from "../../base-component/ui/loadingEffect/custom-loader";
 
 export const MonthlyPremUsers = () => {
   const {
@@ -37,7 +38,11 @@ export const MonthlyPremUsers = () => {
         {CurrentComponent}
       </div>
 
-      {currentPageRows?.metrics?.data?.length > 0 ? (
+      {loading ? (
+        <div className="flex justify-center items-center md:hidden">
+          <CustomLoader />
+        </div>
+      ) : currentPageRows?.metrics?.data?.length > 0 ? (
         <div className="md:hidden mb-10">
           <div className="flex items-center justify-between mt-[15px] mb-3">
             <p className="text-[20px] font-semibold min-w-fit">
@@ -67,6 +72,7 @@ export const MonthlyPremUsers = () => {
               containerClassName="w-[350px]"
             />
           </div>
+
           <RecordCard
             data={currentPageRows?.metrics?.data}
             pageTitle={pageTitle}

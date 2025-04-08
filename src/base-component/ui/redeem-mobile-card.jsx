@@ -1,3 +1,4 @@
+import { formatDate } from "../../utils/function";
 import { getRedeemStatusStyles } from "../../utils/utility";
 
 export const RedeemMobileCard = ({ data, onClick }) => {
@@ -9,17 +10,28 @@ export const RedeemMobileCard = ({ data, onClick }) => {
         return (
           <div
             key={index}
-            onClick={onClick}
+            onClick={() =>
+              onClick(
+                item?.createdAt,
+                item?.points,
+                item?.approvedDate,
+                item?.paymentMethod,
+                item?.paymentDate,
+                item?.status
+              )
+            }
             className="cursor-pointer p-[18px] rounded-[12px] bg-white shadow-md flex items-center justify-between"
           >
             <div className="flex flex-col gap-y-2">
-              <p className="text-base font-semibold">{item?.redeemDate}</p>
+              <p className="text-base font-semibold">
+                {formatDate(item?.createdAt)}
+              </p>
               <div className="flex items-center gap-x-1">
                 <span className="text-xs font-medium text-[#848484]">
                   Redeemed Points
                 </span>
                 <span className="text-xs font-medium text-primary">
-                  {item?.redeemPoint}
+                  {item?.points}
                 </span>
               </div>
             </div>

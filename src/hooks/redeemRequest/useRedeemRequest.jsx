@@ -6,6 +6,7 @@ import { updateModalType } from "../../api/slices/globalSlice/global";
 import { redeemRequest } from "../../api/slices/redeemRequest/redeem-request";
 import { RedeemRequestFormFields } from "../../components/requestRedeem/redeem-request-fields";
 import { generateRedeemPointsValidationSchema } from "../../validation/redeem-points-validation";
+import { toast } from "react-toastify";
 
 export const useRedeemRequest = () => {
   const dispatch = useDispatch();
@@ -44,7 +45,7 @@ export const useRedeemRequest = () => {
         handleRedeemRequest();
       }
     } catch (error) {
-      console.error("Login error:", error);
+      toast.error(errors);
       throw error;
     }
   };

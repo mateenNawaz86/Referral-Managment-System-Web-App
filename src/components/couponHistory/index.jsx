@@ -6,6 +6,7 @@ import { useCouponHistory } from "../../hooks/couponHistory/useCouponHistory";
 import SelectField from "../../base-component/ui/fields/select-fields";
 import { CouponDetailsCard } from "../../base-component/ui/coupon-details-card";
 import { NoDataEmptyState } from "../../base-component/ui/loadingEffect/no-data-state";
+import { CustomLoader } from "../../base-component/ui/loadingEffect/custom-loader";
 
 export const CouponHistory = () => {
   const {
@@ -32,7 +33,11 @@ export const CouponHistory = () => {
         {CurrentComponent}
       </div>
 
-      {couponHistory?.length > 0 ? (
+      {loading ? (
+        <div className="flex justify-center items-center md:hidden">
+          <CustomLoader />
+        </div>
+      ) : couponHistory?.length > 0 ? (
         <div className="md:hidden mb-10">
           <div className="flex items-center justify-between mt-[15px] mb-3">
             <p className="text-[20px] font-semibold">Redeemed Listing</p>

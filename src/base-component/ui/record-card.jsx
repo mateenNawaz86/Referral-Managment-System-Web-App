@@ -56,7 +56,9 @@ export const RecordCard = ({ data, pageTitle, isPointHistory }) => {
                   {isPointHistory ? "Subscribed Date & Time" : clearanceLabel}
                 </span>
                 <span className="text-[11px] font-medium">
-                  {isPointHistory ? formatDate(item?.subscribeDate) : ""}
+                  {isPointHistory
+                    ? formatDate(item?.subscribeDate)
+                    : formatDate(item?.clearanceDate)}
                 </span>
               </div>
             </div>

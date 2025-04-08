@@ -7,13 +7,14 @@ import SelectField from "../../base-component/ui/fields/select-fields";
 import { useYearlyUsers } from "../../hooks/yearly-users/useYearlyUsers";
 import { Pagination } from "../../base-component/ui/pagination/pagination";
 import { NoDataEmptyState } from "../../base-component/ui/loadingEffect/no-data-state";
+import { CustomLoader } from "../../base-component/ui/loadingEffect/custom-loader";
 
 export const YearlyPremUsers = () => {
   const {
     dummyData,
     totalCount,
     totalItems,
-    isLoading,
+    loading,
     itemsPerPage,
     currentPage,
     headings,
@@ -26,7 +27,7 @@ export const YearlyPremUsers = () => {
   const CurrentComponent = useEmptyStates(
     <YearlyPremUsersTableRows data={currentPageRows?.metrics?.data} />,
     totalCount !== 0,
-    isLoading
+    loading
   );
 
   return (
@@ -38,7 +39,11 @@ export const YearlyPremUsers = () => {
         {CurrentComponent}
       </div>
 
-      {currentPageRows?.metrics?.data?.length > 0 ? (
+      {loading ? (
+        <div className="flex justify-center items-center md:hidden">
+          <CustomLoader />
+        </div>
+      ) : currentPageRows?.metrics?.data?.length > 0 ? (
         <div className="md:hidden mb-10">
           <div className="flex items-center justify-between mt-[15px] mb-3">
             <p className="text-[20px] font-semibold min-w-fit">
@@ -82,14 +87,16 @@ export const YearlyPremUsers = () => {
         </div>
       )}
 
-      <div className="hidden md:block">
-        <Pagination
-          totalItems={totalItems}
-          itemsPerPage={itemsPerPage}
-          onPageChange={handlePageChange}
-          currentPage={currentPage}
-        />
-      </div>
+      {!loading && (
+        <div className="hidden md:block">
+          <Pagination
+            totalItems={totalItems}
+            itemsPerPage={itemsPerPage}
+            onPageChange={handlePageChange}
+            currentPage={currentPage}
+          />
+        </div>
+      )}
     </>
   );
 };
