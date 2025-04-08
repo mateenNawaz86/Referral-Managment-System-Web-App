@@ -1,3 +1,4 @@
+import { useCallback, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const combineClasses = (defaultClasses, className = "") => {
@@ -205,3 +206,29 @@ export function returnStep(
     nextFormHandler,
   });
 }
+
+export const useClipboardCopy = () => {
+  const inputRef = useRef(null);
+  const [isCopied, setIsCopied] = useState(false);
+
+  const handleCopy = useCallback(async () => {
+    if (inputRef.current) {
+      let textToCopy = "";
+
+      if (inputRef.current instanceof HTMLInputElement) {
+        textToCopy = inputRef.current.value; 
+      } else {
+        textToCopy = inputRef.current.textContent || "";
+      }
+
+      try {
+        await navigator.clipboard.writeText(textToCopy);
+        setIsCopied(true);
+      } catch (err) {
+        setIsCopied(false);
+      }
+    }
+  }, []);
+
+  return { inputRef, handleCopy, isCopied };
+};

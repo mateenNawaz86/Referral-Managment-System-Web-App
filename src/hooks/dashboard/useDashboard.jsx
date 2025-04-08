@@ -19,13 +19,20 @@ export const useDashboard = () => {
   const queryParams = new URLSearchParams(location.search);
   const status = queryParams.get("status");
 
-  const handleRefLinkModal = (deviceType) => {
-    console.log(deviceType, "deviceType");
+  const handleShare = () => {
+    dispatch(updateModalType({ type: ModalType.SHARE_MODAL }));
+  };
 
+  const handleRefLinkModal = (deviceType) => {
     dispatch(
       updateModalType({
         type: ModalType.REFERRAL_LINK_MODAL,
-        data: { links, linkLoading: loading?.links, deviceType },
+        data: {
+          links,
+          linkLoading: loading?.links,
+          deviceType,
+          onShare: handleShare,
+        },
       })
     );
   };

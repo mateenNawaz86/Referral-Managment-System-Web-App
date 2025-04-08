@@ -10,6 +10,7 @@ import { LogoutModal } from "../../base-component/ui/modals/logout-modal";
 import { RedeemPointsModal } from "../../base-component/ui/modals/redeem-points-modal";
 import { RedeemSuccessModal } from "../../base-component/ui/modals/redeem-success-modal";
 import { RedeemRequestSuccessModal } from "../../base-component/ui/modals/redeem-req-success-modal";
+import { ShareModal } from "../../base-component/ui/modals/share-modal";
 
 export const useModalManager = () => {
   const dispatch = useDispatch();
@@ -35,6 +36,7 @@ export const useModalManager = () => {
     [ModalType.REDEEM_REQUEST_SUCCESS]: (
       <RedeemRequestSuccessModal onClose={closeModal} />
     ),
+    [ModalType.SHARE_MODAL]: <ShareModal onClose={closeModal} />,
   };
 
   const renderModal = () => {

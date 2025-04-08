@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { BaseModal } from "./base-modal";
+import { useSelector } from "react-redux";
+import { LinkButton } from "../button/link-icon";
 import { CopyIcon } from "../../../assets/svgs/components/copy-icon";
 import { ShareIcon } from "../../../assets/svgs/components/share-icon";
-import { LinkButton } from "../button/link-icon";
-import { useSelector } from "react-redux";
-import { CustomLoader } from "../loadingEffect/custom-loader";
 
 export const ReferralLinkModal = ({ onClose }) => {
   const [copied, setCopied] = useState(false);
-  const { links, linkLoading, deviceType } =
+  const { links, deviceType, onShare } =
     useSelector((state) => state.global.modal.data) || {};
 
   const matchedLink = links?.find((item) => item.deviceType === deviceType);
@@ -31,19 +30,10 @@ export const ReferralLinkModal = ({ onClose }) => {
         <h3 className="text-[#5A5FDC] font-semibold md:font-bold text-[22px] md:text-2xl">
           IOS Appstore Referral Link
         </h3>
-        {/* <p className="text-[#000AFF] font-medium text-base mt-3 md:mt-[34px] text-center md:hidden break-all">
-          {referralLink}
-        </p> */}
 
-        {linkLoading ? (
-          <div>
-            <CustomLoader className="h-[100px]" />
-          </div>
-        ) : (
-          <p className="text-[#000AFF] font-medium text-base mt-3 md:mt-5 text-center hidden md:block">
-            {referralLink}
-          </p>
-        )}
+        <p className="text-[#000AFF] font-medium text-base mt-3 md:mt-5 text-center break-all">
+          {referralLink}
+        </p>
 
         {copied && <p className="text-green-600 font-medium mt-2">Copied!</p>}
 
@@ -56,6 +46,7 @@ export const ReferralLinkModal = ({ onClose }) => {
           />
           <LinkButton
             icon={ShareIcon}
+            onClick={onShare}
             text="Share Link"
             containerClassName="p-5 md:py-[11px] md:px-[22.5px] rounded-[10px] text-white font-normal text-lg"
           />
