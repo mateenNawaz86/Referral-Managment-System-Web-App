@@ -3,7 +3,7 @@ import { combineClasses, useClipboardCopy } from "../../utils/utility";
 export const CopyField = ({ value }) => {
   const { inputRef, handleCopy, isCopied } = useClipboardCopy();
 
-  const defaultClasses = `flex items-center border-2 border-lightGray rounded-lg py-6 w-full px-5 outline-none bg-[#f6f6f6] h-[70px]`;
+  const defaultClasses = `flex items-center border-2 border-lightGray rounded-lg md:py-6 w-full md:px-5 p-4 outline-none bg-[#f6f6f6] h-[44px] md:h-[70px]`;
   const classes = combineClasses(defaultClasses);
 
   return (
@@ -11,7 +11,7 @@ export const CopyField = ({ value }) => {
       <div className={classes}>
         <p
           ref={inputRef}
-          className="text-lg font-medium mr-14 xl:mr-3 truncate select-none w-full"
+          className="text-[10px] md:text-lg font-normal md:font-medium mr-14 xl:mr-3 truncate select-none w-full"
         >
           {value}
         </p>
@@ -20,7 +20,7 @@ export const CopyField = ({ value }) => {
           onClick={handleCopy}
           className={`${
             isCopied ? "bg-primary rounded-md text-white" : "bg-transparent"
-          } px-4 py-2 text-primary`}
+          } px-2 py-1 md:px-4 md:py-2 text-primary`}
         >
           {isCopied ? "Copied" : "Copy"}
         </button>

@@ -56,6 +56,14 @@ body {
   border-bottom: 10px solid #fff;
 }
 
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 @keyframes puff {
   0% {
     transform: scale(0.1);

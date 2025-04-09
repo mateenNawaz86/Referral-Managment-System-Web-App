@@ -1,3 +1,12 @@
+import { BloggerIcon } from "../assets/svgs/components/blogger-icon";
+import { FacebookIcon } from "../assets/svgs/components/facebook-icon";
+import { InstagramIcon } from "../assets/svgs/components/instagram-icon";
+import { RedditIcon } from "../assets/svgs/components/reddit-icon";
+import { TelegramIcon } from "../assets/svgs/components/telegram-icon";
+import { TumblrIcon } from "../assets/svgs/components/tumblr";
+import { TwitterIcon } from "../assets/svgs/components/twitter-icon";
+import { WhatsappIcon } from "../assets/svgs/components/whatsapp-icon";
+
 export const sideBar = [
   {
     icon: "Dashboard",
@@ -1155,5 +1164,50 @@ export const countries = [
   {
     label: "Zimbabwe",
     value: "Zimbabwe",
+  },
+];
+
+export const shareLinks = [
+  {
+    label: "Facebook",
+    icon: <FacebookIcon />,
+    url: "https://www.facebook.com",
+  },
+
+  {
+    label: "Twitter",
+    icon: <TwitterIcon />,
+    url: "https://twitter.com",
+  },
+  {
+    label: "Blogger",
+    icon: <BloggerIcon />,
+    url: "https://www.blogger.com",
+  },
+  {
+    label: "Reddit",
+    icon: <RedditIcon />,
+    url: "https://www.reddit.com",
+  },
+  {
+    label: "Tumblr",
+    icon: <TumblrIcon />,
+    url: "https://www.tumblr.com/",
+  },
+
+  {
+    label: "WhatsApp",
+    icon: <WhatsappIcon />,
+    url: "https://www.whatsapp.com/",
+  },
+  {
+    label: "Telegram",
+    icon: <TelegramIcon />,
+    url: "https://telegram.org/",
+  },
+  {
+    label: "Instagram",
+    icon: <InstagramIcon />,
+    url: "https://www.instagram.com/",
   },
 ];

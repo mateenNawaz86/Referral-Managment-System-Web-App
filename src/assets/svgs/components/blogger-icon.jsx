@@ -6,6 +6,7 @@ export const BloggerIcon = () => {
       viewBox="0 0 90 90"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className="w-[45px] h-[45px] md:w-[90px] md:h-[90px]"
     >
       <g clip-path="url(#clip0_561_947)">
         <path
