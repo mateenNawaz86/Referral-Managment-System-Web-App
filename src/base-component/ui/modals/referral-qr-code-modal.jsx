@@ -3,8 +3,11 @@ import { BaseModal } from "./base-modal";
 import qrCodeIcon from "../../../assets/pngs/qr-code-icon.png";
 import { ShareIcon } from "../../../assets/svgs/components/share-icon";
 import { LinkButton } from "../button/link-icon";
+import { useSelector } from "react-redux";
 
 export const ReferralQRCodeModal = ({ onClose }) => {
+  const { onShare } = useSelector((state) => state.global.modal.data) || {};
+
   return (
     <BaseModal
       onClose={onClose}
@@ -24,6 +27,7 @@ export const ReferralQRCodeModal = ({ onClose }) => {
         <LinkButton
           icon={ShareIcon}
           text="Share QR Cod"
+          onClick={onShare}
           containerClassName="py-[15px] px-6 mt-[32px] md:mt-[45.5px] rounded-[10px] text-lg font-semibold text-white"
         />
       </div>

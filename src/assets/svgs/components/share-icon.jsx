@@ -1,6 +1,6 @@
-export const ShareIcon = ({ iconClassName = "#fff" }) => {
+export const ShareIcon = ({ iconClassName = "#fff", onClick }) => {
   return (
-    <div title="Share">
+    <div title="Share" onClick={onClick}>
       <svg
         width="21"
         height="22"

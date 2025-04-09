@@ -38,11 +38,25 @@ export const useDashboard = () => {
   };
 
   const handleQRCodeModal = () => {
-    dispatch(updateModalType({ type: ModalType.REFERRAL_QR_CODE_MODAL }));
+    dispatch(
+      updateModalType({
+        type: ModalType.REFERRAL_QR_CODE_MODAL,
+        data: {
+          onShare: handleShare,
+        },
+      })
+    );
   };
 
   const handleRefDiscountCodeModal = () => {
-    dispatch(updateModalType({ type: ModalType.REFERRAL_DISCOUNT_CODE_MODAL }));
+    dispatch(
+      updateModalType({
+        type: ModalType.REFERRAL_DISCOUNT_CODE_MODAL,
+        data: {
+          onShare: handleShare,
+        },
+      })
+    );
   };
 
   useEffect(() => {

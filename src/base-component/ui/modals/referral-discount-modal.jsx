@@ -4,8 +4,10 @@ import { LinkButton } from "../button/link-icon";
 import { CopyIcon } from "../../../assets/svgs/components/copy-icon";
 import { ShareIcon } from "../../../assets/svgs/components/share-icon";
 import discountCodeIcon from "../../../assets/pngs/discount-code-icon.png";
+import { useSelector } from "react-redux";
 
 export const ReferralDiscountModal = ({ onClose }) => {
+  const { onShare } = useSelector((state) => state.global.modal.data) || {};
   const [copyCode, setCopyCode] = useState(false);
   const discountCode = 14587542;
 
@@ -34,10 +36,6 @@ export const ReferralDiscountModal = ({ onClose }) => {
           <span className="text-[#000AFF] font-normal text-[27px]">
             {discountCode}
           </span>
-
-          {/* {copyCode && (
-            <p className="text-green-600 font-medium h-5">Copied!</p>
-          )} */}
         </div>
 
         <div className="flex items-center gap-x-[15px] md:gap-x-[33px]">
@@ -50,6 +48,7 @@ export const ReferralDiscountModal = ({ onClose }) => {
           <LinkButton
             icon={ShareIcon}
             text="Share Code"
+            onClick={onShare}
             containerClassName="p-5 md:py-[11px] md:px-[22.5px] rounded-[10px] text-white font-semibold text-base md:text-lg"
           />
         </div>

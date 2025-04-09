@@ -14,6 +14,10 @@ export const useRedeemHistory = () => {
     (state) => state.redeemHistory
   );
 
+  const handleShare = () => {
+    dispatch(updateModalType({ type: ModalType.SHARE_MODAL }));
+  };
+
   useEffect(() => {
     if (authLoading) return;
 
@@ -80,6 +84,7 @@ export const useRedeemHistory = () => {
           paymentMethod,
           paymentDate,
           status,
+          onShare: handleShare,
         },
       })
     );

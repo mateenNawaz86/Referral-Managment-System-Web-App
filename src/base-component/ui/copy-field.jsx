@@ -2,7 +2,7 @@ import { useState } from "react";
 import { CopiedIcon } from "../../assets/svgs/components/copied-icon";
 import { ShareIcon } from "../../assets/svgs/components/share-icon";
 
-export const CopiedTextField = ({ couponCode, text }) => {
+export const CopiedTextField = ({ couponCode, text, onShare }) => {
   const [isCopied, setIsCopied] = useState(false);
 
   const handleCopy = async () => {
@@ -22,7 +22,7 @@ export const CopiedTextField = ({ couponCode, text }) => {
         {text}: {couponCode}
       </p>
       <div className="flex items-center gap-x-3">
-        <ShareIcon iconClassName="#691188" />
+        <ShareIcon iconClassName="#691188" onClick={onShare} />
         <div onClick={handleCopy} className="cursor-pointer">
           <CopiedIcon iconClassName={isCopied ? "#691188" : "#c4c4c4"} />
         </div>

@@ -17,6 +17,7 @@ export const PaymentDetailsModal = ({ onClose }) => {
     paymentMethod,
     paymentDate,
     status,
+    onShare,
   } = useSelector((state) => state.global.modal.data) || {};
 
   const paymentDetailsData = [
@@ -106,7 +107,7 @@ export const PaymentDetailsModal = ({ onClose }) => {
           <LinkButton
             icon={ShareDetailIcon}
             text="Share details"
-            onClick={() => {}}
+            onClick={onShare}
             containerClassName="rounded-[10px] md:py-[17px] md:px-[27px] w-full text-base md:text-lg font-semibold text-white"
           />
         </div>

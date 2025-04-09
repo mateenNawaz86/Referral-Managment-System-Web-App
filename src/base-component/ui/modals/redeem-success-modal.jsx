@@ -5,8 +5,17 @@ import { CopiedTextField } from "../copy-field";
 import { LinkButton } from "../button/link-icon";
 import { CopyIcon } from "../../../assets/svgs/components/copy-icon";
 import { ShareIcon } from "../../../assets/svgs/components/share-icon";
+import { useDispatch } from "react-redux";
+import { updateModalType } from "../../../api/slices/globalSlice/global";
+import { ModalType } from "../../../types/ui";
 
 export const RedeemSuccessModal = ({ onClose }) => {
+  const dispatch = useDispatch();
+
+  const handleShare = () => {
+    dispatch(updateModalType({ type: ModalType.SHARE_MODAL }));
+  };
+
   return (
     <BaseModal
       onClose={onClose}
@@ -18,7 +27,11 @@ export const RedeemSuccessModal = ({ onClose }) => {
           Redeemed Successfully
         </p>
 
-        <CopiedTextField couponCode="6465456" text="Coupon Code" />
+        <CopiedTextField
+          couponCode="6465456"
+          text="Coupon Code"
+          onShare={handleShare}
+        />
 
         <div className="border-2 border-[#989898] rounded-[5px] py-[9px] px-4 flex items-center md:hidden gap-x-2">
           <span className="text-[#989898] font-semibold text-lg">
@@ -37,6 +50,7 @@ export const RedeemSuccessModal = ({ onClose }) => {
           <LinkButton
             icon={ShareIcon}
             text="Share Link"
+            onClick={handleShare}
             containerClassName="p-5 md:py-[11px] md:px-[22.5px] rounded-[10px] text-white font-normal text-lg"
           />
         </div>
