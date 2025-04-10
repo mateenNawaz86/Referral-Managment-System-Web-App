@@ -10,7 +10,8 @@ export const ReferralLinkModal = ({ onClose }) => {
   const { links, deviceType, onShare } =
     useSelector((state) => state.global.modal.data) || {};
 
-  const matchedLink = links?.find((item) => item.deviceType === deviceType);
+  const matchedLink = links?.find((item) => item?.deviceType === deviceType);
+
   const referralLink = matchedLink?.link
     ? `https://${matchedLink.link}`
     : "https://apps.apple.com/us/app/disney/id1446075923?pt=123456&ct=default";

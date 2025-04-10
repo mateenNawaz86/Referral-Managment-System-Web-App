@@ -30,6 +30,7 @@ export const Results = ({ data }) => {
     },
     {
       points: data?.freeUsers ? data?.freeUsers : 0,
+      title: "Free Users",
       icon: <UsersIcon iconClassName="#055860" />,
       bgColor: "#055860",
       link: "#",

@@ -1,12 +1,15 @@
 import React from "react";
 import { BaseModal } from "./base-modal";
-import qrCodeIcon from "../../../assets/pngs/qr-code-icon.png";
-import { ShareIcon } from "../../../assets/svgs/components/share-icon";
-import { LinkButton } from "../button/link-icon";
 import { useSelector } from "react-redux";
+import { LinkButton } from "../button/link-icon";
+import { ShareIcon } from "../../../assets/svgs/components/share-icon";
+import QRCode from "react-qr-code";
 
 export const ReferralQRCodeModal = ({ onClose }) => {
-  const { onShare } = useSelector((state) => state.global.modal.data) || {};
+  const { onShare, links, deviceType } =
+    useSelector((state) => state.global.modal.data) || {};
+
+  const matchedLink = links?.find((item) => item?.deviceType === deviceType);
 
   return (
     <BaseModal
@@ -18,11 +21,13 @@ export const ReferralQRCodeModal = ({ onClose }) => {
           IOS Appstore Referral QR Code
         </p>
 
-        <img
+        {/* <img
           src={qrCodeIcon}
           alt="icon"
           className="w-[182px] md:h-[226px] h-[182px] md:w-[226px]"
-        />
+        /> */}
+
+        <QRCode value={matchedLink.link} size={226} />
 
         <LinkButton
           icon={ShareIcon}

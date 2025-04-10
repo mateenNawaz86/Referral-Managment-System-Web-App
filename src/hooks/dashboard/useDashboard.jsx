@@ -37,12 +37,14 @@ export const useDashboard = () => {
     );
   };
 
-  const handleQRCodeModal = () => {
+  const handleQRCodeModal = (deviceType) => {
     dispatch(
       updateModalType({
         type: ModalType.REFERRAL_QR_CODE_MODAL,
         data: {
           onShare: handleShare,
+          links,
+          deviceType,
         },
       })
     );

@@ -16,7 +16,7 @@ export const AndriodLinks = ({ iosHandler }) => {
     },
     {
       text: "Show QR code",
-      onClick: handleQRCodeModal,
+      onClick: () => handleQRCodeModal("android"),
     },
   ];
 
