@@ -13,6 +13,7 @@ const SERVICE_URLS = {
   prem_user: "/referrals/users/details",
   view_results: "/referrals/get/counts",
   view_links: "/referrals/apps/links",
+  my_rewards: "/referrals/discounts",
 };
 
 const signUp = (data) =>
@@ -53,6 +54,14 @@ const viewLinks = () =>
     { detail: false }
   );
 
+const myRewards = () =>
+  get(
+    SERVICE_URLS.my_rewards,
+    {},
+    { feature: featureConstants.login },
+    { detail: false }
+  );
+
 const apiServices = {
   signUp,
   login,
@@ -65,6 +74,7 @@ const apiServices = {
   premiumUser,
   viewResults,
   viewLinks,
+  myRewards,
 };
 
 export default apiServices;

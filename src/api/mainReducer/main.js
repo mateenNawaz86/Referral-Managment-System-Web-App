@@ -7,6 +7,7 @@ import redeemRequest from "../slices/redeemRequest/redeem-request";
 import redeemHistorySlice from "../slices/redeemHistory/redeem-history";
 import premiumUsersSlice from "../slices/premiumUser/premium-user";
 import dashboardSlice from "../slices/dashboard/dashboardSlice";
+import myRewardsSlice from "../slices/myRewards/myRewardsSlice";
 
 const reducer = {
   auth,
@@ -18,6 +19,7 @@ const reducer = {
   redeemHistory: redeemHistorySlice,
   premiumUsers: premiumUsersSlice,
   dashboard: dashboardSlice,
+  myRewards: myRewardsSlice,
 };
 
 export default reducer;

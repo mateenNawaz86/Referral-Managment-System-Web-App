@@ -50,12 +50,14 @@ export const useDashboard = () => {
     );
   };
 
-  const handleRefDiscountCodeModal = () => {
+  const handleRefDiscountCodeModal = (deviceType) => {
     dispatch(
       updateModalType({
         type: ModalType.REFERRAL_DISCOUNT_CODE_MODAL,
         data: {
           onShare: handleShare,
+          links,
+          deviceType,
         },
       })
     );

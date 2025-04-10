@@ -33,7 +33,7 @@ export const ReferralQRCodeModal = ({ onClose }) => {
           icon={ShareIcon}
           text="Share QR Cod"
           onClick={onShare}
-          containerClassName="py-[15px] px-6 mt-[32px] md:mt-[45.5px] rounded-[10px] text-lg font-semibold text-white"
+          containerClassName="py-[15px] px-6 mt-[32px] md:mt-[45.5px] rounded-[10px] text-lg font -semibold text-white"
         />
       </div>
     </BaseModal>

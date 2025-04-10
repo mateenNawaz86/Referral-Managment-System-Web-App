@@ -12,7 +12,7 @@ export const IosLinks = ({ iosHandler }) => {
     },
     {
       text: "Show Discount code",
-      onClick: handleRefDiscountCodeModal,
+      onClick: () => handleRefDiscountCodeModal("ios"),
     },
     {
       text: "Show QR code",

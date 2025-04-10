@@ -7,9 +7,12 @@ import discountCodeIcon from "../../../assets/pngs/discount-code-icon.png";
 import { useSelector } from "react-redux";
 
 export const ReferralDiscountModal = ({ onClose }) => {
-  const { onShare } = useSelector((state) => state.global.modal.data) || {};
+  const { onShare, links, deviceType } =
+    useSelector((state) => state.global.modal.data) || {};
   const [copyCode, setCopyCode] = useState(false);
-  const discountCode = 14587542;
+
+  const matchedCode = links?.find((item) => item?.deviceType === deviceType);
+  const discountCode = matchedCode?.discountCode;
 
   const handleCopyCode = () => {
     navigator.clipboard.writeText(discountCode);
