@@ -216,7 +216,7 @@ export const useClipboardCopy = () => {
       let textToCopy = "";
 
       if (inputRef.current instanceof HTMLInputElement) {
-        textToCopy = inputRef.current.value; 
+        textToCopy = inputRef.current.value;
       } else {
         textToCopy = inputRef.current.textContent || "";
       }
@@ -231,4 +231,16 @@ export const useClipboardCopy = () => {
   }, []);
 
   return { inputRef, handleCopy, isCopied };
+};
+
+export const formatPoints = (points) => {
+  const num = Number(points);
+  if (isNaN(num)) return "0";
+
+  if (num >= 1000000) {
+    return (num / 1000000).toFixed(2) + "M";
+  } else if (num >= 1000) {
+    return (num / 1000).toFixed(2) + "k";
+  }
+  return num.toString();
 };

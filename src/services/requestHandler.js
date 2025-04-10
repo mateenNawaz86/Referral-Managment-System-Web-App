@@ -13,7 +13,9 @@ const SERVICE_URLS = {
   prem_user: "/referrals/users/details",
   view_results: "/referrals/get/counts",
   view_links: "/referrals/apps/links",
-  my_rewards: "/referrals/discounts",
+  my_rewards: "/referrals/reward",
+  my_rewards_discounts: "/referrals/discounts",
+  rewards_coupon: "/referrals/coupon/add",
 };
 
 const signUp = (data) =>
@@ -46,6 +48,12 @@ const premiumUser = (data) =>
 const viewResults = (data) =>
   post(SERVICE_URLS.view_results, data, { feature: featureConstants.login });
 
+const rewardsCoupon = (data) =>
+  post(SERVICE_URLS.rewards_coupon, data, { feature: featureConstants.login });
+
+const myRewards = (data) =>
+  post(SERVICE_URLS.my_rewards, data, { feature: featureConstants.login });
+
 const viewLinks = () =>
   get(
     SERVICE_URLS.view_links,
@@ -54,9 +62,9 @@ const viewLinks = () =>
     { detail: false }
   );
 
-const myRewards = () =>
+const myRewardsDiscount = () =>
   get(
-    SERVICE_URLS.my_rewards,
+    SERVICE_URLS.my_rewards_discounts,
     {},
     { feature: featureConstants.login },
     { detail: false }
@@ -75,6 +83,8 @@ const apiServices = {
   viewResults,
   viewLinks,
   myRewards,
+  rewardsCoupon,
+  myRewardsDiscount,
 };
 
 export default apiServices;

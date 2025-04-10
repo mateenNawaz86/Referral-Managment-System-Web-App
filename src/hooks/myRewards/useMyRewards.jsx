@@ -6,7 +6,10 @@ import { PointIcon } from "../../assets/svgs/components/point-icon";
 import { updateModalType } from "../../api/slices/globalSlice/global";
 import { GetCouponIcon } from "../../assets/svgs/components/get-coupon-icon";
 import { GetCouponFormFields } from "../../components/myRewards/get-coupon-fields";
-import { readMyRewards } from "../../api/slices/myRewards/myRewardsSlice";
+import {
+  readMyRewards,
+  readMyRewardsDiscount,
+} from "../../api/slices/myRewards/myRewardsSlice";
 import { useEffect, useState } from "react";
 
 export const useMyRewards = () => {
@@ -14,13 +17,21 @@ export const useMyRewards = () => {
   const navigate = useNavigate();
   const [myRewards, setMyRewards] = useState(null);
   const { loading } = useSelector((state) => state.myRewards);
+  const [myRewardsDiscount, setMyRewardsDiscount] = useState(null);
+  const { user, loading: authLoading } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    const fetchMyRewards = async () => {
-      try {
-        const response = await dispatch(readMyRewards({}));
+    if (authLoading) return;
 
-        console.log(response, "response");
+    const fetchMyRewards = async () => {
+      const uid = user?.user?.id;
+      if (!uid) return;
+
+      const formData = new FormData();
+      formData.append("uid", 4);
+
+      try {
+        const response = await dispatch(readMyRewards({ data: formData }));
 
         if (response?.payload?.data) {
           setMyRewards(response?.payload?.data);
@@ -31,6 +42,21 @@ export const useMyRewards = () => {
     };
 
     fetchMyRewards();
+  }, [dispatch, authLoading, user]);
+
+  useEffect(() => {
+    const fetchMyRewardsDiscount = async () => {
+      try {
+        const response = await dispatch(readMyRewardsDiscount({}));
+        if (response?.payload?.data) {
+          setMyRewardsDiscount(response?.payload?.data);
+        }
+      } catch (err) {
+        console.error("Error fetching dashboard links:", err);
+      }
+    };
+
+    fetchMyRewardsDiscount();
   }, [dispatch]);
 
   const handleGetCouponModal = () => {
@@ -87,5 +113,7 @@ export const useMyRewards = () => {
     control,
     handleSubmit,
     errors,
+    loading,
+    myRewards,
   };
 };

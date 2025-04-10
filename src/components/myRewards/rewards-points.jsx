@@ -3,26 +3,27 @@ import { ListIcon } from "../../assets/svgs/components/list-icon";
 import { PointIcon } from "../../assets/svgs/components/point-icon";
 import { LinkButton } from "../../base-component/ui/button/link-icon";
 import { PointCard } from "../../base-component/ui/point-card";
+import { formatPoints } from "../../utils/utility";
 
-export const RewardsPoints = () => {
+export const RewardsPoints = ({ data }) => {
   const navigate = useNavigate();
   const pointsData = [
     {
       text: "Total Points Rewarded",
-      points: 1700,
+      points: formatPoints(data?.active),
       linkText: "Points History",
       onClick: () => navigate("/point-history"),
     },
     {
       text: "Points Used for Coupons",
-      points: 1420,
+      points: formatPoints(data?.coupons),
       icon: ListIcon,
       linkText: "Coupons History",
       onClick: () => navigate("/coupon-history"),
     },
     {
       text: "Points Redeemed",
-      points: 1700,
+      points: formatPoints(data?.redeemed),
       icon: ListIcon,
       linkText: "Redeem History",
       onClick: () => navigate("/redeem-history"),
