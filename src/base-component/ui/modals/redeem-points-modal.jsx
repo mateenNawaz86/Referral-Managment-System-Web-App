@@ -1,19 +1,50 @@
 import React from "react";
 import { BaseModal } from "./base-modal";
-import couponPointIcon from "../../../assets/svgs/coupon-points-icon.svg";
-import { PointIcon } from "../../../assets/svgs/components/point-icon";
+import { ModalType } from "../../../types/ui";
 import { BaseButton } from "../button/base-button";
 import { useDispatch, useSelector } from "react-redux";
+import { PointIcon } from "../../../assets/svgs/components/point-icon";
 import { updateModalType } from "../../../api/slices/globalSlice/global";
-import { ModalType } from "../../../types/ui";
+import couponPointIcon from "../../../assets/svgs/coupon-points-icon.svg";
+import { createCoupon } from "../../../api/slices/myRewards/myRewardsSlice";
 
 export const RedeemPointsModal = ({ onClose }) => {
   const dispatch = useDispatch();
-  const { actionType } = useSelector((state) => state.global.modal.data) || {};
+  const { user } = useSelector((state) => state.auth);
+  const { isLoading } = useSelector((state) => state.myRewards);
+  const { actionType, type, points } =
+    useSelector((state) => state.global.modal.data) || {};
 
-  const handleRedeem = () => {
-    if (actionType === "REDEEM_SUCCESS") {
-      dispatch(updateModalType({ type: ModalType.REDEEM_SUCCESS }));
+  const handleAddCoupon = async () => {
+    const userId = user?.user?.id;
+    if (!userId) return;
+
+    const formData = new FormData();
+    formData.append("userId", 2);
+    formData.append("points", points);
+    formData.append("type", type);
+
+    try {
+      await dispatch(
+        createCoupon({
+          data: formData,
+        })
+      ).then((response) => {
+        if (response?.payload) {
+          const couponCode = response?.payload?.data?.coupon?.coupon;
+
+          if (actionType === "REDEEM_SUCCESS" && couponCode) {
+            dispatch(
+              updateModalType({
+                type: ModalType.REDEEM_SUCCESS,
+                data: { couponCode },
+              })
+            );
+          }
+        }
+      });
+    } catch (err) {
+      console.error("Error fetching free users:", err);
     }
   };
 
@@ -28,7 +59,7 @@ export const RedeemPointsModal = ({ onClose }) => {
         <div className="flex items-center gap-x-[6px] mb-[6px] mt-[10px]">
           <PointIcon iconClassName="#691188" />
           <span className="font-bold text-[22px] md:text-2xl text-primary">
-            40 Points
+            {points} Points
           </span>
         </div>
         <p className="font-medium text-[15px] text-[#333333] mb-[27px] text-center mt-2">
@@ -39,12 +70,13 @@ export const RedeemPointsModal = ({ onClose }) => {
           <BaseButton
             text="Cancel"
             onClick={onClose}
-            containerClassName="py-[14px] text-lg font-semibold rounded-[10px] text-white w-full"
+            containerClassName="text-lg font-semibold rounded-[10px] text-white w-full py-0 h-[50px]"
           />
           <BaseButton
             text="Redeem"
-            onClick={handleRedeem}
-            containerClassName="py-[14px] text-lg font-semibold rounded-[10px] text-white w-full"
+            onClick={handleAddCoupon}
+            containerClassName="text-lg font-semibold rounded-[10px] text-white w-full py-0 h-[50px]"
+            loading={isLoading}
           />
         </div>
       </div>

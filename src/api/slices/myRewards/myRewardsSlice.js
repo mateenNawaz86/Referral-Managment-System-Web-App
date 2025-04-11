@@ -6,6 +6,7 @@ const initialState = {
   rewardsDiscount: null,
   rewardsCoupon: null,
   loading: false,
+  isLoading: false,
   error: null,
 };
 
@@ -99,14 +100,14 @@ const myRewardsSlice = createSlice({
       state.loading = false;
     });
     builder.addCase(createCoupon.pending, (state) => {
-      state.loading = true;
+      state.isLoading = true;
     });
     builder.addCase(createCoupon.fulfilled, (state, action) => {
       if (action?.payload) state.rewardsCoupon = action.payload.data;
-      state.loading = false;
+      state.isLoading = false;
     });
     builder.addCase(createCoupon.rejected, (state) => {
-      state.loading = false;
+      state.isLoading = false;
     });
   },
 });

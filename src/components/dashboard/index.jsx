@@ -7,11 +7,11 @@ import { CustomLoader } from "../../base-component/ui/loadingEffect/custom-loade
 export const Dashboard = () => {
   const location = useLocation();
   const {
+    loading,
+    results,
     handleRefLinkModal,
     handleQRCodeModal,
     handleRefDiscountCodeModal,
-    loading,
-    results,
   } = useDashboard();
 
   const queryParams = new URLSearchParams(location.search);
@@ -25,7 +25,15 @@ export const Dashboard = () => {
 
   return (
     <div className="mb-10">
-      {status === "ref-guide" && <ReferralGuide iosHandler={iosHandler} />}
+      {status === "ref-guide" && (
+        <>
+          {loading?.links ? (
+            <CustomLoader />
+          ) : (
+            <ReferralGuide iosHandler={iosHandler} />
+          )}
+        </>
+      )}
 
       {status === "results" && (
         <>{loading?.results ? <CustomLoader /> : <Results data={results} />}</>

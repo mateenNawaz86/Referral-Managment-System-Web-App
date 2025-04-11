@@ -1,7 +1,7 @@
-import { useDispatch, useSelector } from "react-redux";
 import { ModalType } from "../../types/ui";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { PointIcon } from "../../assets/svgs/components/point-icon";
 import { updateModalType } from "../../api/slices/globalSlice/global";
 import { GetCouponIcon } from "../../assets/svgs/components/get-coupon-icon";
@@ -63,11 +63,11 @@ export const useMyRewards = () => {
     dispatch(updateModalType({ type: ModalType.GET_COUPON_MODAL }));
   };
 
-  const handleRedeemPoints = () => {
+  const handleRedeemPoints = (type, points, loading) => {
     dispatch(
       updateModalType({
         type: ModalType.COUPON_POINTS,
-        data: { actionType: "REDEEM_SUCCESS" },
+        data: { actionType: "REDEEM_SUCCESS", type, points, loading },
       })
     );
   };
@@ -97,12 +97,21 @@ export const useMyRewards = () => {
     formState: { errors },
   } = useForm({});
 
-  const fields = GetCouponFormFields(register);
+  const fields = GetCouponFormFields(register, loading);
 
   const onSubmit = async (data) => {
-    console.log(data, "data");
+    if (!myRewardsDiscount) {
+      return;
+    }
 
-    handleRedeemPoints();
+    const type = data?.couponType;
+    let points;
+    if (type === "monthly") {
+      points = myRewardsDiscount?.referralPointsForMonthlySubscription;
+    } else {
+      points = myRewardsDiscount?.referralPointsForYearlySubscription;
+    }
+    handleRedeemPoints(type, points, loading);
   };
 
   return {
