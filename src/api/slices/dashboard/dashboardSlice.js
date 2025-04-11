@@ -6,8 +6,8 @@ const initialState = {
   results: null,
   links: null,
   loading: {
-    results: false,
-    links: false,
+    results: true,
+    links: true,
   },
   error: null,
 };
@@ -66,8 +66,8 @@ const dashboardSlice = createSlice({
       state.error = null;
     });
     builder.addCase(readDashboardResults.fulfilled, (state, action) => {
-      if (action?.payload) state.results = action.payload?.data;
       state.loading.results = false;
+      if (action?.payload) state.results = action.payload?.data;
     });
     builder.addCase(readDashboardResults.rejected, (state) => {
       state.loading.results = false;
@@ -78,8 +78,8 @@ const dashboardSlice = createSlice({
       state.error = null;
     });
     builder.addCase(readDashboardLinks.fulfilled, (state, action) => {
-      if (action?.payload) state.links = action.payload;
       state.loading.links = false;
+      if (action?.payload) state.links = action.payload;
     });
     builder.addCase(readDashboardLinks.rejected, (state, action) => {
       state.loading.links = false;

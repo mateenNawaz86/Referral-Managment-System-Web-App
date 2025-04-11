@@ -4,7 +4,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   couponHistory: [],
-  loading: false,
+  loading: true,
   error: null,
 };
 

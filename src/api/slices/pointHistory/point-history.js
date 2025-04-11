@@ -4,7 +4,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   pointsHistory: [],
-  loading: false,
+  loading: true,
   error: null,
 };
 
@@ -43,8 +43,8 @@ const pointsHistorySlice = createSlice({
       state.loading = true;
     });
     builder.addCase(readPointsHistory.fulfilled, (state, action) => {
-      if (action?.payload) state.pointsHistory = action.payload.data;
       state.loading = false;
+      if (action?.payload) state.pointsHistory = action.payload.data;
     });
     builder.addCase(readPointsHistory.rejected, (state) => {
       state.loading = false;

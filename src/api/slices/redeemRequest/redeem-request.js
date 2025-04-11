@@ -4,7 +4,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   redeemRequest: undefined,
-  loading: false,
+  loading: true,
   error: null,
 };
 
