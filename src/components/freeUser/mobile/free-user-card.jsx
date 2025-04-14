@@ -1,4 +1,4 @@
-import profile from "../../../assets/pngs/profile.jpg";
+import { formatDate } from "../../../utils/function";
 
 export const FreeUserCard = ({ data }) => {
   return (
@@ -10,18 +10,19 @@ export const FreeUserCard = ({ data }) => {
             className="pl-[15px] py-[15px] rounded-[12px] bg-white shadow-md flex gap-x-2"
           >
             <img
-              src={profile}
+              src={item?.image}
               alt="profile"
               className="rounded-[5px] min-w-[59px] min-h-[63px] max-w-[59px] max-h-[63px] object-cover"
             />
             <div className="flex flex-col gap-y-[5px]">
-              <p className="text-base font-semibold">{item?.username}</p>
+              <p className="text-base font-semibold">{item?.name}</p>
               <div className="flex items-center gap-x-1">
                 <span className="text-xs text-[#848484] font-medium">
                   Status
                 </span>
                 <span className="text-xs text-primary font-medium">
-                  {item?.status}
+                  {/* {item?.status} */}
+                  Free
                 </span>
               </div>
               <div className="flex items-center">
@@ -29,7 +30,7 @@ export const FreeUserCard = ({ data }) => {
                   Installed on:
                 </span>
                 <span className="text-xs text-black font-medium">
-                  {item?.date}
+                  {formatDate(item?.installedDate)}
                 </span>
               </div>
             </div>

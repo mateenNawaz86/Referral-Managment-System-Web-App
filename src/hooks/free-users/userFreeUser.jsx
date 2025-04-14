@@ -2,26 +2,79 @@ import { useState, useEffect } from "react";
 import { getPageFromURL } from "../../utils/utility";
 import { useDispatch, useSelector } from "react-redux";
 import { readFreeUserListing } from "../../api/slices/freeUserSlice/freeUser";
+import { useLocation, useSearchParams } from "react-router-dom";
 
 export const useFreeUser = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
   const { user, loading: authLoading } = useSelector((state) => state.auth);
   const [currentPageRows, setCurrentPageRows] = useState([]);
   const [currentPage, setCurrentPage] = useState(getPageFromURL());
   const { freeUser, loading } = useSelector((state) => state.freeUser);
+  const [searchParams, setSearchParams] = useSearchParams(location.search);
+
+  const page = searchParams.get("page");
+  const sort = searchParams.get("sort");
+  const status = currentPageRows?.data?.stats;
 
   const dummyData = [
-    { title: "Total Users", points: "45.50k" },
-    { title: "This Month", points: "35.50k" },
-    { title: "This Week", points: "38.50k" },
-    { title: "Revenue", points: "$78.6k" },
+    { title: "Total Users", points: status?.totalUsers },
+    {
+      title: "This Month",
+      points: status?.thisMonthUsers,
+    },
+    { title: "This Week", points: status?.thisWeekUsers },
+    { title: "Revenue", points: status?.revenue },
   ];
 
   const headings = ["User details", "Installed", "Status"];
-
-  const totalCount = freeUser?.length;
-  const itemsPerPage = 5;
+  const totalCount = currentPageRows?.pagination?.totalRecords;
+  const itemsPerPage = 10;
   const totalItems = totalCount;
+
+  useEffect(() => {
+    if (authLoading) return;
+    const parsedPage = parseInt(page, 10);
+
+    let resetPage = null;
+    if (!isNaN(parsedPage)) {
+      setCurrentPage(parsedPage);
+    } else {
+      resetPage = 1;
+      setCurrentPage(1);
+    }
+
+    const redeemHistoryRecords = async () => {
+      const uid = user?.user?.id;
+      if (!uid) return;
+
+      if (sort !== undefined) {
+        const filteredData = {
+          uid: 1,
+          page: (Number(parsedPage) || resetPage) ?? currentPage,
+          size: 10,
+        };
+
+        if (sort) {
+          filteredData.sort = sort;
+        }
+
+        try {
+          const response = await dispatch(
+            readFreeUserListing({ params: filteredData })
+          );
+          if (response?.payload) {
+            const data = response.payload;
+            setCurrentPageRows(data);
+          }
+        } catch (err) {
+          console.error("Error fetching monthly premium users:", err);
+        }
+      }
+    };
+
+    redeemHistoryRecords();
+  }, [location.search, location.key, user, authLoading, sort]);
 
   useEffect(() => {
     const handlePopState = () => {
@@ -31,38 +84,31 @@ export const useFreeUser = () => {
     return () => window.removeEventListener("popstate", handlePopState);
   }, []);
 
-  useEffect(() => {
-    if (authLoading) return;
-
-    const fetchFreeUsers = async () => {
-      const uid = user?.user?.id;
-      if (!uid) return;
-
-      const formData = new FormData();
-      formData.append("uid", uid);
-
-      try {
-        await dispatch(
-          readFreeUserListing({
-            data: formData,
-          })
-        ).then((response) => {
-          if (response?.payload) setCurrentPageRows(response?.payload?.data);
-        });
-      } catch (err) {
-        console.error("Error fetching free users:", err);
-      }
-    };
-
-    fetchFreeUsers();
-  }, [dispatch, user, authLoading]);
-
   const handlePageChange = (page) => {
     setCurrentPage(page);
 
     const params = new URLSearchParams(window.location.search);
     params.set("page", page.toString());
-    window.history.pushState({}, "", `?${params.toString()}`);
+    setSearchParams(params);
+  };
+
+  const hanldeSortChange = (value) => {
+    const params = new URLSearchParams(window.location.search);
+
+    if (value === "None") {
+      params.delete("sort");
+    } else {
+      params.set("sort", value);
+    }
+
+    params.set("page", "1");
+    setSearchParams(params);
+    setCurrentPage(1);
+
+    setFilter((prev) => {
+      const updatedFilter = { ...prev, sort: value };
+      return updatedFilter;
+    });
   };
 
   return {
@@ -76,5 +122,7 @@ export const useFreeUser = () => {
     currentPage,
     headings,
     freeUser,
+    hanldeSortChange,
+    sort,
   };
 };

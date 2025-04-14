@@ -7,6 +7,7 @@ import { useFreeUser } from "../../hooks/free-users/userFreeUser";
 import SelectField from "../../base-component/ui/fields/select-fields";
 import { Pagination } from "../../base-component/ui/pagination/pagination";
 import { NoDataEmptyState } from "../../base-component/ui/loadingEffect/no-data-state";
+import { CustomLoader } from "../../base-component/ui/loadingEffect/custom-loader";
 
 export const FreeUserListing = () => {
   const {
@@ -19,10 +20,12 @@ export const FreeUserListing = () => {
     handlePageChange,
     freeUser,
     totalCount,
+    sort,
+    hanldeSortChange,
   } = useFreeUser();
 
   const CurrentComponent = useEmptyStates(
-    <FreeUsersTableRows data={currentPageRows} />,
+    <FreeUsersTableRows data={currentPageRows?.data?.freeUsers} />,
     totalCount !== 0,
     loading
   );
@@ -36,7 +39,11 @@ export const FreeUserListing = () => {
         {CurrentComponent}
       </div>
 
-      {freeUser?.length > 0 ? (
+      {loading ? (
+        <div className="flex justify-center items-center md:hidden">
+          <CustomLoader />
+        </div>
+      ) : currentPageRows?.data?.freeUsers?.length > 0 ? (
         <div className="md:hidden mb-10">
           <div className="flex items-center justify-between mt-[15px] mb-3">
             <p className="text-[20px] font-semibold min-w-[123px]">
@@ -44,22 +51,22 @@ export const FreeUserListing = () => {
             </p>
 
             <SelectField
-              // handleChange={(value) => hanldeSortChange(value)}
-              value={"None"}
+              handleChange={(value) => hanldeSortChange(value)}
+              value={sort || "None"}
               options={[
                 {
                   label: "Name",
-                  value: "Name",
+                  value: "name",
                 },
                 {
                   label: "Install Date",
-                  value: "Install Date",
+                  value: "installedDate",
                 },
               ]}
               containerClassName="w-[350px]"
             />
           </div>
-          <FreeUserCard data={freeUser} />
+          <FreeUserCard data={freeUser?.freeUsers} />
         </div>
       ) : (
         <div className="md:hidden mt-10">

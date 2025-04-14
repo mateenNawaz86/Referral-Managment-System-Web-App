@@ -1211,3 +1211,7 @@ export const shareLinks = [
     url: "https://www.instagram.com/",
   },
 ];
+
+export const FiltersDefaultValues = Object.freeze({
+  None: "None",
+});

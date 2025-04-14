@@ -36,7 +36,9 @@ export default function SelectField({
 
   useEffect(() => {
     const newLabel = options?.find((item) => item?.value === value);
-    setSelectedLabel(newLabel?.label || "");
+    console.log(newLabel, "newLabel");
+
+    setSelectedLabel(newLabel?.label || "Sort by");
   }, [value, options]);
 
   return (
@@ -86,6 +88,7 @@ export default function SelectField({
               <div className="flex-col space-y-2">
                 {options?.map(({ label, value }, idx) => {
                   const isSelected = selectedLabel === label;
+
                   return (
                     <div
                       className={`flex justify-start px-2 py-1 cursor-pointer mr-1 hoverTransetion rounded-md ${

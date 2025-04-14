@@ -4,16 +4,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useSearchParams } from "react-router-dom";
 import { getLastHeading, getPageTitles } from "../../utils/function";
 import { readPremiumUsers } from "../../api/slices/premiumUser/premium-user";
+import { FiltersDefaultValues } from "../../utils/static";
 
 export const useMonthlyUses = () => {
   const location = useLocation();
   const dispatch = useDispatch();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams(location.search);
   const page = searchParams.get("page");
   const [currentPage, setCurrentPage] = useState(page || 1);
   const [currentPageRows, setCurrentPageRows] = useState([]);
   const { user, loading: authLoading } = useSelector((state) => state.auth);
   const { loading } = useSelector((state) => state.premiumUsers);
+  const [filter, setFilter] = useState({
+    sort: FiltersDefaultValues.None,
+  });
+
+  const sort = searchParams.get("sort");
 
   useEffect(() => {
     if (authLoading) return;
@@ -28,13 +34,12 @@ export const useMonthlyUses = () => {
     }
 
     const queryStatus = searchParams.get("status");
-    const querySort = searchParams.get("sort");
 
     const redeemHistoryRecords = async () => {
       const uid = user?.user?.id;
       if (!uid) return;
 
-      const queryParams = queryStatus || querySort;
+      const queryParams = queryStatus || sort;
 
       if (queryParams !== undefined) {
         const filteredStatus =
@@ -46,7 +51,7 @@ export const useMonthlyUses = () => {
             ? "canceled"
             : queryParams;
         const filteredData = {
-          uid: 1,
+          uid: uid,
           type: "monthly",
           page: (Number(parsedPage) || resetPage) ?? currentPage,
           size: 10,
@@ -56,8 +61,8 @@ export const useMonthlyUses = () => {
           filteredData.status = filteredStatus;
         }
 
-        if (querySort) {
-          filteredData.sort = querySort;
+        if (sort) {
+          filteredData.sort = sort;
         }
 
         try {
@@ -75,7 +80,7 @@ export const useMonthlyUses = () => {
     };
 
     redeemHistoryRecords();
-  }, [searchParams, user, authLoading]);
+  }, [location.search, location.key, user, authLoading, sort]);
 
   useEffect(() => {
     const handlePopState = () => {
@@ -105,7 +110,25 @@ export const useMonthlyUses = () => {
 
     const params = new URLSearchParams(window.location.search);
     params.set("page", page.toString());
-    window.history.pushState({}, "", `?${params.toString()}`);
+    setSearchParams(params);
+  };
+
+  const hanldeSortChange = (value) => {
+    const params = new URLSearchParams(window.location.search);
+
+    if (value === "None") {
+      params.delete("sort");
+    } else {
+      params.set("sort", value);
+    }
+
+    params.set("page", "1");
+    setSearchParams(params);
+    setCurrentPage(1);
+    setFilter((prev) => {
+      const updatedFilter = { ...prev, sort: value };
+      return updatedFilter;
+    });
   };
 
   return {
@@ -120,5 +143,8 @@ export const useMonthlyUses = () => {
     headings,
     pageTitle,
     mobilePageTitle,
+    filter,
+    sort,
+    hanldeSortChange,
   };
 };

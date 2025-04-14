@@ -27,8 +27,8 @@ const login = (data) =>
 const logout = (data) =>
   del(SERVICE_URLS.logout, data, { feature: featureConstants.login });
 
-const freeUser = (data) =>
-  post(SERVICE_URLS.free_user, data, { feature: featureConstants.login });
+// const freeUser = (data) =>
+//   post(SERVICE_URLS.free_user, data, { feature: featureConstants.login });
 
 const pointsHistory = (data) =>
   post(SERVICE_URLS.points_history, data, { feature: featureConstants.login });
@@ -70,11 +70,19 @@ const myRewardsDiscount = () =>
     { detail: false }
   );
 
+const freeUsers = (params) =>
+  get(
+    SERVICE_URLS.free_user,
+    params,
+    { feature: featureConstants.login },
+    { detail: false }
+  );
+
 const apiServices = {
   signUp,
   login,
   logout,
-  freeUser,
+  freeUsers,
   pointsHistory,
   couponHistory,
   redeemRequest,

@@ -18,10 +18,12 @@ export const YearlyPremUsers = () => {
     itemsPerPage,
     currentPage,
     headings,
+    sort,
     pageTitle,
     mobilePageTitle,
     currentPageRows,
     handlePageChange,
+    hanldeSortChange,
   } = useYearlyUsers();
 
   const CurrentComponent = useEmptyStates(
@@ -50,26 +52,27 @@ export const YearlyPremUsers = () => {
               {mobilePageTitle}
             </p>
             <SelectField
-              // handleChange={(value) => hanldeSortChange(value)}
-              value={"None"}
+              handleChange={(value) => hanldeSortChange(value)}
+              value={sort || "None"}
               options={[
                 {
                   label: "Name",
-                  value: "Name",
+                  value: "name",
                 },
                 {
                   label: "Install Date",
-                  value: "Install Date",
+                  value: "installDate",
                 },
                 {
                   label: "Subscribed Date",
-                  value: "Subscribed Date",
+                  value: "subscribedDate",
                 },
                 {
                   label: "Clearance Datet",
-                  value: "Clearance Date",
+                  value: "clearanceDate",
                 },
               ]}
+              containerClassName="w-[350px]"
             />
           </div>
           <RecordCard

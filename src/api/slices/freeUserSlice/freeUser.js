@@ -11,11 +11,10 @@ const initialState = {
 export const readFreeUserListing = createAsyncThunk(
   "free/user",
   async (args, thunkApi) => {
-    const { data, setError } = args;
+    const { params, setError } = args;
 
     try {
-      const response = await apiServices.freeUser(data);
-
+      const response = await apiServices.freeUsers(params);
       return response?.data;
     } catch (e) {
       const errorMessage = e?.response?.data?.message || "Network Error";
