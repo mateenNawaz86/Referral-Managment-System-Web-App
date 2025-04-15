@@ -36,7 +36,6 @@ export default function SelectField({
 
   useEffect(() => {
     const newLabel = options?.find((item) => item?.value === value);
-    console.log(newLabel, "newLabel");
 
     setSelectedLabel(newLabel?.label || "Sort by");
   }, [value, options]);

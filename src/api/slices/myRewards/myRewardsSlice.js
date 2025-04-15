@@ -8,6 +8,7 @@ const initialState = {
   loading: true,
   isLoading: false,
   error: null,
+  // activeRewardPoints: null,
 };
 
 export const readMyRewards = createAsyncThunk(
@@ -83,7 +84,12 @@ const myRewardsSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(readMyRewards.fulfilled, (state, action) => {
-      if (action?.payload) state.myRewards = action.payload.data;
+      if (action?.payload) {
+        state.myRewards = action.payload.data;
+
+        // state.activeRewardPoints = action.payload.data?.reward?.active || null;
+      }
+
       state.loading = false;
     });
     builder.addCase(readMyRewards.rejected, (state) => {

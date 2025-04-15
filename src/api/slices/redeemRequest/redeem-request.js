@@ -4,7 +4,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   redeemRequest: undefined,
-  loading: true,
+  loading: false,
   error: null,
 };
 
@@ -15,7 +15,6 @@ export const redeemRequest = createAsyncThunk(
 
     try {
       const response = await apiServices.redeemRequest(data);
-
       return response?.data;
     } catch (e) {
       const errorMessage = e?.response?.data?.message || "Network Error";

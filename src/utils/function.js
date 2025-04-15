@@ -72,7 +72,10 @@ export function isJSON(str) {
 }
 
 export const formatDate = (isoString) => {
-  return moment(isoString).format("MMM DD YYYY hh:mm A");
+  if (!isoString) return "N/A";
+
+  const date = moment(isoString);
+  return date.isValid() ? date.format("MMM DD YYYY hh:mm A") : "Invalid date";
 };
 
 export const getLastHeading = (searchParams) => {

@@ -7,11 +7,19 @@ import { redeemRequest } from "../../api/slices/redeemRequest/redeem-request";
 import { RedeemRequestFormFields } from "../../components/requestRedeem/redeem-request-fields";
 import { generateRedeemPointsValidationSchema } from "../../validation/redeem-points-validation";
 import { toast } from "react-toastify";
+import { useEffect, useState } from "react";
+import { fetchMyRewardsUtil } from "../../utils/utility";
 
 export const useRedeemRequest = () => {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.auth);
+  const { user, loading: authLoading } = useSelector((state) => state.auth);
+  const [myRewards, setMyRewards] = useState(null);
   const { loading } = useSelector((state) => state.redeemRequest);
+  const { loading: myRewardsLoading } = useSelector((state) => state.myRewards);
+
+  useEffect(() => {
+    fetchMyRewardsUtil({ dispatch, user, authLoading, setMyRewards });
+  }, [dispatch, authLoading, user]);
 
   const handleRedeemRequest = () => {
     dispatch(updateModalType({ type: ModalType.REDEEM_REQUEST_SUCCESS }));
@@ -25,6 +33,7 @@ export const useRedeemRequest = () => {
     control,
     formState: { errors },
     setError,
+    reset,
   } = useForm({
     resolver: yupResolver(schema),
   });
@@ -43,6 +52,7 @@ export const useRedeemRequest = () => {
       const res = await dispatch(redeemRequest({ data: formData, setError }));
       if (res?.payload) {
         handleRedeemRequest();
+        reset();
       }
     } catch (error) {
       toast.error(errors);
@@ -55,5 +65,7 @@ export const useRedeemRequest = () => {
     errors,
     fields,
     onSubmit,
+    myRewards,
+    myRewardsLoading,
   };
 };

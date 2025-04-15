@@ -11,10 +11,10 @@ const initialState = {
 export const readPointsHistory = createAsyncThunk(
   "points/history",
   async (args, thunkApi) => {
-    const { data, setError } = args;
+    const { params, setError } = args;
 
     try {
-      const response = await apiServices.pointsHistory(data);
+      const response = await apiServices.pointsHistory(params);
 
       return response?.data;
     } catch (e) {

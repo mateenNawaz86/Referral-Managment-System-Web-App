@@ -9,3 +9,12 @@ export const generateRedeemPointsValidationSchema = () => {
     [redeemPoints.points]: yup.string().required("This field is required"),
   });
 };
+
+export const generateGetCouponValidationSchema = () => {
+  return yup.object().shape({
+    couponType: yup
+      .string()
+      .oneOf(["monthly", "yearly"], "Please select a coupon type")
+      .required("This field is required"),
+  });
+};

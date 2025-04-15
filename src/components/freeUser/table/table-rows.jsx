@@ -21,7 +21,6 @@ export const FreeUsersTableRows = ({ data }) => {
           <span className="text-base font-medium">
             {formatDate(item?.installedDate)}
           </span>
-          {/* <span className="text-base font-medium">{item?.status}</span> */}
           <span className="text-base font-medium">Free</span>
         </div>
       ))}

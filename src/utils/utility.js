@@ -1,5 +1,6 @@
 import { useCallback, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { readMyRewards } from "../api/slices/myRewards/myRewardsSlice";
 
 export const combineClasses = (defaultClasses, className = "") => {
   if (!className) return defaultClasses;
@@ -243,4 +244,29 @@ export const formatPoints = (points) => {
     return (num / 1000).toFixed(2) + "k";
   }
   return num.toString();
+};
+
+export const fetchMyRewardsUtil = async ({
+  dispatch,
+  user,
+  authLoading,
+  setMyRewards,
+}) => {
+  if (authLoading) return;
+
+  const uid = user?.user?.id;
+  if (!uid) return;
+
+  const formData = new FormData();
+  formData.append("uid", uid);
+
+  try {
+    const response = await dispatch(readMyRewards({ data: formData }));
+
+    if (response?.payload?.data) {
+      setMyRewards(response?.payload?.data);
+    }
+  } catch (err) {
+    console.error("Error fetching my rewards:", err);
+  }
 };

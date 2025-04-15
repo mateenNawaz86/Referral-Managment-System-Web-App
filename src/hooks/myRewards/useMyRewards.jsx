@@ -1,6 +1,8 @@
 import { ModalType } from "../../types/ui";
 import { useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useDispatch, useSelector } from "react-redux";
 import { PointIcon } from "../../assets/svgs/components/point-icon";
 import { updateModalType } from "../../api/slices/globalSlice/global";
@@ -10,7 +12,8 @@ import {
   readMyRewards,
   readMyRewardsDiscount,
 } from "../../api/slices/myRewards/myRewardsSlice";
-import { useEffect, useState } from "react";
+import { generateGetCouponValidationSchema } from "../../validation/redeem-points-validation";
+import { fetchMyRewardsUtil } from "../../utils/utility";
 
 export const useMyRewards = () => {
   const dispatch = useDispatch();
@@ -20,29 +23,35 @@ export const useMyRewards = () => {
   const [myRewardsDiscount, setMyRewardsDiscount] = useState(null);
   const { user, loading: authLoading } = useSelector((state) => state.auth);
 
+  const schema = generateGetCouponValidationSchema();
+
   useEffect(() => {
-    if (authLoading) return;
-
-    const fetchMyRewards = async () => {
-      const uid = user?.user?.id;
-      if (!uid) return;
-
-      const formData = new FormData();
-      formData.append("uid", 4);
-
-      try {
-        const response = await dispatch(readMyRewards({ data: formData }));
-
-        if (response?.payload?.data) {
-          setMyRewards(response?.payload?.data);
-        }
-      } catch (err) {
-        console.error("Error fetching dashboard links:", err);
-      }
-    };
-
-    fetchMyRewards();
+    fetchMyRewardsUtil({ dispatch, user, authLoading, setMyRewards });
   }, [dispatch, authLoading, user]);
+
+  // useEffect(() => {
+  //   if (authLoading) return;
+
+  //   const fetchMyRewards = async () => {
+  //     const uid = user?.user?.id;
+  //     if (!uid) return;
+
+  //     const formData = new FormData();
+  //     formData.append("uid", 4);
+
+  //     try {
+  //       const response = await dispatch(readMyRewards({ data: formData }));
+
+  //       if (response?.payload?.data) {
+  //         setMyRewards(response?.payload?.data);
+  //       }
+  //     } catch (err) {
+  //       console.error("Error fetching dashboard links:", err);
+  //     }
+  //   };
+
+  //   fetchMyRewards();
+  // }, [dispatch, authLoading, user]);
 
   useEffect(() => {
     const fetchMyRewardsDiscount = async () => {
@@ -95,7 +104,9 @@ export const useMyRewards = () => {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm({});
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
   const fields = GetCouponFormFields(register, loading);
 

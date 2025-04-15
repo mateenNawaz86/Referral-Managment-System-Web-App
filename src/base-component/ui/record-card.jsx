@@ -12,6 +12,8 @@ export const RecordCard = ({ data, pageTitle, isPointHistory }) => {
   return (
     <div className="flex flex-col gap-y-3">
       {data?.map((item, index) => {
+        console.log(item?.subscribeDate, "item?.subscribeDate");
+
         return (
           <div
             key={index}
@@ -57,7 +59,7 @@ export const RecordCard = ({ data, pageTitle, isPointHistory }) => {
                 </span>
                 <span className="text-[11px] font-medium">
                   {isPointHistory
-                    ? formatDate(item?.subscribeDate)
+                    ? formatDate(item?.Subscriptions[0]?.startDate)
                     : formatDate(item?.clearanceDate)}
                 </span>
               </div>

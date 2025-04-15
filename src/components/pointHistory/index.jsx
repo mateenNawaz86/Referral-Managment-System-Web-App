@@ -18,11 +18,14 @@ export const PointHistory = () => {
     pointsHistory,
     currentPageRows,
     handlePageChange,
+    hanldeSortChange,
+    sort,
+    totalCount,
   } = usePointHistory();
 
   const CurrentComponent = useEmptyStates(
-    <PointHistoryTableRows data={currentPageRows} />,
-    currentPageRows?.length !== 0,
+    <PointHistoryTableRows data={currentPageRows?.data} />,
+    totalCount !== 0,
     loading
   );
 
@@ -37,29 +40,29 @@ export const PointHistory = () => {
         <div className="flex justify-center items-center md:hidden">
           <CustomLoader />
         </div>
-      ) : pointsHistory?.length > 0 ? (
+      ) : currentPageRows?.data?.length > 0 ? (
         <div className="md:hidden mb-10">
           <div className="flex items-center justify-between mt-[15px] mb-3">
             <p className="text-[20px] font-semibold">Users Listing</p>
             <SelectField
-              // handleChange={(value) => hanldeSortChange(value)}
-              value={"None"}
+              handleChange={(value) => hanldeSortChange(value)}
+              value={sort || "None"}
               options={[
                 {
                   label: "Name",
-                  value: "Name",
+                  value: "name",
                 },
                 {
                   label: "Earned Points",
-                  value: "Earned Points",
+                  value: "points",
                 },
                 {
                   label: "Install Date",
-                  value: "Install Date",
+                  value: "installedDate",
                 },
                 {
                   label: "Subscribed Date",
-                  value: "Subscribed Date",
+                  value: "subscribedDate",
                 },
               ]}
             />
