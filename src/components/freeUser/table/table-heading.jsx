@@ -1,10 +1,18 @@
 import { TableHeading } from "../../../base-component/ui/table-heading";
 
-export const FreeUsersTableHeadings = ({ headings }) => {
+export const FreeUsersTableHeadings = ({ headings, handleSort, sortValue }) => {
   return (
-    <div className="py-2.5 px-4 grid grid-cols-[minmax(200px,_4fr)_minmax(170px,_3fr)_minmax(100px,_100px)] items-center mb-3">
-      {headings?.map((heading) => (
-        <TableHeading key={heading} title={heading} />
+    <div className="grid grid-cols-3 gap-x-4 px-4 py-3 bg-gray-100">
+      {headings.map((heading, index) => (
+        <TableHeading
+          key={heading.value}
+          title={heading.label}
+          value={heading.value}
+          isFirst={index === 0}
+          isAligned={true}
+          handleSort={handleSort}
+          currentSort={sortValue}
+        />
       ))}
     </div>
   );

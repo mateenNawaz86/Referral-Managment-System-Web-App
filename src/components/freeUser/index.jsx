@@ -35,7 +35,11 @@ export const FreeUserListing = () => {
       <DetailCards dummyData={dummyData} />
 
       <div className="hidden md:block">
-        <FreeUsersTableHeadings headings={headings} />
+        <FreeUsersTableHeadings
+          headings={headings}
+          handleSort={hanldeSortChange}
+          sortValue={sort}
+        />
         {CurrentComponent}
       </div>
 

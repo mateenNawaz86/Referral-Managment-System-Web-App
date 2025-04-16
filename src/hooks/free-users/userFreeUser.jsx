@@ -27,7 +27,12 @@ export const useFreeUser = () => {
     { title: "Revenue", points: status?.revenue },
   ];
 
-  const headings = ["User details", "Installed", "Status"];
+  const headings = [
+    { label: "User details", value: "name" },
+    { label: "Installed", value: "installedDate" },
+    { label: "Status", value: "status" },
+  ];
+
   const totalCount = currentPageRows?.pagination?.totalRecords;
   const itemsPerPage = 10;
   const totalItems = totalCount;
@@ -50,7 +55,7 @@ export const useFreeUser = () => {
 
       if (sort !== undefined) {
         const filteredData = {
-          uid: 1,
+          uid: uid,
           page: (Number(parsedPage) || resetPage) ?? currentPage,
           size: 10,
         };

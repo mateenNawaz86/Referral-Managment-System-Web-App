@@ -20,6 +20,7 @@ export const useMonthlyUses = () => {
   });
 
   const sort = searchParams.get("sort");
+  const status = getLastHeading(location.search);
 
   useEffect(() => {
     if (authLoading) return;
@@ -91,7 +92,24 @@ export const useMonthlyUses = () => {
   }, []);
 
   const lastHeading = getLastHeading(location.search);
-  const headings = ["User details", "Installed", "Subscribed", lastHeading];
+  // const headings = ["User details", "Installed", "Subscribed", lastHeading];
+
+  const lastHeadingValue =
+    status === "Cleared"
+      ? "clearDate"
+      : status === "Cancelled"
+      ? "cancelledDate"
+      : "clearanceDate";
+
+  const headings = [
+    {
+      label: "User details",
+      value: "name",
+    },
+    { label: "Installed", value: "installDate" },
+    { label: "Subscribed", value: "subscribedDate" },
+    { label: status, value: lastHeadingValue },
+  ];
   const { mobilePageTitle, pageTitle } = getPageTitles(location);
 
   const dummyData = [
