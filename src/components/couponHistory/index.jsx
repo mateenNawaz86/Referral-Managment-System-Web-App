@@ -18,18 +18,26 @@ export const CouponHistory = () => {
     couponHistory,
     currentPageRows,
     handlePageChange,
+    hanldeSortChange,
+    sort,
+    totalCount,
   } = useCouponHistory();
 
   const CurrentComponent = useEmptyStates(
-    <CouponHistoryTableRows data={currentPageRows} />,
-    currentPageRows?.length !== 0,
+    <CouponHistoryTableRows data={currentPageRows?.data} />,
+    totalCount !== 0,
     loading
   );
 
   return (
     <>
       <div className="hidden md:block">
-        <CouponHistoryTableHeadings headings={headings} />
+        <CouponHistoryTableHeadings
+          headings={headings}
+          handleSort={hanldeSortChange}
+          sortValue={sort}
+          isRedeem={true}
+        />
         {CurrentComponent}
       </div>
 
@@ -37,25 +45,29 @@ export const CouponHistory = () => {
         <div className="flex justify-center items-center md:hidden">
           <CustomLoader />
         </div>
-      ) : couponHistory?.length > 0 ? (
+      ) : currentPageRows?.data?.length > 0 ? (
         <div className="md:hidden mb-10">
           <div className="flex items-center justify-between mt-[15px] mb-3">
             <p className="text-[20px] font-semibold">Redeemed Listing</p>
             <SelectField
-              // handleChange={(value) => hanldeSortChange(value)}
-              value={"None"}
+              handleChange={(value) => hanldeSortChange(value)}
+              value={sort || "None"}
               options={[
                 {
                   label: "Type",
-                  value: "Type",
+                  value: "type",
                 },
                 {
                   label: "Coupons",
-                  value: "Coupons",
+                  value: "coupon",
                 },
                 {
                   label: "Redeemed Date",
-                  value: "Redeemed Date",
+                  value: "createdAt",
+                },
+                {
+                  label: "Status",
+                  value: "status",
                 },
               ]}
             />

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateModalType } from "../../api/slices/globalSlice/global";
 import { readRedeemHistory } from "../../api/slices/redeemHistory/redeem-history";
 import { useLocation, useSearchParams } from "react-router-dom";
+import { FiltersDefaultValues } from "../../utils/static";
 
 export const useRedeemHistory = () => {
   const dispatch = useDispatch();
@@ -13,6 +14,9 @@ export const useRedeemHistory = () => {
   const [currentPage, setCurrentPage] = useState(getPageFromURL());
   const { user, loading: authLoading } = useSelector((state) => state.auth);
   const [searchParams, setSearchParams] = useSearchParams(location.search);
+  const [filter, setFilter] = useState({
+    sort: FiltersDefaultValues.None,
+  });
   const { redeemHistory, loading } = useSelector(
     (state) => state.redeemHistory
   );
@@ -148,6 +152,7 @@ export const useRedeemHistory = () => {
     headings,
     redeemHistory,
     sort,
+    filter,
     handlePaymentDetails,
     hanldeSortChange,
   };

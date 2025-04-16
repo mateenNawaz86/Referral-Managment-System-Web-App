@@ -27,9 +27,6 @@ const login = (data) =>
 const logout = (data) =>
   del(SERVICE_URLS.logout, data, { feature: featureConstants.login });
 
-const couponHistory = (data) =>
-  post(SERVICE_URLS.coupon_history, data, { feature: featureConstants.login });
-
 const redeemRequest = (data) =>
   post(SERVICE_URLS.redeem_request, data, { feature: featureConstants.login });
 
@@ -80,6 +77,14 @@ const pointsHistory = (params) =>
 const redeemHistory = (params) =>
   get(
     SERVICE_URLS.redeem_history,
+    params,
+    { feature: featureConstants.login },
+    { detail: false }
+  );
+
+const couponHistory = (params) =>
+  get(
+    SERVICE_URLS.coupon_history,
     params,
     { feature: featureConstants.login },
     { detail: false }

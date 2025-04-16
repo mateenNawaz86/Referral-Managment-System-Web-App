@@ -11,11 +11,10 @@ const initialState = {
 export const readCouponHistory = createAsyncThunk(
   "coupon/history",
   async (args, thunkApi) => {
-    const { data, setError } = args;
+    const { params, setError } = args;
 
     try {
-      const response = await apiServices.couponHistory(data);
-
+      const response = await apiServices.couponHistory(params);
       return response?.data;
     } catch (e) {
       const errorMessage = e?.response?.data?.message || "Network Error";

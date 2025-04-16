@@ -1,42 +1,70 @@
 import { useState, useEffect } from "react";
 import { getPageFromURL } from "../../utils/utility";
-import { readCouponHistory } from "../../api/slices/couponHistory/couponHistory";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useSearchParams } from "react-router-dom";
+import { readCouponHistory } from "../../api/slices/couponHistory/couponHistory";
+import { FiltersDefaultValues } from "../../utils/static";
 
 export const useCouponHistory = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
   const { user, loading: authLoading } = useSelector((state) => state.auth);
   const [currentPageRows, setCurrentPageRows] = useState([]);
   const [currentPage, setCurrentPage] = useState(getPageFromURL());
+  const [searchParams, setSearchParams] = useSearchParams(location.search);
+  const [filter, setFilter] = useState({
+    sort: FiltersDefaultValues.None,
+  });
   const { couponHistory, loading } = useSelector(
     (state) => state.couponHistory
   );
 
+  const sort = searchParams.get("sort");
+  const page = searchParams.get("page");
+
   useEffect(() => {
     if (authLoading) return;
+    const parsedPage = parseInt(page, 10);
+
+    let resetPage = null;
+    if (!isNaN(parsedPage)) {
+      setCurrentPage(parsedPage);
+    } else {
+      resetPage = 1;
+      setCurrentPage(1);
+    }
 
     const couponHistoryRecords = async () => {
       const uid = user?.user?.id;
       if (!uid) return;
 
-      const formData = new FormData();
-      formData.append("uid", uid);
+      if (sort !== undefined) {
+        const filteredData = {
+          uid: uid,
+          page: (Number(parsedPage) || resetPage) ?? currentPage,
+          size: 10,
+        };
 
-      try {
-        await dispatch(
-          readCouponHistory({
-            data: formData,
-          })
-        ).then((response) => {
-          if (response?.payload) setCurrentPageRows(response?.payload?.data);
-        });
-      } catch (err) {
-        console.error("Error fetching coupon history records:", err);
+        if (sort) {
+          filteredData.sort = sort;
+        }
+
+        try {
+          const response = await dispatch(
+            readCouponHistory({ params: filteredData })
+          );
+          if (response?.payload) {
+            const data = response?.payload;
+            setCurrentPageRows(data);
+          }
+        } catch (err) {
+          console.error("Error fetching monthly premium users:", err);
+        }
       }
     };
 
     couponHistoryRecords();
-  }, [dispatch, user, authLoading]);
+  }, [location.search, location.key, user, authLoading, sort]);
 
   useEffect(() => {
     const handlePopState = () => {
@@ -46,10 +74,15 @@ export const useCouponHistory = () => {
     return () => window.removeEventListener("popstate", handlePopState);
   }, []);
 
-  const headings = ["Type", "Coupon", "Redeemed Date", "Status"];
+  const headings = [
+    { label: "Type", value: "type" },
+    { label: "Coupon", value: "coupon" },
+    { label: "Redeemed Date", value: "createdAt" },
+    { label: "Status", value: "status" },
+  ];
 
-  const itemsPerPage = 5;
-  const totalCount = couponHistory?.length;
+  const itemsPerPage = 10;
+  const totalCount = currentPageRows?.pagination?.total;
   const totalItems = totalCount;
 
   const handlePageChange = (page) => {
@@ -57,7 +90,26 @@ export const useCouponHistory = () => {
 
     const params = new URLSearchParams(window.location.search);
     params.set("page", page.toString());
-    window.history.pushState({}, "", `?${params.toString()}`);
+    setSearchParams(params);
+  };
+
+  const hanldeSortChange = (value) => {
+    const params = new URLSearchParams(window.location.search);
+
+    if (value === "None") {
+      params.delete("sort");
+    } else {
+      params.set("sort", value);
+    }
+
+    params.set("page", "1");
+    setSearchParams(params);
+    setCurrentPage(1);
+
+    setFilter((prev) => {
+      const updatedFilter = { ...prev, sort: value };
+      return updatedFilter;
+    });
   };
 
   return {
@@ -70,5 +122,8 @@ export const useCouponHistory = () => {
     currentPage,
     headings,
     couponHistory,
+    sort,
+    filter,
+    hanldeSortChange,
   };
 };

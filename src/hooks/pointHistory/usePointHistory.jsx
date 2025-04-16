@@ -3,6 +3,7 @@ import { getPageFromURL } from "../../utils/utility";
 import { readPointsHistory } from "../../api/slices/pointHistory/point-history";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useSearchParams } from "react-router-dom";
+import { FiltersDefaultValues } from "../../utils/static";
 
 export const usePointHistory = () => {
   const dispatch = useDispatch();
@@ -14,6 +15,10 @@ export const usePointHistory = () => {
   const { pointsHistory, loading } = useSelector(
     (state) => state.pointsHistory
   );
+
+  const [filter, setFilter] = useState({
+    sort: FiltersDefaultValues.None,
+  });
 
   const page = searchParams.get("page");
   const sort = searchParams.get("sort");
@@ -119,5 +124,6 @@ export const usePointHistory = () => {
     pointsHistory,
     hanldeSortChange,
     sort,
+    filter,
   };
 };

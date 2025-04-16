@@ -3,6 +3,7 @@ import { getPageFromURL } from "../../utils/utility";
 import { useDispatch, useSelector } from "react-redux";
 import { readFreeUserListing } from "../../api/slices/freeUserSlice/freeUser";
 import { useLocation, useSearchParams } from "react-router-dom";
+import { FiltersDefaultValues } from "../../utils/static";
 
 export const useFreeUser = () => {
   const dispatch = useDispatch();
@@ -12,6 +13,9 @@ export const useFreeUser = () => {
   const [currentPage, setCurrentPage] = useState(getPageFromURL());
   const { freeUser, loading } = useSelector((state) => state.freeUser);
   const [searchParams, setSearchParams] = useSearchParams(location.search);
+  const [filter, setFilter] = useState({
+    sort: FiltersDefaultValues.None,
+  });
 
   const page = searchParams.get("page");
   const sort = searchParams.get("sort");
@@ -129,5 +133,6 @@ export const useFreeUser = () => {
     freeUser,
     hanldeSortChange,
     sort,
+    filter,
   };
 };
