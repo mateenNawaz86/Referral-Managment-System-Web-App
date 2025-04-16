@@ -4,15 +4,21 @@ import { getPageFromURL } from "../../utils/utility";
 import { useDispatch, useSelector } from "react-redux";
 import { updateModalType } from "../../api/slices/globalSlice/global";
 import { readRedeemHistory } from "../../api/slices/redeemHistory/redeem-history";
+import { useLocation, useSearchParams } from "react-router-dom";
 
 export const useRedeemHistory = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
   const [currentPageRows, setCurrentPageRows] = useState([]);
   const [currentPage, setCurrentPage] = useState(getPageFromURL());
   const { user, loading: authLoading } = useSelector((state) => state.auth);
+  const [searchParams, setSearchParams] = useSearchParams(location.search);
   const { redeemHistory, loading } = useSelector(
     (state) => state.redeemHistory
   );
+
+  const sort = searchParams.get("sort");
+  const page = searchParams.get("page");
 
   const handleShare = () => {
     dispatch(updateModalType({ type: ModalType.SHARE_MODAL }));
@@ -20,29 +26,47 @@ export const useRedeemHistory = () => {
 
   useEffect(() => {
     if (authLoading) return;
+    const parsedPage = parseInt(page, 10);
+
+    let resetPage = null;
+    if (!isNaN(parsedPage)) {
+      setCurrentPage(parsedPage);
+    } else {
+      resetPage = 1;
+      setCurrentPage(1);
+    }
 
     const redeemHistoryRecords = async () => {
       const uid = user?.user?.id;
       if (!uid) return;
 
-      const formData = new FormData();
-      formData.append("uid", 2);
+      if (sort !== undefined) {
+        const filteredData = {
+          uid: uid,
+          page: (Number(parsedPage) || resetPage) ?? currentPage,
+          size: 10,
+        };
 
-      try {
-        await dispatch(
-          readRedeemHistory({
-            data: formData,
-          })
-        ).then((response) => {
-          if (response?.payload) setCurrentPageRows(response?.payload?.data);
-        });
-      } catch (err) {
-        console.error("Error fetching redeem history records:", err);
+        if (sort) {
+          filteredData.sort = sort;
+        }
+
+        try {
+          const response = await dispatch(
+            readRedeemHistory({ params: filteredData })
+          );
+          if (response?.payload) {
+            const data = response?.payload;
+            setCurrentPageRows(data);
+          }
+        } catch (err) {
+          console.error("Error fetching monthly premium users:", err);
+        }
       }
     };
 
     redeemHistoryRecords();
-  }, [dispatch, user, authLoading]);
+  }, [location.search, location.key, user, authLoading, sort]);
 
   useEffect(() => {
     const handlePopState = () => {
@@ -52,10 +76,14 @@ export const useRedeemHistory = () => {
     return () => window.removeEventListener("popstate", handlePopState);
   }, []);
 
-  const headings = ["Redeemed Date", "Redeemed Points", "Status"];
+  const headings = [
+    { label: "Redeemed Date", value: "approvedDate" },
+    { label: "Redeemed Points", value: "points" },
+    { label: "Status", value: "status" },
+  ];
 
-  const totalCount = redeemHistory?.length;
-  const itemsPerPage = 5;
+  const totalCount = currentPageRows?.pagination?.total;
+  const itemsPerPage = 10;
   const totalItems = totalCount;
 
   const handlePageChange = (page) => {
@@ -63,7 +91,7 @@ export const useRedeemHistory = () => {
 
     const params = new URLSearchParams(window.location.search);
     params.set("page", page.toString());
-    window.history.pushState({}, "", `?${params.toString()}`);
+    setSearchParams(params);
   };
 
   const handlePaymentDetails = (
@@ -90,6 +118,25 @@ export const useRedeemHistory = () => {
     );
   };
 
+  const hanldeSortChange = (value) => {
+    const params = new URLSearchParams(window.location.search);
+
+    if (value === "None") {
+      params.delete("sort");
+    } else {
+      params.set("sort", value);
+    }
+
+    params.set("page", "1");
+    setSearchParams(params);
+    setCurrentPage(1);
+
+    setFilter((prev) => {
+      const updatedFilter = { ...prev, sort: value };
+      return updatedFilter;
+    });
+  };
+
   return {
     currentPageRows,
     totalItems,
@@ -100,6 +147,8 @@ export const useRedeemHistory = () => {
     currentPage,
     headings,
     redeemHistory,
+    sort,
     handlePaymentDetails,
+    hanldeSortChange,
   };
 };

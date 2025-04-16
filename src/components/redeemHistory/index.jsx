@@ -20,11 +20,13 @@ export const RedeemHistory = () => {
     currentPageRows,
     handlePageChange,
     handlePaymentDetails,
+    hanldeSortChange,
+    sort,
   } = useRedeemHistory();
 
   const CurrentComponent = useEmptyStates(
     <RedeemHistoryTableRows
-      data={currentPageRows}
+      data={currentPageRows?.data}
       onPaymentDetails={handlePaymentDetails}
     />,
     totalCount !== 0,
@@ -34,7 +36,12 @@ export const RedeemHistory = () => {
   return (
     <>
       <div className="hidden md:block">
-        <ReedeemHistoryTableHeadings headings={headings} />
+        <ReedeemHistoryTableHeadings
+          headings={headings}
+          handleSort={hanldeSortChange}
+          sortValue={sort}
+          isRedeem={true}
+        />
         {CurrentComponent}
       </div>
 
@@ -42,25 +49,25 @@ export const RedeemHistory = () => {
         <div className="flex justify-center items-center md:hidden">
           <CustomLoader />
         </div>
-      ) : redeemHistory?.length > 0 ? (
+      ) : currentPageRows?.data?.length > 0 ? (
         <div className="md:hidden mb-10">
           <div className="flex items-center justify-between mt-[15px] mb-3">
             <p className="text-[20px] font-semibold">Redeemed Listing</p>
             <SelectField
-              // handleChange={(value) => hanldeSortChange(value)}
-              value={"None"}
+              handleChange={(value) => hanldeSortChange(value)}
+              value={sort || "None"}
               options={[
                 {
                   label: "Status",
-                  value: "Status",
+                  value: "status",
                 },
                 {
                   label: "Redeemed Date",
-                  value: "Redeemed Date",
+                  value: "approvedDate",
                 },
                 {
                   label: "Redeemed Points",
-                  value: "Redeemed Points",
+                  value: "points",
                 },
               ]}
             />

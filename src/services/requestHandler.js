@@ -33,9 +33,6 @@ const couponHistory = (data) =>
 const redeemRequest = (data) =>
   post(SERVICE_URLS.redeem_request, data, { feature: featureConstants.login });
 
-const redeemHistory = (data) =>
-  post(SERVICE_URLS.redeem_history, data, { feature: featureConstants.login });
-
 const premiumUser = (data) =>
   post(SERVICE_URLS.prem_user, data, { feature: featureConstants.login });
 
@@ -75,6 +72,14 @@ const freeUsers = (params) =>
 const pointsHistory = (params) =>
   get(
     SERVICE_URLS.points_history,
+    params,
+    { feature: featureConstants.login },
+    { detail: false }
+  );
+
+const redeemHistory = (params) =>
+  get(
+    SERVICE_URLS.redeem_history,
     params,
     { feature: featureConstants.login },
     { detail: false }

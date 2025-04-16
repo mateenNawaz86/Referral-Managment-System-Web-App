@@ -11,10 +11,10 @@ const initialState = {
 export const readRedeemHistory = createAsyncThunk(
   "redeem/history",
   async (args, thunkApi) => {
-    const { data, setError } = args;
+    const { params, setError } = args;
 
     try {
-      const response = await apiServices.redeemHistory(data);
+      const response = await apiServices.redeemHistory(params);
 
       return response?.data;
     } catch (e) {

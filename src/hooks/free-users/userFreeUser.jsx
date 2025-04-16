@@ -69,7 +69,7 @@ export const useFreeUser = () => {
             readFreeUserListing({ params: filteredData })
           );
           if (response?.payload) {
-            const data = response.payload;
+            const data = response?.payload;
             setCurrentPageRows(data);
           }
         } catch (err) {

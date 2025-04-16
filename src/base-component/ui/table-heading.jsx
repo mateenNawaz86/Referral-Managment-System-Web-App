@@ -7,8 +7,9 @@ export const TableHeading = ({
   isAligned,
   handleSort,
   currentSort,
+  isRedeem,
 }) => {
-  const isClickable = title !== "Status";
+  const isClickable = title !== "Status" || (isRedeem && title === "Status");
 
   const handleSortClicked = () => {
     if (isClickable && handleSort) {
