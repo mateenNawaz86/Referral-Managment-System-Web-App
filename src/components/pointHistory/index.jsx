@@ -32,7 +32,11 @@ export const PointHistory = () => {
   return (
     <>
       <div className="hidden md:block">
-        <PointHistoryTableHeadings headings={headings} />
+        <PointHistoryTableHeadings
+          headings={headings}
+          handleSort={hanldeSortChange}
+          sortValue={sort}
+        />
         {CurrentComponent}
       </div>
 

@@ -73,8 +73,13 @@ export const usePointHistory = () => {
   const itemsPerPage = 10;
   const totalCount = currentPageRows?.pagination?.totalRecords;
   const totalItems = totalCount;
-  const headings = ["User details", "Installed", "Subscribed", "Points"];
 
+  const headings = [
+    { label: "User details", value: "name" },
+    { label: "Installed", value: "installedDate" },
+    { label: "Subscribed", value: "subscribedDate" },
+    { label: "Points", value: "points" },
+  ];
   const handlePageChange = (page) => {
     setCurrentPage(page);
 
