@@ -20,6 +20,7 @@ export const useYearlyUsers = () => {
   });
 
   const sort = searchParams.get("sort");
+  const status = getLastHeading(location.search);
 
   useEffect(() => {
     if (authLoading) return;
@@ -97,8 +98,23 @@ export const useYearlyUsers = () => {
     { title: "Revenue", points: currentPageRows?.metrics?.totalrevenue },
   ];
 
-  const lastHeading = getLastHeading(location.search);
-  const headings = ["User details", "Installed", "Subscribed", lastHeading];
+  const lastHeadingValue =
+    status === "Cleared"
+      ? "clearDate"
+      : status === "Cancelled"
+      ? "cancelledDate"
+      : "clearanceDate";
+
+  const headings = [
+    {
+      label: "User details",
+      value: "name",
+    },
+    { label: "Installed", value: "installDate" },
+    { label: "Subscribed", value: "subscribedDate" },
+    { label: status, value: lastHeadingValue },
+  ];
+
   const { pageTitle, mobilePageTitle } = getPageTitles(location);
 
   const totalCount = currentPageRows?.pagination?.total;

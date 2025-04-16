@@ -91,9 +91,6 @@ export const useMonthlyUses = () => {
     return () => window.removeEventListener("popstate", handlePopState);
   }, []);
 
-  const lastHeading = getLastHeading(location.search);
-  // const headings = ["User details", "Installed", "Subscribed", lastHeading];
-
   const lastHeadingValue =
     status === "Cleared"
       ? "clearDate"
@@ -110,6 +107,7 @@ export const useMonthlyUses = () => {
     { label: "Subscribed", value: "subscribedDate" },
     { label: status, value: lastHeadingValue },
   ];
+
   const { mobilePageTitle, pageTitle } = getPageTitles(location);
 
   const dummyData = [

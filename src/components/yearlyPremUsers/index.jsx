@@ -37,7 +37,11 @@ export const YearlyPremUsers = () => {
       <DetailCards dummyData={dummyData} />
 
       <div className="hidden md:block">
-        <YearlyPremUserTableHeadings headings={headings} />
+        <YearlyPremUserTableHeadings
+          headings={headings}
+          handleSort={hanldeSortChange}
+          sortValue={sort}
+        />
         {CurrentComponent}
       </div>
 
