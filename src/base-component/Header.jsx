@@ -1,18 +1,10 @@
 import profileIcon from "../assets/pngs/profile.jpg";
 import { HambugerIcon } from "../assets/svgs/components/hamburger-icon";
 
-export const Header = ({
-  isSidebarOpen,
-  handleDrawer,
-  pageTitle,
-  profile,
-  name,
-}) => {
+export const Header = ({ handleDrawer, pageTitle, profile, name }) => {
   return (
     <div
-      className={`flex items-center justify-between mb-[33px] px-[30px] pt-[31px] transition-all duration-300 ${
-        isSidebarOpen ? "ml-[312px]" : "ml-0"
-      }`}
+      className={`flex items-center justify-between mb-[33px] px-[30px] pt-[31px]`}
     >
       <div className="flex items-center gap-x-5 maxSize:gap-x-0">
         <HambugerIcon onClick={handleDrawer} />

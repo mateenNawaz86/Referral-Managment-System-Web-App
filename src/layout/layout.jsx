@@ -26,9 +26,7 @@ export const Layout = ({ children }) => {
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(min-width:1280px)");
-
     const handleMediaChange = (event) => setIsAboveMlg(event.matches);
-
     mediaQuery.addEventListener("change", handleMediaChange);
     return () => mediaQuery.removeEventListener("change", handleMediaChange);
   }, []);
@@ -61,7 +59,6 @@ export const Layout = ({ children }) => {
 
       <div className="hidden md:block">
         <Header
-          isSidebarOpen={isSidebarOpen}
           handleDrawer={handleDrawer}
           pageTitle={pageTitle}
           profile={user?.user?.imageUrl}
