@@ -2,7 +2,7 @@ import { TableHeading } from "../../../base-component/ui/table-heading";
 
 export const FreeUsersTableHeadings = ({ headings, handleSort, sortValue }) => {
   return (
-    <div className="grid grid-cols-3 gap-x-4 px-4 py-3 bg-gray-100">
+    <div className="grid grid-cols-3 gap-x-4 px-4 py-3">
       {headings.map((heading, index) => (
         <TableHeading
           key={heading.value}

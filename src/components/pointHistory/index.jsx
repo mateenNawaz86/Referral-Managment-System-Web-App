@@ -40,37 +40,38 @@ export const PointHistory = () => {
         {CurrentComponent}
       </div>
 
+      <div className="flex items-center justify-between mt-[15px] mb-3 md:hidden">
+        <p className="text-[20px] font-semibold">Users Listing</p>
+        <SelectField
+          handleChange={(value) => hanldeSortChange(value)}
+          value={sort || "None"}
+          options={[
+            {
+              label: "Name",
+              value: "name",
+            },
+            {
+              label: "Earned Points",
+              value: "points",
+            },
+            {
+              label: "Install Date",
+              value: "installedDate",
+            },
+            {
+              label: "Subscribed Date",
+              value: "subscribedDate",
+            },
+          ]}
+        />
+      </div>
+
       {loading ? (
         <div className="flex justify-center items-center md:hidden">
           <CustomLoader />
         </div>
       ) : currentPageRows?.data?.length > 0 ? (
         <div className="md:hidden mb-10">
-          <div className="flex items-center justify-between mt-[15px] mb-3">
-            <p className="text-[20px] font-semibold">Users Listing</p>
-            <SelectField
-              handleChange={(value) => hanldeSortChange(value)}
-              value={sort || "None"}
-              options={[
-                {
-                  label: "Name",
-                  value: "name",
-                },
-                {
-                  label: "Earned Points",
-                  value: "points",
-                },
-                {
-                  label: "Install Date",
-                  value: "installedDate",
-                },
-                {
-                  label: "Subscribed Date",
-                  value: "subscribedDate",
-                },
-              ]}
-            />
-          </div>
           <RecordCard data={pointsHistory} isPointHistory={true} />
         </div>
       ) : (

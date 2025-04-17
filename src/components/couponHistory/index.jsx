@@ -41,37 +41,38 @@ export const CouponHistory = () => {
         {CurrentComponent}
       </div>
 
+      <div className="flex items-center justify-between mt-[15px] mb-3 md:hidden">
+        <p className="text-[20px] font-semibold">Redeemed Listing</p>
+        <SelectField
+          handleChange={(value) => hanldeSortChange(value)}
+          value={sort || "None"}
+          options={[
+            {
+              label: "Type",
+              value: "type",
+            },
+            {
+              label: "Coupons",
+              value: "coupon",
+            },
+            {
+              label: "Redeemed Date",
+              value: "createdAt",
+            },
+            {
+              label: "Status",
+              value: "status",
+            },
+          ]}
+        />
+      </div>
+
       {loading ? (
         <div className="flex justify-center items-center md:hidden">
           <CustomLoader />
         </div>
       ) : currentPageRows?.data?.length > 0 ? (
         <div className="md:hidden mb-10">
-          <div className="flex items-center justify-between mt-[15px] mb-3">
-            <p className="text-[20px] font-semibold">Redeemed Listing</p>
-            <SelectField
-              handleChange={(value) => hanldeSortChange(value)}
-              value={sort || "None"}
-              options={[
-                {
-                  label: "Type",
-                  value: "type",
-                },
-                {
-                  label: "Coupons",
-                  value: "coupon",
-                },
-                {
-                  label: "Redeemed Date",
-                  value: "createdAt",
-                },
-                {
-                  label: "Status",
-                  value: "status",
-                },
-              ]}
-            />
-          </div>
           <CouponDetailsCard data={couponHistory} />
         </div>
       ) : (

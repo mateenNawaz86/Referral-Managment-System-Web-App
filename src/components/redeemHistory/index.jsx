@@ -45,33 +45,34 @@ export const RedeemHistory = () => {
         {CurrentComponent}
       </div>
 
+      <div className="flex items-center justify-between mt-[15px] mb-3 md:hidden">
+        <p className="text-[20px] font-semibold">Redeemed Listing</p>
+        <SelectField
+          handleChange={(value) => hanldeSortChange(value)}
+          value={sort || "None"}
+          options={[
+            {
+              label: "Status",
+              value: "status",
+            },
+            {
+              label: "Redeemed Date",
+              value: "approvedDate",
+            },
+            {
+              label: "Redeemed Points",
+              value: "points",
+            },
+          ]}
+        />
+      </div>
+
       {loading ? (
         <div className="flex justify-center items-center md:hidden">
           <CustomLoader />
         </div>
       ) : currentPageRows?.data?.length > 0 ? (
         <div className="md:hidden mb-10">
-          <div className="flex items-center justify-between mt-[15px] mb-3">
-            <p className="text-[20px] font-semibold">Redeemed Listing</p>
-            <SelectField
-              handleChange={(value) => hanldeSortChange(value)}
-              value={sort || "None"}
-              options={[
-                {
-                  label: "Status",
-                  value: "status",
-                },
-                {
-                  label: "Redeemed Date",
-                  value: "approvedDate",
-                },
-                {
-                  label: "Redeemed Points",
-                  value: "points",
-                },
-              ]}
-            />
-          </div>
           <RedeemMobileCard
             data={redeemHistory}
             onClick={handlePaymentDetails}

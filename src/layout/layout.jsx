@@ -64,6 +64,8 @@ export const Layout = ({ children }) => {
           isSidebarOpen={isSidebarOpen}
           handleDrawer={handleDrawer}
           pageTitle={pageTitle}
+          profile={user?.user?.imageUrl}
+          name={user?.user?.name}
         />
       </div>
 
@@ -71,6 +73,7 @@ export const Layout = ({ children }) => {
         <MobileHeader
           handleDrawer={handleDrawer}
           pageTitle={mobileHeaderTitle}
+          profile={user?.user?.imageUrl}
         />
       </div>
 

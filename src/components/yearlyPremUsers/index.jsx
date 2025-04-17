@@ -45,40 +45,39 @@ export const YearlyPremUsers = () => {
         {CurrentComponent}
       </div>
 
+      <div className="flex items-center justify-between mt-[15px] mb-3 md:hidden">
+        <p className="text-[20px] font-semibold min-w-fit">{mobilePageTitle}</p>
+        <SelectField
+          handleChange={(value) => hanldeSortChange(value)}
+          value={sort || "None"}
+          options={[
+            {
+              label: "Name",
+              value: "name",
+            },
+            {
+              label: "Install Date",
+              value: "installDate",
+            },
+            {
+              label: "Subscribed Date",
+              value: "subscribedDate",
+            },
+            {
+              label: "Clearance Datet",
+              value: "clearanceDate",
+            },
+          ]}
+          containerClassName="w-[350px]"
+        />
+      </div>
+
       {loading ? (
         <div className="flex justify-center items-center md:hidden">
           <CustomLoader />
         </div>
       ) : currentPageRows?.metrics?.data?.length > 0 ? (
         <div className="md:hidden mb-10">
-          <div className="flex items-center justify-between mt-[15px] mb-3">
-            <p className="text-[20px] font-semibold min-w-fit">
-              {mobilePageTitle}
-            </p>
-            <SelectField
-              handleChange={(value) => hanldeSortChange(value)}
-              value={sort || "None"}
-              options={[
-                {
-                  label: "Name",
-                  value: "name",
-                },
-                {
-                  label: "Install Date",
-                  value: "installDate",
-                },
-                {
-                  label: "Subscribed Date",
-                  value: "subscribedDate",
-                },
-                {
-                  label: "Clearance Datet",
-                  value: "clearanceDate",
-                },
-              ]}
-              containerClassName="w-[350px]"
-            />
-          </div>
           <RecordCard
             data={currentPageRows?.metrics?.data}
             pageTitle={pageTitle}

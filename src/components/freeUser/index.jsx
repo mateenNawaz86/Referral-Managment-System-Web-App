@@ -43,33 +43,32 @@ export const FreeUserListing = () => {
         {CurrentComponent}
       </div>
 
+      <div className="flex items-center justify-between mt-[15px] mb-3 md:hidden">
+        <p className="text-[20px] font-semibold min-w-[123px]">User Listing</p>
+
+        <SelectField
+          handleChange={(value) => hanldeSortChange(value)}
+          value={sort || "None"}
+          options={[
+            {
+              label: "Name",
+              value: "name",
+            },
+            {
+              label: "Install Date",
+              value: "installedDate",
+            },
+          ]}
+          containerClassName="w-[350px]"
+        />
+      </div>
+
       {loading ? (
         <div className="flex justify-center items-center md:hidden">
           <CustomLoader />
         </div>
       ) : currentPageRows?.data?.freeUsers?.length > 0 ? (
         <div className="md:hidden mb-10">
-          <div className="flex items-center justify-between mt-[15px] mb-3">
-            <p className="text-[20px] font-semibold min-w-[123px]">
-              User Listing
-            </p>
-
-            <SelectField
-              handleChange={(value) => hanldeSortChange(value)}
-              value={sort || "None"}
-              options={[
-                {
-                  label: "Name",
-                  value: "name",
-                },
-                {
-                  label: "Install Date",
-                  value: "installedDate",
-                },
-              ]}
-              containerClassName="w-[350px]"
-            />
-          </div>
           <FreeUserCard data={freeUser?.freeUsers} />
         </div>
       ) : (

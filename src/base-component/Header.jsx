@@ -1,12 +1,13 @@
-import { useSelector } from "react-redux";
 import profileIcon from "../assets/pngs/profile.jpg";
 import { HambugerIcon } from "../assets/svgs/components/hamburger-icon";
 
-export const Header = ({ isSidebarOpen, handleDrawer, pageTitle }) => {
-  const { user } = useSelector((state) => state.auth);
-
-  // console.log(user?.user?.name, "user");
-
+export const Header = ({
+  isSidebarOpen,
+  handleDrawer,
+  pageTitle,
+  profile,
+  name,
+}) => {
   return (
     <div
       className={`flex items-center justify-between mb-[33px] px-[30px] pt-[31px] transition-all duration-300 ${
@@ -20,11 +21,11 @@ export const Header = ({ isSidebarOpen, handleDrawer, pageTitle }) => {
 
       <div className="flex items-center gap-x-4">
         <img
-          src={user?.user?.imageUrl || profileIcon}
+          src={profile || profileIcon}
           alt="icon"
           className="h-[58px] w-[58px] rounded-full object-cover"
         />
-        <span className="text-[22px] font-semibold">{user?.user?.name}</span>
+        <span className="text-[22px] font-semibold">{name}</span>
       </div>
     </div>
   );

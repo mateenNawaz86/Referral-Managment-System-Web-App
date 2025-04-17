@@ -29,7 +29,7 @@ export const RedeemRequestFormFields = (register, loading, control) => {
               text: "Send Request",
               inputType: "submit",
               className:
-                "rounded-[4.8px] w-auto min-w-[140px] !h-[48px] hover:bg-none",
+                "rounded-[4.8px] w-auto min-w-[140px] !h-10 xMini:!h-[48px] hover:bg-none",
               loading,
             },
           },

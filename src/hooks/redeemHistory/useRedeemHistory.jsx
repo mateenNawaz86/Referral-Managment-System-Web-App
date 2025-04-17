@@ -46,7 +46,7 @@ export const useRedeemHistory = () => {
 
       if (sort !== undefined) {
         const filteredData = {
-          uid: uid,
+          uid: 2,
           page: (Number(parsedPage) || resetPage) ?? currentPage,
           size: 10,
         };
