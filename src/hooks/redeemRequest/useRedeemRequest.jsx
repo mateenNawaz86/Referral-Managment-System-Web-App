@@ -1,14 +1,14 @@
+import { toast } from "react-toastify";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { ModalType } from "../../types/ui";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useDispatch, useSelector } from "react-redux";
+import { fetchMyRewardsUtil } from "../../utils/utility";
 import { updateModalType } from "../../api/slices/globalSlice/global";
 import { redeemRequest } from "../../api/slices/redeemRequest/redeem-request";
 import { RedeemRequestFormFields } from "../../components/requestRedeem/redeem-request-fields";
 import { generateRedeemPointsValidationSchema } from "../../validation/redeem-points-validation";
-import { toast } from "react-toastify";
-import { useEffect, useState } from "react";
-import { fetchMyRewardsUtil } from "../../utils/utility";
 
 export const useRedeemRequest = () => {
   const dispatch = useDispatch();

@@ -64,6 +64,10 @@ body {
   scrollbar-width: none;
 }
 
+/* .Toastify__toast .Toastify__toast-theme--light .Toastify__toast--error {
+  --toastify-toast-width: 80% !important;
+} */
+
 @keyframes puff {
   0% {
     transform: scale(0.1);

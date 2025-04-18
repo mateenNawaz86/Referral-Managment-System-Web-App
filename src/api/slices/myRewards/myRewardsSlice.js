@@ -6,7 +6,7 @@ const initialState = {
   rewardsDiscount: null,
   rewardsCoupon: null,
   loading: true,
-  isLoading: false,
+  isLoading: true,
   error: null,
   // activeRewardPoints: null,
 };

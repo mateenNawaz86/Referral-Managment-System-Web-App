@@ -1,14 +1,22 @@
 import profileIcon from "../assets/pngs/profile.jpg";
 import { HambugerIcon } from "../assets/svgs/components/hamburger-icon";
 
-export const Header = ({ handleDrawer, pageTitle, profile, name }) => {
+export const Header = ({
+  handleDrawer,
+  pageTitle,
+  profile,
+  name,
+  isSidebarOpen,
+}) => {
   return (
     <div
-      className={`flex items-center justify-between mb-[33px] px-[30px] pt-[31px]`}
+      className={` ${
+        isSidebarOpen && "ml-[312px]"
+      } flex items-center justify-between mb-[33px] px-[30px] pt-[31px]`}
     >
       <div className="flex items-center gap-x-5 maxSize:gap-x-0">
         <HambugerIcon onClick={handleDrawer} />
-        <span className="text-2xl lg:text-[40px] font-bold">{pageTitle}</span>
+        <span className="text-[40px] font-bold">{pageTitle}</span>
       </div>
 
       <div className="flex items-center gap-x-4">

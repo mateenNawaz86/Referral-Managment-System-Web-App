@@ -63,6 +63,7 @@ export const Layout = ({ children }) => {
           pageTitle={pageTitle}
           profile={user?.user?.imageUrl}
           name={user?.user?.name}
+          isSidebarOpen={isSidebarOpen}
         />
       </div>
 
