@@ -59,14 +59,16 @@ body {
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
 
-/* .Toastify__toast .Toastify__toast-theme--light .Toastify__toast--error {
-  --toastify-toast-width: 80% !important;
-} */
+.react-tel-input .flag-dropdown {
+  border: none !important;
+  border-right: 1px solid #cacaca !important;
+}
 
 @keyframes puff {
   0% {

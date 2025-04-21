@@ -10,7 +10,7 @@ export const Auth = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setCurrentScreen("login");
-    }, 2000);
+    }, 800);
 
     return () => clearTimeout(timer);
   }, []);
@@ -37,7 +37,7 @@ export const Auth = () => {
     login: (
       <Login onLoginSuccess={handleLoginSuccess} onSignUp={handleSignUp} />
     ),
-    phone: <PhoneVarification onBack={handleBack} onSignUp={handleSignUp}/>,
+    phone: <PhoneVarification onBack={handleBack} onSignUp={handleSignUp} />,
   };
 
   return (
