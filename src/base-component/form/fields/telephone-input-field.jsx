@@ -5,7 +5,7 @@ import { Controller } from "react-hook-form";
 import { CallIcon } from "../../../assets/svgs/components/call-icon";
 
 export const TelephoneInputField = ({
-  country,
+  country = "pk",
   name,
   control,
   value,
